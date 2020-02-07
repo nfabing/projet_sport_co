@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-offre-search-results',
@@ -9,9 +10,9 @@ import {Observable} from "rxjs";
 })
 export class OffreSearchResultsPage implements OnInit {
 
-    public offers: Array<{ name: string; img: string; poste: string; availability: string }> = [];
+    public offers: Array<{ id: number; name: string; img: string; poste: string; availability: string }> = [];
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient, private router: Router) {
 
         this.httpClient.get<any>('https://nicolasfabing.fr/ionic/offers_results.php')
             .subscribe(offer => {
@@ -26,6 +27,11 @@ export class OffreSearchResultsPage implements OnInit {
 
     ionViewWillEnter() {
 
+    }
+
+
+    goToPageDetails(id: number) {
+        this.router.navigate(['offre-details', id ]);
     }
 
 

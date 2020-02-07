@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>offre-search-results</ion-title>
+    <ion-title>Recherche d'offres...</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen>
 
   <ion-list >
     <ion-list-header>
@@ -12,11 +12,11 @@
     </ion-list-header>
     <div *ngFor="let offer of offers">
 
-<ion-item>
+<ion-item (click)="goToPageDetails(offer.id)">
 
-  <ion-avatar slot="start" >
-    <img src="https://nicolasfabing.fr/ionic/imagesClub/{{offer.img}}" alt="img">
-  </ion-avatar>
+<ion-thumbnail slot="start" >
+    <img src="https://nicolasfabing.fr/ionic/imagesClub/{{offer.img}}" alt="img" style="max-height: auto; width: auto">
+</ion-thumbnail>
 
   <ion-label>
     <h2>{{offer.name}}</h2>
