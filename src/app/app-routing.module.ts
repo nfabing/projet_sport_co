@@ -8,6 +8,10 @@ const routes: Routes = [
   },  {
     path: 'player-profil',
     loadChildren: () => import('./player-profil/player-profil.module').then( m => m.PlayerProfilPageModule)
+  },
+  {
+    path: 'player-cv',
+    loadChildren: () => import('./player-cv/player-cv.module').then( m => m.PlayerCvPageModule)
   }
 
 ];

@@ -38,44 +38,6 @@
         </ng-container>
       </div>
 
-      <ion-item>
-        <ion-label position="floating">Date de naissance</ion-label>
-        <ion-datetime formControlName="birth_date" value="{{tabPlayer.birth_date}}" display-format="DD / MM / YYYY"
-          picker-format="DD / MMM / YYYY"></ion-datetime>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Ville de naissance</ion-label>
-        <ion-input autocapitalize formControlName="birth_place" value="{{tabPlayer.birth_place}}"></ion-input>
-      </ion-item>
-      <div *ngFor="let error of errorMessages.email">
-        <ng-container *ngIf="birth_place.hasError(error.type) && (birth_place.dirty || birth_place.touched)">
-          <small class="error-message">{{error.message}}</small>
-        </ng-container>
-      </div>
-
-      <ion-item>
-        <ion-label position="floating">Pays de naissance</ion-label>
-        <ion-input autocapitalize formControlName="birth_country" value="{{tabPlayer.birth_country}}"></ion-input>
-      </ion-item>
-      <div *ngFor="let error of errorMessages.birth_country">
-        <ng-container *ngIf="birth_country.hasError(error.type) && (birth_country.dirty || birth_country.touched)">
-          <small class="error-message">{{error.message}}</small>
-        </ng-container>
-      </div>
-
-      <ion-item>
-        <ion-range min="30" max="150" pin color="secondary" formControlName="weight" value="{{tabPlayer.weight}}">
-          <ion-label slot="start">Poid (kg)</ion-label>
-        </ion-range>
-    </ion-item>
-
-      <ion-item>
-          <ion-range min="100" max="230" pin color="secondary" formControlName="size" value="{{tabPlayer.size}}">
-            <ion-label slot="start">Taille (cm)</ion-label>
-          </ion-range>
-      </ion-item>
-
     </ion-list>
 
     <ion-button type="submit" expand="block">Modifier<ion-icon slot="end" name="create">
