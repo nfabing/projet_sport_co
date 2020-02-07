@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>offre-search-results</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list >
+    <ion-list-header>
+      Résultats recherche offres :
+    </ion-list-header>
+    <div *ngFor="let offer of offers">
+
+<ion-item>
+
+  <ion-avatar slot="start" >
+    <img src="https://nicolasfabing.fr/ionic/imagesClub/{{offer.img}}" alt="img">
+  </ion-avatar>
+
+  <ion-label>
+    <h2>{{offer.name}}</h2>
+    <h3>Poste : {{offer.poste}}</h3>
+    <p>A partir du : {{offer.availability}}</p>
+
+  </ion-label>
+
+
+
+
+
+</ion-item>
+
+    </div>
+  </ion-list>
+
+</ion-content>
