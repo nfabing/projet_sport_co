@@ -12,10 +12,9 @@
     <h1>Rechercher un joueur </h1>
     <form [formGroup]="registrationForm" (ngSubmit)="submit()">
         <ion-list lines=" full" class="ion-no-margin ion-no-padding">
-            <p> {{tabPlayer.name}}</p>
             <ion-item>
                 <ion-label position="stacked">Type de sport</ion-label>
-                <ion-input inputmode="text" formControlName="sport_type" value=""></ion-input>
+                <ion-input inputmode="text" formControlName="sport_type" value="{{tabPlayer.name}}"></ion-input>
             </ion-item>
 
             <ion-item>

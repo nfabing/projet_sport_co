@@ -19,27 +19,31 @@ export class SearchPlayerPage implements OnInit {
   ngOnInit() {
 
   }
+  ionViewWillEnter() {
+    this.getPlayerInfo("","","","");
+  }
+
 
   public getPlayerInfo(country, poste, foot, level): void {
     if (country == ""){
-      country = "player_profil.birth_country";
+      country = "France";
     }
     if (poste == ""){
-      poste = "positions.poste";
+      poste = "MD";
     }
     if (foot == ""){
-      foot = "foot.strong";
+      foot = "Ambidextre";
     }
     if (level == ""){
-      level = "levels.level";
+      level = "PROFESSIONNEL";
     }
     let data: Observable<any>;
-    data = this.Http.get("https://nicolasfabing.fr/ionic/search_player.php?countryPlayer=" + country + "?postePlayer=" + poste + "?footPlayer=" + foot + "?levelPlayer=" + level)
+    data = this.Http.get("https://nicolasfabing.fr/ionic/search_player.php?countryPlayer=" + country + "&postePlayer=" + poste + "&footPlayer=" + foot + "&levelPlayer=" + level)
     data.subscribe(result => {
       console.log(this.tabPlayer);
     })
   }
-
+/*
   registrationForm = this.formBuilder.group({
     name: ['', [Validators.required, Validators.maxLength(50)]],
     first_name: ['', [Validators.required, Validators.maxLength(50)]],
@@ -132,6 +136,6 @@ export class SearchPlayerPage implements OnInit {
 
 
     console.log(this.registrationForm.value);
-  }
+  }*/
 
 }
