@@ -1,16 +1,49 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>offreDetails</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="offre-search-results"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>offreDetails</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="offre-search-results"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
+    <ion-grid>
+        <div *ngFor="let offer of offers">
+            <ion-row>
+                <ion-col size="12">
+                    <h2>{{ offer.club_name }}</h2>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12">
+                    <h3>Description de l'offre :</h3>
+                    <p>{{ offer.offer_description }}</p>
+                </ion-col>
 
+            </ion-row>
+            <ion-row>
+                <ion-col size="6">
+                    <p>Poste : {{ offer.poste }}</p>
+                    <p>Disponibilité : {{ offer.availability }}</p>
+                    <p>Nationalité : {{ offer.nationality }}</p>
+                </ion-col>
+                <ion-col size="6">
+                    <p>Pied: {{ offer.foot }}</p>
+                    <p>Niveau : {{ offer.championnat }}</p>
+                    <p>Pays: {{ offer.country }}</p>
+                </ion-col>
+            </ion-row>
 
+            {{ offer.club_name }}
 
+            <ion-row justify-content-center padding-top>
+                <ion-col size="8" >
+                    <ion-button expand="block">POSTULER</ion-button>
+                </ion-col>
+            </ion-row>
+        </div>
+    </ion-grid>
 
 
 </ion-content>

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 
 @Component({
@@ -31,8 +30,11 @@ export class OffreSearchResultsPage implements OnInit {
 
 
     goToPageDetails(id: number) {
-        this.router.navigate(['offre-details', id ]);
+        this.router.navigate(['offre-details', id]);
+
+
     }
 
 
 }
+
