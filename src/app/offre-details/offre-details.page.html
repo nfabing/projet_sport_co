@@ -10,8 +10,11 @@
 <ion-content fullscreen>
     <ion-grid>
         <div *ngFor="let offer of offers">
-            <ion-row>
-                <ion-col size="12">
+            <ion-row class="ion-align-items-center">
+                <ion-col size-xl="1" size-xs="2">
+                    <ion-img [src]="'https://nicolasfabing.fr/ionic/imagesClub/' + offer.img_club" ></ion-img>
+                </ion-col>
+                <ion-col size="6" class="">
                     <h2>{{ offer.club_name }}</h2>
                 </ion-col>
             </ion-row>
@@ -37,9 +40,9 @@
 
             {{ offer.club_name }}
 
-            <ion-row justify-content-center padding-top>
-                <ion-col size="8" >
-                    <ion-button expand="block">POSTULER</ion-button>
+            <ion-row class="justify-content-center padding-top">
+                <ion-col size="8">
+                    <ion-button expand="block" (click)="addApplication()">POSTULER</ion-button>
                 </ion-col>
             </ion-row>
         </div>

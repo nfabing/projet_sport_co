@@ -14,7 +14,7 @@ export class OffreDetailsPage implements OnInit {
     private offer: object;
     public offers: Array<{
         id: number; club_name: string; offer_description: string; poste: string; foot: string; availability: string;
-        championnat: string; nationality: string; country: string
+        championnat: string; nationality: string; country: string; img_club: string
     }> = [];
 
 
@@ -25,6 +25,7 @@ export class OffreDetailsPage implements OnInit {
         this.offer.ID = 1;
         console.log(this.offer.ID);
         */
+
         this.idOffer = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
         console.log(this.idOffer);
     }
@@ -43,6 +44,10 @@ export class OffreDetailsPage implements OnInit {
                 this.offers = offer;
 
             });
+    }
+
+    addApplication() {
+        //TODO
     }
 
 }
