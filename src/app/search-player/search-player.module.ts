@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -15,7 +16,8 @@ import { SearchPlayerPage } from './search-player.page';
     // FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    SearchPlayerPageRoutingModule
+    SearchPlayerPageRoutingModule,
+    NgxDatatableModule
   ],
   declarations: [SearchPlayerPage]
 })

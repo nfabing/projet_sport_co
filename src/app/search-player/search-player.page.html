@@ -14,7 +14,7 @@
         <ion-list lines=" full" class="ion-no-margin ion-no-padding">
             <ion-item>
                 <ion-label position="stacked">Type de sport</ion-label>
-                <ion-input inputmode="text" formControlName="sport_type" value="{{tabPlayer.name}}"></ion-input>
+                <ion-input inputmode="text" formControlName="sport_type" value="FOOTBALL" disabled=""></ion-input>
             </ion-item>
 
             <ion-item>
@@ -44,8 +44,24 @@
 
         </ion-list>
 
-        <ion-button type="submit" expand="block">Rechercher<ion-icon slot="end" name="search-outline">
-        </ion-icon>
+        <ion-button type="submit" expand="block">Rechercher
         </ion-button>
     </form>
+
+    <div class="ion-padding">
+
+        <!-- Theme classes dark, material, bootstrap -->
+        <ngx-datatable
+                class="material"
+                [limit]="8"
+                [rows]="rows"
+                [rowHeight]="50"
+                [columns]="columns"
+                [columnMode]="'force'"
+                [sortType]="'multi'"
+                [headerHeight]="50"
+                [footerHeight]="50">
+        </ngx-datatable>
+
+    </div>
 </ion-content>

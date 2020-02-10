@@ -1,141 +1,108 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, Validators } from "@angular/forms";
-
-
+import { FormBuilder, Validators } from '@angular/forms';
+export interface Data {
+  movies: string;
+}
 @Component({
   selector: 'app-search-player',
   templateUrl: './search-player.page.html',
   styleUrls: ['./search-player.page.scss'],
 })
 export class SearchPlayerPage implements OnInit {
-
+  public data: Data;
+  public columns: any;
+  public rows: any;
   public tabPlayer = [];
   public values = {};
 
-  constructor(public Http: HttpClient, private formBuilder: FormBuilder) { }
+  constructor(public Http: HttpClient, private formBuilder: FormBuilder) {
+    this.columns = [
+    { name: 'Name' },
+    { name: 'Poste' },
+    { name: 'Strong' },
+    { name: 'Level' }
+  ];
+}
 
   ngOnInit() {
 
   }
   ionViewWillEnter() {
-    this.getPlayerInfo("","","","");
   }
 
 
   public getPlayerInfo(country, poste, foot, level): void {
-    if (country == ""){
-      country = "France";
-    }
-    if (poste == ""){
-      poste = "MD";
-    }
-    if (foot == ""){
-      foot = "Ambidextre";
-    }
-    if (level == ""){
-      level = "PROFESSIONNEL";
-    }
     let data: Observable<any>;
-    data = this.Http.get("https://nicolasfabing.fr/ionic/search_player.php?countryPlayer=" + country + "&postePlayer=" + poste + "&footPlayer=" + foot + "&levelPlayer=" + level)
+    // tslint:disable-next-line:max-line-length
+    data = this.Http.get('https://nicolasfabing.fr/ionic/search_player.php?birth_country=' + country + '&poste=' + poste + '&strong=' + foot + '&level=' + level)
     data.subscribe(result => {
+      this.tabPlayer = result;
       console.log(this.tabPlayer);
-    })
+      this.rows = this.tabPlayer;
+    });
   }
-/*
+
   registrationForm = this.formBuilder.group({
-    name: ['', [Validators.required, Validators.maxLength(50)]],
-    first_name: ['', [Validators.required, Validators.maxLength(50)]],
-    email: [
-      '',
-      [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$')
-      ]
-    ],
-    birth_date: ['', [Validators.required]],
-    birth_place: ['', [Validators.required, Validators.maxLength(50)]],
-    birth_country: ['', [Validators.required, Validators.maxLength(50)]],
-    weight: ['', [Validators.required]],
-    size: ['', [Validators.required]],
+    sport_type: ['', [Validators.required, Validators.maxLength(50)]],
+    current_country: ['', [Validators.required, Validators.maxLength(50)]],
+    nationality: ['', [Validators.required, Validators.maxLength(50)]],
+    post: ['', [Validators.required, Validators.maxLength(50)]],
+    cote: ['', [Validators.required, Validators.maxLength(50)]],
+    level: ['', [Validators.required, Validators.maxLength(50)]],
   });
 
-  get name() {
-    return this.registrationForm.get("name");
+  get sport_type() {
+    return this.registrationForm.get('sport_type');
   }
-  get first_name() {
-    return this.registrationForm.get("first_name");
+  get current_country() {
+    return this.registrationForm.get('current_country');
   }
-  get email() {
-    return this.registrationForm.get('email');
+  get nationality() {
+    return this.registrationForm.get('nationality');
   }
-  get birth_date() {
-    return this.registrationForm.get('birth_date');
+  get post() {
+    return this.registrationForm.get('post');
   }
-  get birth_place() {
-    return this.registrationForm.get('birth_place');
+  get cote() {
+    return this.registrationForm.get('cote');
   }
-  get birth_country() {
-    return this.registrationForm.get('birth_country');
-  }
-  get weight() {
-    return this.registrationForm.get('weight');
-  }
-  get size() {
-    return this.registrationForm.get('size');
+  get level() {
+    return this.registrationForm.get('level');
   }
 
   public errorMessages = {
-    name: [
-      { type: 'required', message: 'Le nom est requis' },
-      { type: 'maxlength', message: 'Le nom ne peu dépasser 50 caractères' }
+    sport_type: [
+      { type: 'required', message: 'Le type de sport est requis' },
+      { type: 'maxlength', message: 'Le type de sport ne peut dépasser 50 caractères' }
     ],
-    first_name: [
-      { type: 'required', message: 'Le prénom est requis' },
-      { type: 'maxlength', message: 'Le prénom ne peu dépasser 50 caractères' }
+    current_country: [
+      { type: 'required', message: 'Le pays est requis' },
+      { type: 'maxlength', message: 'Le pays ne peut dépasser 50 caractères' }
     ],
-    email: [
-      { type: 'required', message: 'L\'email est requise' },
-      { type: 'pattern', message: 'Veuillez entrer un email valid' }
+    nationality: [
+      { type: 'required', message: 'La nationalité est requise' },
+      { type: 'maxlength', message: 'La nationalité ne peut dépasser 50 caractères' }
     ],
-    birth_date: [
-      { type: 'required', message: 'La date de naissance est requise' },
+    post: [
+      { type: 'required', message: 'Le poste est requis' },
+      { type: 'maxlength', message: 'Le poste ne peut dépasser 50 caractères' }
     ],
-    birth_place: [
-      { type: 'required', message: 'La date de naissance est requise' },
-      { type: 'maxlength', message: 'Le nom de la commune ne peu dépasser 50 caractères' }
+    cote: [
+      { type: 'required', message: 'La cote est requise' },
+      { type: 'maxlength', message: 'La cote ne peut dépasser 50 caractères' }
     ],
-    birth_country: [
-      { type: 'required', message: 'La date de naissance est requise' },
-      { type: 'maxlength', message: 'Le nom du pays ne peu dépasser 50 caractères' }
-    ],
-    weight: [
-      { type: 'required', message: 'Le poid est requis' },
-    ],
-    size: [
-      { type: 'required', message: 'La taille est requise' },
+    level: [
+      { type: 'required', message: 'Le niveau est requis' },
+      { type: 'maxlength', message: 'Le niveau ne peut dépasser 50 caractères' }
     ],
   };
 
   public submit() {
-    //Formate la birth_date au format YYYY-MM-DD
-    let bdUser = this.registrationForm.get('birth_date').value
-    bdUser = new Date(bdUser);
-    let year = bdUser.getFullYear();
-    let month = bdUser.getMonth() + 1;
-    let dt = bdUser.getDate();
-    if (dt < 10) {
-      dt = '0' + dt;
-    }
-    if (month < 10) {
-      month = '0' + month;
-    }
-    bdUser = year + '-' + month + '-' + dt;
-    this.registrationForm.get('birth_date').setValue(bdUser)
 
-
-    console.log(this.registrationForm.value);
-  }*/
+    // tslint:disable-next-line:max-line-length
+    this.getPlayerInfo(this.registrationForm.get('current_country').value, this.registrationForm.get('post').value, this.registrationForm.get('cote').value, this.registrationForm.get('level').value);
+  }
 
 }
