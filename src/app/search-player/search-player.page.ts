@@ -42,6 +42,7 @@ export class SearchPlayerPage implements OnInit {
       console.log(this.tabPlayer);
       this.rows = this.tabPlayer;
     });
+    document.getElementById('res').style.display = 'block';
   }
 
   registrationForm = this.formBuilder.group({
