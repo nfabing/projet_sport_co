@@ -1,9 +1,102 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>search-offer</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Recherche offre
+    </ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content fullscreen="">
+  <h1>Rechercher une offre </h1>
+  <form [formGroup]="registrationForm" (ngSubmit)="submit()">
+    <ion-list lines=" full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="stacked">Type de sport</ion-label>
+        <ion-input inputmode="text" formControlName="sport_type" value="FOOTBALL" disabled=""></ion-input>
+      </ion-item>
 
-<ion-content>
+      <ion-item>
+        <ion-label position="stacked">Pays</ion-label>
+        <ion-input inputmode="text" formControlName="country" value=""></ion-input>
+      </ion-item>
 
+      <ion-item>
+        <ion-label position="stacked">Division</ion-label>
+        <ion-input inputmode="text" formControlName="division" value=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Poste</ion-label>
+        <ion-input inputmode="text" formControlName="post" value=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Côté</ion-label>
+        <ion-input inputmode="text" formControlName="cote" value=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Niveau</ion-label>
+        <ion-input inputmode="text" formControlName="level" value=""></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-button type="submit" expand="block">Rechercher
+    </ion-button>
+  </form>
+
+  <div class="ion-padding" id ="res" style="display: none">
+
+    <!-- Theme classes dark, material, bootstrap -->
+    <ngx-datatable
+            class="material"
+            [limit]="8"
+            [rows]="rows"
+            [rowHeight]="50"
+            [columns]="columns"
+            [columnMode]="'force'"
+            [sortType]="'multi'"
+            [headerHeight]="50"
+            [footerHeight]="50">
+      <ngx-datatable-column name="Offre">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.description}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Prénom">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.first_name}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Poste">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.poste}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Pieds">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.strong}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Niveau">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.level}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Division">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.nom}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <ion-tab-button>Détails </ion-tab-button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+
+  </div>
 </ion-content>

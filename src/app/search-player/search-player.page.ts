@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
+import {Storage} from '@ionic/storage';
 export interface Data {
   movies: string;
 }
@@ -17,7 +18,7 @@ export class SearchPlayerPage implements OnInit {
   public tabPlayer = [];
   public values = {};
 
-  constructor(public Http: HttpClient, private formBuilder: FormBuilder) {
+  constructor(public Http: HttpClient, private formBuilder: FormBuilder, private storage: Storage) {
     this.columns = [
     { name: 'Name' },
     { name: 'Poste' },
