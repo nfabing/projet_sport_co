@@ -12,20 +12,9 @@ export interface Data {
   styleUrls: ['./search-offer.page.scss'],
 })
 export class SearchOfferPage implements OnInit {
-  public data: Data;
-  public columns: any;
-  public rows: any;
   public tabOffer = [];
-  public values = {};
 
   constructor(public Http: HttpClient, private formBuilder: FormBuilder, private storage: Storage) {
-    this.columns = [
-      { name: 'Name' },
-      { name: 'Poste' },
-      { name: 'Strong' },
-      { name: 'Level' },
-      { name: 'Division' }
-    ];
   }
 
   ngOnInit() {
@@ -62,9 +51,7 @@ export class SearchOfferPage implements OnInit {
               data.subscribe(result => {
                 this.tabOffer = result;
                 console.log(this.tabOffer);
-                this.rows = this.tabOffer;
               });
-              document.getElementById('res').style.display = 'block';
             });
           });
         });
