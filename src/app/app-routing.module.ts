@@ -13,7 +13,11 @@ const routes: Routes = [
   {
     path: 'offre-search-results',
     loadChildren: () => import('./offre-search-results/offre-search-results.module').then( m => m.OffreSearchResultsPageModule)
+  },  {
+    path: 'favoris',
+    loadChildren: () => import('./favoris/favoris.module').then( m => m.FavorisPageModule)
   }
+
 ];
 @NgModule({
   imports: [

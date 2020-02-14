@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Favoris</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <ion-list>
+    <ion-list-header>
+      Vos favoris
+    </ion-list-header>
+    <div *ngFor="let favorite of favorites">
+
+      <ion-item (click)="goToPageDetails(favorite.id)">
+
+        <ion-thumbnail slot="start">
+          <img src="https://nicolasfabing.fr/ionic/imagesClub/{{favorite.img}}" alt="img"
+               style="max-height: auto; width: auto">
+        </ion-thumbnail>
+
+        <ion-label>
+          <h2>{{favorite.name}}</h2>
+          <h3>Poste : {{favorite.poste}}</h3>
+          <p>A partir du : {{favorite.availability}}</p>
+
+        </ion-label>
+
+      </ion-item>
+
+    </div>
+  </ion-list>
+
+</ion-content>

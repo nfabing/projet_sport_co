@@ -31,8 +31,6 @@ export class OffreSearchResultsPage implements OnInit {
 
     goToPageDetails(id: number) {
         this.router.navigate(['offre-details', id]);
-
-
     }
 
 

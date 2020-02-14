@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams, HttpRequest,} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -42,14 +42,40 @@ export class OffreDetailsPage implements OnInit {
         this.httpClient.get<any>('https://nicolasfabing.fr/ionic/offer_details.php?id=' + this.idOffer)
             .subscribe(offer => {
                 this.offers = offer;
-
             });
     }
 
+
     addApplication() {
-        //TODO
+        let postData = new HttpParams()
+            .set('player' , '1')
+            .set('offer', this.idOffer.toString());
+
+        this.httpClient.post('https://nicolasfabing.fr/ionic/add_application.php', postData)
+            .subscribe(data => {
+                console.log(data)
+
+            }, error => {
+                console.log(error)
+            })
+
     }
 
+    addFavorite() {
+
+        let postData = new HttpParams()
+            .set('player', '1')
+            .set('offer', this.idOffer.toString());
+
+
+        this.httpClient.post('https://nicolasfabing.fr/ionic/add_fav.php', postData)
+            .subscribe(data => {
+                console.log(data)
+
+            }, error => {
+                console.log(error)
+            })
+    }
 }
 
 class Offer {
