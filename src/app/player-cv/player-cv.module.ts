@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { PlayerCvPageRoutingModule } from './player-cv-routing.module';
-
+import { ModalPlayerCvPageModule } from '../modal-player-cv/modal-player-cv.module';
 import { PlayerCvPage } from './player-cv.page';
 
 @NgModule({
@@ -15,8 +15,9 @@ import { PlayerCvPage } from './player-cv.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    PlayerCvPageRoutingModule
+    PlayerCvPageRoutingModule,
+    ModalPlayerCvPageModule
   ],
-  declarations: [PlayerCvPage]
+  declarations: [PlayerCvPage],
 })
 export class PlayerCvPageModule {}

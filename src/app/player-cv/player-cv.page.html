@@ -57,7 +57,8 @@
           <ion-item>
             <ion-label>Poste</ion-label>
             <ion-select formControlName="poste">
-              <ion-select-option *ngFor="let poste of postes" [value]="poste.id">{{poste.poste}}</ion-select-option>
+              <ion-select-option *ngFor="let poste of postes" [value]="poste.id"
+                [selected]="poste.id === tabPlayer.id_position">{{poste.poste}}</ion-select-option>
             </ion-select>
           </ion-item>
 
@@ -86,7 +87,7 @@
                 <ion-card-title>Parcour en club</ion-card-title>
               </ion-col>
               <ion-col>
-                <ion-button class="ion-float-right">
+                <ion-button class="ion-float-right" (click)="presentModal()">
                   <ion-icon name="add"></ion-icon>
                 </ion-button>
               </ion-col>
@@ -98,13 +99,15 @@
             <ion-row>
               <ion-col class="ion-text-start"><strong>SAISON</strong></ion-col>
               <ion-col class="ion-text-start"><strong>CLUB</strong></ion-col>
+              <ion-col class="ion-text-center"><strong>POSTE</strong></ion-col>
               <ion-col></ion-col>
             </ion-row>
             <ion-row *ngFor="let club of tabPlayer.historique_des_clubs">
               <ion-col>{{club.season}}</ion-col>
               <ion-col>{{club.name}}</ion-col>
+              <ion-col class="ion-text-center">{{club.position}}</ion-col>
               <ion-col>
-                <ion-button class="ion-float-right" size="small" color="light">
+                <ion-button class="ion-float-right" size="small" color="light" (click)="alertSuppressionClub(club.id_club_player)">
                   <ion-icon name="trash"></ion-icon>
                 </ion-button>
               </ion-col>
