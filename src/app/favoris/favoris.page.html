@@ -12,7 +12,7 @@
     </ion-list-header>
     <div *ngFor="let favorite of favorites">
 
-      <ion-item (click)="goToPageDetails(favorite.id)">
+      <ion-item (click)="goToPageDetails(favorite.id)" >
 
         <ion-thumbnail slot="start">
           <img src="https://nicolasfabing.fr/ionic/imagesClub/{{favorite.img}}" alt="img"

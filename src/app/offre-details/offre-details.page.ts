@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpClient, HttpHeaders, HttpParams, HttpRequest,} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -10,7 +9,11 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class OffreDetailsPage implements OnInit {
 
+    private baseURI = 'https://nicolasfabing.fr/ionic/';
+    private isFavorite: boolean;
+    private isApplied: boolean;
     private idOffer: number;
+    private idPlayer: number;
     private offer: object;
     public offers: Array<{
         id: number; club_name: string; offer_description: string; poste: string; foot: string; availability: string;
@@ -26,55 +29,94 @@ export class OffreDetailsPage implements OnInit {
         console.log(this.offer.ID);
         */
 
+        this.idPlayer = 1;
         this.idOffer = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
-        console.log(this.idOffer);
     }
 
     ngOnInit() {
     }
 
     ionViewWillEnter() {
-        this.fetchOfferDetails();
+        this.fetchData(`offer_details.php?id= ${this.idOffer}`);
+        this.checkIfFavorite();
+        this.checkIfApplied();
     }
 
-    fetchOfferDetails() {
+    checkIfApplied() {
+        // tslint:disable-next-line:max-line-length
+        this.httpClient.get<any>(`${this.baseURI}check_application.php?player=${this.idPlayer}&offer=${this.idOffer}`, {observe: 'response'})
+            .subscribe(data => {
+                console.log(data.status);
+                this.isApplied = data.body;
+            });
+    }
 
-        this.httpClient.get<any>('https://nicolasfabing.fr/ionic/offer_details.php?id=' + this.idOffer)
-            .subscribe(offer => {
-                this.offers = offer;
+    checkIfFavorite() {
+        this.httpClient.get<any>(`${this.baseURI}check_favorite.php?player=${this.idPlayer}&offer=${this.idOffer}`, {observe: 'response'})
+            .subscribe(data => {
+                console.log(data.status);
+                this.isFavorite = data.body;
+            });
+    }
+
+    fetchData(url) {
+        this.httpClient.get<any>(this.baseURI + url, {observe: 'response'})
+            .subscribe(data => {
+                console.log(data.status);
+                this.offers = data.body;
             });
     }
 
 
     addApplication() {
-        let postData = new HttpParams()
-            .set('player' , '1')
+        const postData = new HttpParams()
+            .set('player', String(this.idPlayer))
             .set('offer', this.idOffer.toString());
 
-        this.httpClient.post('https://nicolasfabing.fr/ionic/add_application.php', postData)
+        this.httpClient.post('https://nicolasfabing.fr/ionic/add_application.php', postData, {observe: 'response'})
             .subscribe(data => {
-                console.log(data)
+                console.log(data.status);
 
             }, error => {
-                console.log(error)
-            })
+                console.log(error);
+            });
+
+        this.isApplied = true;
 
     }
 
     addFavorite() {
 
-        let postData = new HttpParams()
-            .set('player', '1')
+        const postData = new HttpParams()
+            .set('player', String(this.idPlayer))
             .set('offer', this.idOffer.toString());
 
-
-        this.httpClient.post('https://nicolasfabing.fr/ionic/add_fav.php', postData)
+        this.httpClient.post<any>('https://nicolasfabing.fr/ionic/add_fav.php', postData, {observe: 'response'})
             .subscribe(data => {
-                console.log(data)
+                console.log(data.status);
 
             }, error => {
-                console.log(error)
-            })
+                console.log(error);
+            });
+
+        this.isFavorite = true;
+    }
+
+
+    removeApplication() {
+        this.httpClient.delete(`${this.baseURI}remove_application.php?offer=${this.idOffer}&player=${this.idPlayer}`, {observe: 'response'})
+            .subscribe(data => {
+                console.log(data.status);
+                this.isApplied = false;
+            });
+    }
+
+    removeFavorite() {
+        this.httpClient.delete(`${this.baseURI}remove_fav.php?offer=${this.idOffer}&player=${this.idPlayer}`, {observe: 'response'})
+            .subscribe(data => {
+                console.log(data.status);
+                this.isFavorite = false;
+            });
     }
 }
 

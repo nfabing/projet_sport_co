@@ -41,9 +41,13 @@
             {{ offer.club_name }}
 
             <ion-row class="justify-content-center padding-top">
-                <ion-col size="8">
-                    <ion-button expand="block" (click)="addApplication()">Postuler à cette offre</ion-button>
-                    <ion-button expand="block" (click)="addFavorite()">Ajouter aux favoris</ion-button>
+                <ion-col size-xl="4" size="6">
+                    <ion-button expand="block" *ngIf="!isApplied" (click)="addApplication()">Postuler à cette offre</ion-button>
+                    <ion-button expand="block" *ngIf="isApplied" (click)="removeApplication()">Retirer votre candidature</ion-button>
+                </ion-col>
+                <ion-col size-xl="4" size="6">
+                    <ion-button expand="block" *ngIf="isFavorite" (click)="removeFavorite()">Supprimer des favoris</ion-button>
+                    <ion-button expand="block" *ngIf="!isFavorite" (click)="addFavorite()">Ajouter aux favoris</ion-button>
                 </ion-col>
             </ion-row>
         </div>
