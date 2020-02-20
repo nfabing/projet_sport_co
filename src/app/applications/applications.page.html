@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Mes Candidatures</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+    <ion-list>
+        <ion-list-header>
+            Candidatures
+        </ion-list-header>
+        <div *ngIf="applications.length; else elseBlock">
+            <div *ngFor="let application of applications">
+
+                <ion-item (click)="goToPageDetails(application.id)" detail>
+
+                    <ion-thumbnail slot="start">
+                        <img src="https://nicolasfabing.fr/ionic/imagesClub/{{application.img}}" alt="img"
+                             style="max-height: auto; width: auto">
+                    </ion-thumbnail>
+
+                    <ion-label>
+                        <h2>{{application.name}}</h2>
+                        <h3>Poste : {{application.poste}}</h3>
+                        <p>A partir du : {{application.availability}}</p>
+
+                    </ion-label>
+
+                </ion-item>
+
+            </div>
+        </div>
+        <ng-template #elseBlock><h2 class="ion-text-center">Aucune Candidature !</h2></ng-template>
+    </ion-list>
+
+</ion-content>

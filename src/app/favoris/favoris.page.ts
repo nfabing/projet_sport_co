@@ -13,8 +13,18 @@ export class FavorisPage implements OnInit {
     public favorites: Array<{ id: number; name: string; img: string; poste: string; availability: string }> = [];
 
     constructor(private httpClient: HttpClient, private router: Router, storage: Storage) {
+    }
+
+    ngOnInit() {
+        this.fetchData();
+    }
+
+    ionViewWillEnter() {
+        this.fetchData();
+    }
 
 
+    fetchData() {
         const userID = 1;
         // storage.get('id_user');
         // TODO changer la requete avec l'id récupérer
@@ -23,10 +33,6 @@ export class FavorisPage implements OnInit {
                 this.favorites = favorite;
 
             });
-
-    }
-
-    ngOnInit() {
     }
 
 

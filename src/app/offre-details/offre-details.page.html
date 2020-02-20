@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>offreDetails</ion-title>
+        <ion-title>Détails de l'offre </ion-title>
         <ion-buttons slot="start">
             <ion-back-button defaultHref="offre-search-results"></ion-back-button>
         </ion-buttons>
@@ -14,8 +14,11 @@
                 <ion-col size-xl="1" size-xs="2">
                     <ion-img [src]="'https://nicolasfabing.fr/ionic/imagesClub/' + offer.img_club" ></ion-img>
                 </ion-col>
-                <ion-col size="6" class="">
+                <ion-col size-xl="4" size="6">
                     <h2>{{ offer.club_name }}</h2>
+                </ion-col>
+                <ion-col size-xl="1" size-xs="2">
+                    <ion-img [src]="imgFavorite" (click)="handleClickFavorite()" ></ion-img>
                 </ion-col>
             </ion-row>
             <ion-row>
@@ -32,25 +35,22 @@
                     <p>Nationalité : {{ offer.nationality }}</p>
                 </ion-col>
                 <ion-col size="6">
-                    <p>Pied: {{ offer.foot }}</p>
+                    <p>Pied : {{ offer.foot }}</p>
                     <p>Niveau : {{ offer.championnat }}</p>
-                    <p>Pays: {{ offer.country }}</p>
+                    <p>Pays : {{ offer.country }}</p>
                 </ion-col>
             </ion-row>
 
-            {{ offer.club_name }}
 
             <ion-row class="justify-content-center padding-top">
-                <ion-col size-xl="4" size="6">
-                    <ion-button expand="block" *ngIf="!isApplied" (click)="addApplication()">Postuler à cette offre</ion-button>
-                    <ion-button expand="block" *ngIf="isApplied" (click)="removeApplication()">Retirer votre candidature</ion-button>
-                </ion-col>
-                <ion-col size-xl="4" size="6">
-                    <ion-button expand="block" *ngIf="isFavorite" (click)="removeFavorite()">Supprimer des favoris</ion-button>
-                    <ion-button expand="block" *ngIf="!isFavorite" (click)="addFavorite()">Ajouter aux favoris</ion-button>
+                <ion-col size-xl="4" size="12">
+                    <ion-button expand="block" (click)="handleClickApplication()" [color]="colorButton" >{{ textButton }}</ion-button>
                 </ion-col>
             </ion-row>
         </div>
+        <!-- end ngFor-->
+
+
     </ion-grid>
 
 

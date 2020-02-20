@@ -12,13 +12,11 @@ export class OffreSearchResultsPage implements OnInit {
 
     public offers: Array<{ id: number; name: string; img: string; poste: string; availability: string }> = [];
     private baseURI = 'https://nicolasfabing.fr/ionic/';
-    private arrayTest: Array<any> = [];
+    private criterias: Array<any> = [];
 
-    constructor(private httpClient: HttpClient, private router: Router, private storage: Storage) {
-    }
+    constructor(private httpClient: HttpClient, private router: Router, private storage: Storage) {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     async ionViewWillEnter() {
 
@@ -29,28 +27,24 @@ export class OffreSearchResultsPage implements OnInit {
         await this.storage.set('level', 'pro');
         await this.storage.set('division', '');
 
-        await this.getSearchResults();
-        // console.log(this.arrayTest.country);
+        await this.getSearchCriteria();
         this.getOffers();
 
     }
 
-
     getOffers() {
-
         // @ts-ignore
         // tslint:disable-next-line:max-line-length
-        this.httpClient.get<any>(`${this.baseURI}offers_results.php?country=${this.arrayTest.country}&poste=${this.arrayTest.post}&foot=${this.arrayTest.foot}&level=${this.arrayTest.level}&division=${this.arrayTest.division}`)
+        this.httpClient.get<any>(`${this.baseURI}offers_results.php?country=${this.criterias.country}&poste=${this.criterias.post}&foot=${this.criterias.foot}&level=${this.criterias.level}&division=${this.criterias.division}`)
             .subscribe(offer => {
                 this.offers = offer;
             });
 
     }
 
-
-    async getSearchResults() {
+    async getSearchCriteria() {
         await this.storage.forEach((value, key) => {
-            this.arrayTest[key] = value;
+            this.criterias[key] = value;
             this.storage.remove(key);
 
         });
@@ -62,4 +56,3 @@ export class OffreSearchResultsPage implements OnInit {
 
 
 }
-

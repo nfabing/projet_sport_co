@@ -10,25 +10,28 @@
         <ion-list-header>
             Résultats recherche offres :
         </ion-list-header>
-        <div *ngFor="let offer of offers">
+        <div *ngIf="offers.length; else elseBlock">
+            <div *ngFor="let offer of offers">
 
-            <ion-item (click)="goToPageDetails(offer.id)">
+                <ion-item (click)="goToPageDetails(offer.id)" detail>
 
-                <ion-thumbnail slot="start">
-                    <img src="https://nicolasfabing.fr/ionic/imagesClub/{{offer.img}}" alt="img"
-                         style="max-height: auto; width: auto">
-                </ion-thumbnail>
+                    <ion-thumbnail slot="start">
+                        <img src="https://nicolasfabing.fr/ionic/imagesClub/{{offer.img}}" alt="img"
+                             style="max-height: auto; width: auto">
+                    </ion-thumbnail>
 
-                <ion-label>
-                    <h2>{{offer.name}}</h2>
-                    <h3>Poste : {{offer.poste}}</h3>
-                    <p>A partir du : {{offer.availability}}</p>
+                    <ion-label>
+                        <h2>{{offer.name}}</h2>
+                        <h3>Poste : {{offer.poste}}</h3>
+                        <p>A partir du : {{offer.availability}}</p>
 
-                </ion-label>
+                    </ion-label>
 
-            </ion-item>
+                </ion-item>
 
+            </div>
         </div>
+        <ng-template #elseBlock><h2 class="ion-text-center">Aucune Offre trouvée !</h2></ng-template>
     </ion-list>
 
 </ion-content>
