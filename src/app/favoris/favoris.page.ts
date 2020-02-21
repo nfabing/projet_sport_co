@@ -16,13 +16,11 @@ export class FavorisPage implements OnInit {
     }
 
     ngOnInit() {
-        this.fetchData();
     }
 
     ionViewWillEnter() {
         this.fetchData();
     }
-
 
     fetchData() {
         const userID = 1;

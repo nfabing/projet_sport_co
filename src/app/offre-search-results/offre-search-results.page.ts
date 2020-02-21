@@ -21,10 +21,10 @@ export class OffreSearchResultsPage implements OnInit {
     async ionViewWillEnter() {
 
         // Données pour test
-        await this.storage.set('country', '');
+        await this.storage.set('country', 'france');
         await this.storage.set('post', '');
         await this.storage.set('foot', '');
-        await this.storage.set('level', 'pro');
+        await this.storage.set('level', '');
         await this.storage.set('division', '');
 
         await this.getSearchCriteria();

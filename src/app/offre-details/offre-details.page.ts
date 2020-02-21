@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
-import {AlertController, ToastController} from '@ionic/angular';
+import {AlertController, IonRouterOutlet, ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-offre-details',
@@ -26,8 +26,8 @@ export class OffreDetailsPage implements OnInit {
     }> = [];
 
 
-    constructor(public httpClient: HttpClient, private activatedRoute: ActivatedRoute,
-                public alertController: AlertController, public toastController: ToastController) {
+    constructor(private httpClient: HttpClient, private activatedRoute: ActivatedRoute,
+                private alertController: AlertController, private toastController: ToastController, private routerOutlet: IonRouterOutlet) {
 
         this.idPlayer = 1;
         this.idOffer = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
@@ -37,9 +37,14 @@ export class OffreDetailsPage implements OnInit {
     }
 
     ionViewWillEnter() {
+        this.routerOutlet.swipeGesture = false;
         this.fetchDataGet();
         this.checkIfFavorite();
         this.checkIfApplied();
+    }
+
+    ionViewWillLeave() {
+        this.routerOutlet.swipeGesture = true;
     }
 
     checkIfApplied(): void {
