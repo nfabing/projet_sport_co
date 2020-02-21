@@ -13,13 +13,18 @@ const routes: Routes = [
   {
     path: 'offre-search-results',
     loadChildren: () => import('./offre-search-results/offre-search-results.module').then( m => m.OffreSearchResultsPageModule)
-  },  {
+  },
+  {
     path: 'favoris',
     loadChildren: () => import('./favoris/favoris.module').then( m => m.FavorisPageModule)
   },
   {
     path: 'applications',
     loadChildren: () => import('./applications/applications.module').then( m => m.ApplicationsPageModule)
+  },
+  {
+    path: 'club-search-results',
+    loadChildren: () => import('./club-search-results/club-search-results.module').then( m => m.ClubSearchResultsPageModule)
   }
 
 ];

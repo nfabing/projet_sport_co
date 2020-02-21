@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Recherche clubs...</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+    <ion-list>
+        <ion-list-header>
+            Résultats recherche clubs :
+        </ion-list-header>
+        <div *ngIf="clubs.length; else elseBlock">
+            <div *ngFor="let club of clubs">
+
+                <ion-item (click)="goToPageDetails(club.id)" detail>
+
+                    <ion-thumbnail slot="start">
+                        <img src="https://nicolasfabing.fr/ionic/imagesClub/{{club.img}}" alt="img"
+                             style="max-height: auto; width: auto">
+                    </ion-thumbnail>
+
+                    <ion-label>
+                        <h2>{{club.name}}</h2>
+                        <h3>Niveau : {{club.level}}</h3>
+                        <p>{{club.country}} : {{club.postal_code}}</p>
+
+                    </ion-label>
+
+                </ion-item>
+
+            </div>
+        </div>
+        <ng-template #elseBlock><h2 class="ion-text-center">Aucun club trouvé !</h2></ng-template>
+    </ion-list>
+
+</ion-content>
