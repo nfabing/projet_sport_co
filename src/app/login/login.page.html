@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <ion-list>
+
+
+      <ion-item>
+        <ion-label>Type de Compte</ion-label>
+        <ion-select name="type" formControlName="type" interface="action-sheet" >
+          <ion-select-option value="player">Joueur</ion-select-option>
+          <ion-select-option value="club">Club</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.type">
+        <ng-container *ngIf="type.hasError(error.type) && (type.dirty || type.touched)">
+          <small class="error-message">{{error.message}}</small>
+        </ng-container>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input inputmode="email" formControlName="email"></ion-input>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.email">
+        <ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
+          <small class="error-message">{{error.message}}</small>
+        </ng-container>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Mot de passe</ion-label>
+        <ion-input formControlName="password" type="password" minlength="8"></ion-input>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.password">
+        <ng-container *ngIf="password.hasError(error.type) && (password.dirty || password.touched)">
+          <small class="error-message">{{error.message}}</small>
+        </ng-container>
+      </div>
+
+    </ion-list>
+    <ion-button [disabled]="!loginForm.valid" type="submit" expand="block">Submit <ion-icon slot="end"
+                                                                                                   name="create">
+    </ion-icon>
+    </ion-button>
+  </form>
+
+</ion-content>

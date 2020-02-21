@@ -5,6 +5,22 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'club-register',
+    loadChildren: () => import('./club-register/club-register.module').then( m => m.ClubRegisterPageModule)
+  },
+  {
+    path: 'fil-actu',
+    loadChildren: () => import('./fil-actu/fil-actu.module').then( m => m.FilActuPageModule)
   }
 ];
 @NgModule({
