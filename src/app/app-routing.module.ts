@@ -7,6 +7,22 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
+    path: 'player-profil',
+    loadChildren: () => import('./player-profil/player-profil.module').then( m => m.PlayerProfilPageModule)
+  },
+  {
+    path: 'search-player',
+    loadChildren: () => import('./search-player/search-player.module').then( m => m.SearchPlayerPageModule)
+  },
+  {
+    path: 'search-offer',
+    loadChildren: () => import('./search-offer/search-offer.module').then( m => m.SearchOfferPageModule)
+  },
+  {
+    path: 'search-club',
+    loadChildren: () => import('./search-club/search-club.module').then( m => m.SearchClubPageModule)
+  },
+  {
     path: 'offre-details/:id',
     loadChildren: () => import('./offre-details/offre-details.module').then( m => m.OffreDetailsPageModule)
   },

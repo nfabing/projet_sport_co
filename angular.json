@@ -98,7 +98,11 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "styles": [],
+            "styles": [
+              "node_modules/@swimlane/ngx-datatable/release/assets/app.css",
+              "node_modules/@swimlane/ngx-datatable/release/themes/material.css",
+              "node_modules/@swimlane/ngx-datatable/release/assets/icons.css"
+            ],
             "scripts": [],
             "assets": [
               {

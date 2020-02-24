@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Recherche offre
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen="">
+  <h1>Rechercher une offre </h1>
+  <form [formGroup]="registrationForm" (ngSubmit)="submit()">
+    <ion-list lines=" full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="stacked">Type de sport</ion-label>
+        <ion-input inputmode="text" formControlName="sport_type" value="FOOTBALL" disabled=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Pays</ion-label>
+        <ion-input inputmode="text" formControlName="country" value=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Division</ion-label>
+        <ion-input inputmode="text" formControlName="division" value=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Poste</ion-label>
+        <ion-input inputmode="text" formControlName="post" value=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Côté</ion-label>
+        <ion-input inputmode="text" formControlName="cote" value=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Niveau</ion-label>
+        <ion-input inputmode="text" formControlName="level" value=""></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-button type="submit" expand="block">Rechercher
+    </ion-button>
+  </form>
+</ion-content>
