@@ -1,7 +1,8 @@
 {
   "name": "sport_co",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }

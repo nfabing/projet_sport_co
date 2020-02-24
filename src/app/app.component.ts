@@ -14,8 +14,9 @@ export class AppComponent {
     constructor(
         private platform: Platform,
         private splashScreen: SplashScreen,
-        private statusBar: StatusBar
+        private statusBar: StatusBar,
     ) {
+
         this.sideMenu();
         this.initializeApp();
     }
@@ -31,9 +32,24 @@ export class AppComponent {
         this.navigate =
             [
                 {
-                    title: 'Home',
+                    title: 'Accueil',
                     url: '/',
                     icon: 'home'
+                },
+                {
+                    title: 'Recherche club',
+                    url: '/search-club',
+                    icon: 'cube-outline'
+                },
+                {
+                    title: 'Recherche offre',
+                    url: '/search-offer',
+                    icon: 'cube-outline'
+                },
+                {
+                    title: 'Recherche joueur',
+                    url: '/search-player',
+                    icon: 'cube-outline'
                 },
                 {
                     title: 'Favoris',
@@ -45,6 +61,13 @@ export class AppComponent {
                     url: '/applications',
                     icon: 'cube-outline'
                 },
+                {
+                    title: 'Mon profil',
+                    url: '/',
+                    icon: 'cube-outline'
+                },
+
+
             ];
     }
 }

@@ -21,21 +21,21 @@ export class OffreSearchResultsPage implements OnInit {
     async ionViewWillEnter() {
 
         // Données pour test
-        await this.storage.set('country', 'france');
+        /*await this.storage.set('country', 'france');
         await this.storage.set('post', '');
         await this.storage.set('foot', '');
         await this.storage.set('level', '');
-        await this.storage.set('division', '');
+        await this.storage.set('division', '');*/
 
         await this.getSearchCriteria();
-        this.getOffers();
+        await this.getOffers();
 
     }
 
     getOffers() {
         // @ts-ignore
         // tslint:disable-next-line:max-line-length
-        this.httpClient.get<any>(`${this.baseURI}offers_results.php?country=${this.criterias.country}&poste=${this.criterias.post}&foot=${this.criterias.foot}&level=${this.criterias.level}&division=${this.criterias.division}`)
+        this.httpClient.get<any>(`${this.baseURI}offers_results.php?country=${this.criterias.country}&poste=${this.criterias.post}&strong=${this.criterias.foot}&level=${this.criterias.level}&nom=${this.criterias.division}`)
             .subscribe(offer => {
                 this.offers = offer;
             });

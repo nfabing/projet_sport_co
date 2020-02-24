@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
+import {Router} from '@angular/router';
 export interface Data {
   movies: string;
 }
@@ -14,7 +15,7 @@ export interface Data {
 export class SearchOfferPage implements OnInit {
   public tabOffer = [];
 
-  constructor(public Http: HttpClient, private formBuilder: FormBuilder, private storage: Storage) {
+  constructor(public Http: HttpClient, private formBuilder: FormBuilder, private storage: Storage, private router: Router) {
   }
 
   ngOnInit() {
@@ -123,7 +124,10 @@ export class SearchOfferPage implements OnInit {
     this.storage.set('foot', this.registrationForm.get('cote').value);
     this.storage.set('level', this.registrationForm.get('level').value);
     this.storage.set('division', this.registrationForm.get('division').value);
-    //this.getOfferInfo(this.registrationForm.get('country').value, this.registrationForm.get('post').value, this.registrationForm.get('cote').value, this.registrationForm.get('level').value, this.registrationForm.get('division').value);
+
+    this.router.navigate(['offre-search-results']);
+    // tslint:disable-next-line:max-line-length
+    // this.getOfferInfo(this.registrationForm.get('country').value, this.registrationForm.get('post').value, this.registrationForm.get('cote').value, this.registrationForm.get('level').value, this.registrationForm.get('division').value);
   }
 
 }

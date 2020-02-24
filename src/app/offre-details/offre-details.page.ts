@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
-import {AlertController, IonRouterOutlet, ToastController} from '@ionic/angular';
+import {AlertController, ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-offre-details',
@@ -27,7 +27,7 @@ export class OffreDetailsPage implements OnInit {
 
 
     constructor(private httpClient: HttpClient, private activatedRoute: ActivatedRoute,
-                private alertController: AlertController, private toastController: ToastController, private routerOutlet: IonRouterOutlet) {
+                private alertController: AlertController, private toastController: ToastController) {
 
         this.idPlayer = 1;
         this.idOffer = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
@@ -37,21 +37,17 @@ export class OffreDetailsPage implements OnInit {
     }
 
     ionViewWillEnter() {
-        this.routerOutlet.swipeGesture = false;
         this.fetchDataGet();
         this.checkIfFavorite();
         this.checkIfApplied();
     }
 
-    ionViewWillLeave() {
-        this.routerOutlet.swipeGesture = true;
-    }
+
 
     checkIfApplied(): void {
         // tslint:disable-next-line:max-line-length
         this.httpClient.get<any>(`${this.baseURI}check_application.php?player=${this.idPlayer}&offer=${this.idOffer}`, {observe: 'response'})
             .subscribe(data => {
-                console.log(data.status);
                 this.isApplied = data.body;
                 {
                     this.isApplied ? (this.textButton = 'Supprimez votre candidature' , this.colorButton = 'danger')
@@ -63,7 +59,6 @@ export class OffreDetailsPage implements OnInit {
     checkIfFavorite(): void {
         this.httpClient.get<any>(`${this.baseURI}check_favorite.php?player=${this.idPlayer}&offer=${this.idOffer}`, {observe: 'response'})
             .subscribe(data => {
-                console.log(data.status);
                 this.isFavorite = data.body;
                 {
                     this.isFavorite ? (this.imgFavorite = 'assets/img/heartFull.png') : (this.imgFavorite = 'assets/img/heartEmpty.png');
@@ -75,7 +70,6 @@ export class OffreDetailsPage implements OnInit {
     fetchDataGet(): void {
         this.httpClient.get<any>(this.baseURI + `offer_details.php?id= ${this.idOffer}`, {observe: 'response'})
             .subscribe(data => {
-                console.log(data.status);
                 this.offers = data.body;
 
             });
@@ -90,7 +84,6 @@ export class OffreDetailsPage implements OnInit {
 
             this.httpClient.post<any>('https://nicolasfabing.fr/ionic/add_fav.php', postData, {observe: 'response'})
                 .subscribe(data => {
-                    console.log(data.status);
                     this.isFavorite = true;
                     this.imgFavorite = 'assets/img/heartFull.png';
                     this.showToast('Candidature ajoutée à vos favoris !');
@@ -101,7 +94,6 @@ export class OffreDetailsPage implements OnInit {
 
             this.httpClient.delete(`${this.baseURI}remove_fav.php?offer=${this.idOffer}&player=${this.idPlayer}`, {observe: 'response'})
                 .subscribe(data => {
-                    console.log(data.status);
                     this.isFavorite = false;
                     this.imgFavorite = 'assets/img/heartEmpty.png';
                     this.showToast('Candidature retirée de vos favoris !');
@@ -149,7 +141,6 @@ export class OffreDetailsPage implements OnInit {
 
         this.httpClient.post('https://nicolasfabing.fr/ionic/add_application.php', postData, {observe: 'response'})
             .subscribe(data => {
-                console.log(data.status);
                 this.isApplied = true;
                 this.textButton = 'Supprimez votre candidature';
                 this.colorButton = 'danger';
@@ -161,7 +152,6 @@ export class OffreDetailsPage implements OnInit {
     removeApplication() {
         this.httpClient.delete(`${this.baseURI}remove_application.php?offer=${this.idOffer}&player=${this.idPlayer}`, {observe: 'response'})
             .subscribe(data => {
-                console.log(data.status);
                 this.isApplied = false;
                 this.textButton = 'Envoyer votre candidature';
                 this.colorButton = 'primary';
