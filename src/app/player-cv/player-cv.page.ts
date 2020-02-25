@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators } from "@angular/forms";
 import { ToastController, ModalController, AlertController } from '@ionic/angular';
 import { ModalPlayerCvPage } from '../modal-player-cv/modal-player-cv.page';
+import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-player-cv',
@@ -17,6 +19,7 @@ export class PlayerCvPage implements OnInit {
   public strongs = [];
   public values = {};
   public toast: any;
+  public idUser = null;
 
 
   constructor(
@@ -24,14 +27,23 @@ export class PlayerCvPage implements OnInit {
     public formBuilder: FormBuilder,
     public tc: ToastController,
     public modalCtrll: ModalController,
-    public alertCtrll: AlertController) { }
+    public alertCtrll: AlertController,
+    public storage: Storage,
+    public router: Router) { }
 
   ngOnInit() {
-    this.getPlayerInfo(1);
+    
   }
 
   ionViewWillEnter() {
-
+    this.storage.get('id_user').then((val) => {
+      this.idUser = val;
+    });
+    if (this.idUser == null) {
+      this.router.navigate([''])
+    } else {
+      this.getPlayerInfo(this.idUser);
+    }
   }
 
   async presentModal() {
@@ -80,6 +92,9 @@ export class PlayerCvPage implements OnInit {
 
 
   public getPlayerInfo(idPlayer): void {
+    this.storage.get('id_user').then((val) => {
+      this.idUser = val;
+    });
     let data: Observable<any>;
     data = this.Http.get("https://nicolasfabing.fr/ionic/player_profil.php?idPlayer=" + idPlayer)
     data.subscribe(result => {

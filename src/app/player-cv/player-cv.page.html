@@ -57,8 +57,7 @@
           <ion-item>
             <ion-label>Poste</ion-label>
             <ion-select formControlName="poste">
-              <ion-select-option *ngFor="let poste of postes" [value]="poste.id"
-                [selected]="poste.id === tabPlayer.id_position">{{poste.poste}}</ion-select-option>
+              <ion-select-option *ngFor="let poste of postes" [value]="poste.id">{{poste.poste}}</ion-select-option>
             </ion-select>
           </ion-item>
 

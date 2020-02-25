@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>{{tabPlayer.name}} {{ tabPlayer.first_name}}</ion-title>
+    <ion-avatar slot="end">
+      <img id="avatarProfil" src="{{imgUser}}">
+    </ion-avatar>
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
@@ -38,6 +41,22 @@
         </ng-container>
       </div>
 
+      <ion-item>
+        <ion-row>
+          <ion-label>Photo</ion-label>
+        </ion-row>
+        <ion-row>
+          <ion-input type="file" name="image" formControlName="file" accept="image/*" (change)="changeListener($event)"
+            id="inputFile">
+          </ion-input>
+        </ion-row>
+      </ion-item>
+      <ion-row class="rowImg">
+        <img class="logo" src="{{img_new}}" *ngIf="img_new!=''" />
+      </ion-row>
+      <ion-row class="rowImg" id="oldImg">
+        <img class="logo" src="{{imgUser}}" />
+      </ion-row>
     </ion-list>
 
     <ion-button type="submit" expand="block">Modifier<ion-icon slot="end" name="create">
