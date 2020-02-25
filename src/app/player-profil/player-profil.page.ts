@@ -33,6 +33,11 @@ export class PlayerProfilPage implements OnInit {
   }
 
   ionViewWillEnter() {
+
+    var input = document.getElementById('inputFile').firstChild;
+    // input.style.padding = "50px";
+    console.log(input);
+
     // this.storage.get('id_user').then((val) => {
     //   this.idUser = val;
     // });

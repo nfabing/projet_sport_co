@@ -11,7 +11,12 @@
     padding: 5px;
 }
 
-
+#inputFile{
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 999;
+}
 
 
 
