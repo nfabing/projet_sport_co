@@ -13,11 +13,45 @@ export interface Data {
 })
 export class SearchOfferPage implements OnInit {
   public tabOffer = [];
+  public selectPoste = [];
+  public selectFoot = [];
+  public selectLevel = [];
 
   constructor(public Http: HttpClient, private formBuilder: FormBuilder, private storage: Storage) {
   }
 
   ngOnInit() {
+    let data: Observable<any>;
+    // tslint:disable-next-line:max-line-length
+    data = this.Http.get('https://nicolasfabing.fr/ionic/list_postes.php')
+    data.subscribe(result => {
+      this.selectPoste = result;
+
+      for (let i = 0; i < this.selectPoste.length; i++) {
+        let option = document.getElementById('select_poste');
+        option.innerHTML = option.innerHTML + '<ion-select-option value="' + this.selectPoste[i].poste + '">' + this.selectPoste[i].poste + '</ion-select-option>';
+      }
+    });
+
+    // tslint:disable-next-line:max-line-length
+    data = this.Http.get('https://nicolasfabing.fr/ionic/list_foot.php')
+    data.subscribe(result => {
+      this.selectFoot = result;
+      for (let i = 0; i < this.selectFoot.length; i++) {
+        let option = document.getElementById('select_foot');
+        option.innerHTML = option.innerHTML + '<ion-select-option value="' + this.selectFoot[i].strong + '">' + this.selectFoot[i].strong + '</ion-select-option>';
+      }
+    });
+
+    // tslint:disable-next-line:max-line-length
+    data = this.Http.get('https://nicolasfabing.fr/ionic/list_level.php')
+    data.subscribe(result => {
+      this.selectLevel = result;
+      for (let i = 0; i < this.selectLevel.length; i++) {
+        let option = document.getElementById('select_niveau');
+        option.innerHTML = option.innerHTML + '<ion-select-option value="' + this.selectLevel[i].level + '">' + this.selectLevel[i].level + '</ion-select-option>';
+      }
+    });
 
   }
   ionViewWillEnter() {
