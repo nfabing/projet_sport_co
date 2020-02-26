@@ -18,6 +18,10 @@ const routes: Routes = [
     path: 'search-club',
     loadChildren: () => import('./search-club/search-club.module').then( m => m.SearchClubPageModule)
   },
+  {
+    path: 'legalnotice',
+    loadChildren: () => import('./legalnotice/legalnotice.module').then( m => m.LegalnoticePageModule)
+  },
 
 ];
 @NgModule({
