@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-logout',
@@ -8,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class LogoutPage implements OnInit {
 
-  constructor(public storage:Storage, public router:Router) { }
+  constructor(public storage: Storage, public router: Router) { }
 
   ngOnInit() {
   }
@@ -17,6 +18,6 @@ export class LogoutPage implements OnInit {
   async ionViewWillEnter() {
     await this.storage.set('id_user', '0');
     await this.storage.set('id_club', '0');
-    this.router.navigate(['login-register']);
+    await this.router.navigate(['login-register']);
   }
 }

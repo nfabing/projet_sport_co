@@ -1,39 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {Storage} from '@ionic/storage';
 
 @Component({
-  selector: 'app-applications',
-  templateUrl: './applications.page.html',
-  styleUrls: ['./applications.page.scss'],
+    selector: 'app-applications',
+    templateUrl: './applications.page.html',
+    styleUrls: ['./applications.page.scss'],
 })
 export class ApplicationsPage implements OnInit {
 
-  public applications: Array<{ id: number; name: string; img: string; poste: string; availability: string }> = [];
+    private idPlayer: number;
+    public applications: Array<{ id: number; name: string; img: string; poste: string; availability: string }> = [];
 
-  constructor(private httpClient: HttpClient, private router: Router) { }
+    constructor(private httpClient: HttpClient, private router: Router, private storage: Storage) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  ionViewWillEnter() {
-    this.fetchData();
-  }
+    async ionViewWillEnter() {
+        await this.storage.get('id_user').then(value => this.idPlayer = value);
+        this.fetchData();
+    }
 
-  fetchData() {
-    const userID = 1;
-    // storage.get('id_user');
-    // TODO changer la requete avec l'id récupérer
-    this.httpClient.get<any>(`https://nicolasfabing.fr/ionic/list_applications.php?id=${userID}`)
-        .subscribe(application => {
-          this.applications = application;
+    fetchData() {
 
-        });
-  }
+        this.httpClient.get<any>(`https://nicolasfabing.fr/ionic/list_applications.php?id=${this.idPlayer}`)
+            .subscribe(application => {
+                this.applications = application;
+
+            });
+    }
 
 
-  goToPageDetails(id: number) {
-    this.router.navigate(['offre-details', id]);
-  }
+    goToPageDetails(id: number) {
+        this.router.navigate(['offre-details', id]);
+    }
 
 }

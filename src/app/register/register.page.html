@@ -1,6 +1,9 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>register</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="login-register"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Inscription Joueur</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -69,7 +72,7 @@
 
             <ion-item>
                 <ion-label position="stacked">Ville de naissance</ion-label>
-                <ion-input formControlName="birthPlace" ></ion-input>
+                <ion-input formControlName="birthPlace"></ion-input>
             </ion-item>
             <div *ngFor="let error of errorMessages.birthPlace">
                 <ng-container *ngIf="birthPlace.hasError(error.type) && (birthPlace.dirty || birthPlace.touched)">
@@ -79,7 +82,7 @@
 
             <ion-item>
                 <ion-label position="stacked">Pays de naissance</ion-label>
-                <ion-input formControlName="birthCountry" ></ion-input>
+                <ion-input formControlName="birthCountry"></ion-input>
             </ion-item>
             <div *ngFor="let error of errorMessages.birthCountry">
                 <ng-container *ngIf="birthCountry.hasError(error.type) && (birthCountry.dirty || birthCountry.touched)">
@@ -99,7 +102,7 @@
 
             <ion-item>
                 <ion-label position="stacked">Poids (kg)</ion-label>
-                <ion-input formControlName="weight" type="number" min="20" max="150" ></ion-input>
+                <ion-input formControlName="weight" type="number" min="20" max="150"></ion-input>
             </ion-item>
             <div *ngFor="let error of errorMessages.weight">
                 <ng-container *ngIf="weight.hasError(error.type) && (weight.dirty || weight.touched)">
@@ -110,7 +113,7 @@
 
             <ion-item>
                 <ion-label>Niveau</ion-label>
-                <ion-select name="level" formControlName="level" interface="action-sheet" >
+                <ion-select name="level" formControlName="level" interface="action-sheet">
                     <ion-select-option value="1">Professionel</ion-select-option>
                     <ion-select-option value="2">Amateur</ion-select-option>
                 </ion-select>
@@ -122,7 +125,7 @@
             </div>
             <ion-item>
                 <ion-label>Pied fort</ion-label>
-                <ion-select name="foot" formControlName="foot" interface="action-sheet" >
+                <ion-select name="foot" formControlName="foot" interface="action-sheet">
                     <ion-select-option value="1">Gauche</ion-select-option>
                     <ion-select-option value="2">Droit</ion-select-option>
                     <ion-select-option value="3">Ambidextre</ion-select-option>
@@ -133,7 +136,6 @@
                     <small class="error-message">{{error.message}}</small>
                 </ng-container>
             </div>
-
 
 
             <ion-item>
@@ -160,9 +162,10 @@
             </div>
 
         </ion-list>
-        <ion-button [disabled]="!registrationForm.valid" type="submit" expand="block">Submit <ion-icon slot="end"
-                                                                                                       name="create">
-        </ion-icon>
+        <ion-button [disabled]="!registrationForm.valid" type="submit" expand="block">Submit
+            <ion-icon slot="end"
+                      name="create">
+            </ion-icon>
         </ion-button>
     </form>
 

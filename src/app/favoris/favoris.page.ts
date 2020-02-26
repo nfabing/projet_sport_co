@@ -10,23 +10,26 @@ import {Storage} from '@ionic/storage';
 })
 export class FavorisPage implements OnInit {
 
+    private idPlayer: number;
     public favorites: Array<{ id: number; name: string; img: string; poste: string; availability: string }> = [];
 
-    constructor(private httpClient: HttpClient, private router: Router, storage: Storage) {
+    constructor(private httpClient: HttpClient, private router: Router, private storage: Storage) {
     }
 
     ngOnInit() {
     }
 
-    ionViewWillEnter() {
+    async ionViewWillEnter() {
+        await this.storage.get('id_user').then(value => {
+            this.idPlayer = value;
+        });
+
         this.fetchData();
     }
 
     fetchData() {
-        const userID = 1;
-        // storage.get('id_user');
-        // TODO changer la requete avec l'id récupérer
-        this.httpClient.get<any>(`https://nicolasfabing.fr/ionic/list_favorites.php?id=${userID}`)
+        this.storage.get('id_user').then(value => console.log(value));
+        this.httpClient.get<any>(`https://nicolasfabing.fr/ionic/list_favorites.php?id=${this.idPlayer}`)
             .subscribe(favorite => {
                 this.favorites = favorite;
 

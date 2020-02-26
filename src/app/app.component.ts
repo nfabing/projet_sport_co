@@ -73,7 +73,7 @@ export class AppComponent {
                 },
                 {
                     title: 'Déconnexion',
-                    url: '/',
+                    url: '/logout',
                     icon: 'log-out-outline'
                 }
 

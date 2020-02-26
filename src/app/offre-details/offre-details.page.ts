@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 import {AlertController, ToastController} from '@ionic/angular';
+import {Storage} from '@ionic/storage';
 
 @Component({
     selector: 'app-offre-details',
@@ -27,22 +28,17 @@ export class OffreDetailsPage implements OnInit {
 
 
     constructor(private httpClient: HttpClient, private activatedRoute: ActivatedRoute,
-                private alertController: AlertController, private toastController: ToastController) {
+                private alertController: AlertController, private toastController: ToastController, private storage: Storage) {}
 
-        this.idPlayer = 1;
-        this.idOffer = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
-    }
+    ngOnInit() {}
 
-    ngOnInit() {
-    }
-
-    ionViewWillEnter() {
+    async ionViewWillEnter() {
+        await this.storage.get('id_user').then( value => this.idPlayer = value);
+        this.idOffer = await parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
         this.fetchDataGet();
         this.checkIfFavorite();
         this.checkIfApplied();
     }
-
-
 
     checkIfApplied(): void {
         // tslint:disable-next-line:max-line-length
@@ -76,13 +72,13 @@ export class OffreDetailsPage implements OnInit {
     }
 
     handleClickFavorite(): void {
-
         if (this.imgFavorite === 'assets/img/heartEmpty.png') {
-            const postData = new HttpParams()
-                .set('player', String(this.idPlayer))
-                .set('offer', this.idOffer.toString());
 
-            this.httpClient.post<any>('https://nicolasfabing.fr/ionic/add_fav.php', postData, {observe: 'response'})
+            const postData = new HttpParams()
+                .set('player', this.idPlayer.toString(10))
+                .set('offer', this.idOffer.toString(10));
+
+            this.httpClient.post<any>(`${this.baseURI}/add_fav.php`, postData, {observe: 'response'})
                 .subscribe(data => {
                     this.isFavorite = true;
                     this.imgFavorite = 'assets/img/heartFull.png';
@@ -134,13 +130,13 @@ export class OffreDetailsPage implements OnInit {
 
 
     addApplication() {
-
         const postData = new HttpParams()
-            .set('player', String(this.idPlayer))
-            .set('offer', this.idOffer.toString());
+            .set('player', this.idPlayer.toString(10))
+            .set('offer', this.idOffer.toString(10));
 
-        this.httpClient.post('https://nicolasfabing.fr/ionic/add_application.php', postData, {observe: 'response'})
+        this.httpClient.post(`${this.baseURI}/add_application.php`, postData, {observe: 'response'})
             .subscribe(data => {
+                console.log(data.body);
                 this.isApplied = true;
                 this.textButton = 'Supprimez votre candidature';
                 this.colorButton = 'danger';

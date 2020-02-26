@@ -70,6 +70,10 @@ const routes: Routes = [
     path: 'legalnotice',
     loadChildren: () => import('./legalnotice/legalnotice.module').then( m => m.LegalnoticePageModule)
   },
+  {
+    path: 'logout',
+    loadChildren: () => import('./logout/logout.module').then( m => m.LogoutPageModule)
+  }
 
 ];
 @NgModule({
