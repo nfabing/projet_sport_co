@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login_register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+      <section class="full-width connexion">
+        <header> <b>Connexion</b></header>
+        <ion-button expand="full" color="primary" (click)="login('player')">Se connecter en tant que joueur</ion-button>
+        <ion-button expand="full" color="tertiary" (click)="login('club')">Se connecter en tant que Club</ion-button>
+      </section>
+      <section class="full-width inscription">
+        <header><b>Inscription</b></header>
+        <ion-button expand="full" color="primary" (click)="register('player')">S'inscrire en tant que joueur</ion-button>
+        <ion-button expand="full" color="tertiary" (click)="register('club')">S'inscrire en tant que Club</ion-button>
+      </section>
+
+</ion-content>

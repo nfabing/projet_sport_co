@@ -1,0 +1,36 @@
+.connexion{
+  margin-top: 10px;
+  height: 40vh;
+  background:rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+.connexion header{
+  height: 5vh;
+  font-size: 20px;
+  color: #4c8dff;
+  display: flex;
+  justify-content: center;
+}
+.connexion ion-button{
+  height: 10vh;
+}
+.inscription{
+  margin-top: 10px;
+  height: 40vh;
+  background:rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+.inscription header{
+  height: 5vh;
+  font-size: 20px;
+  color: #4c8dff;
+  display: flex;
+  justify-content: center;
+}
+.inscription ion-button{
+  height: 10vh;
+}

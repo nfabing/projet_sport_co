@@ -28,6 +28,10 @@ export class FilActuPage implements OnInit {
    console.log(this.fluxrss);
   }
 
+  logout() {
+      console.log('lougout');
+  }
+
   ionViewWillEnter()
   {
       this.getRss();

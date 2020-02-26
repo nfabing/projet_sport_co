@@ -69,6 +69,7 @@ export class RegisterPage implements OnInit {
                         } else {
                             console.log(post[0]['id']);
                             this.storage.set('id_user', post[0]['id'].toString());
+                            this.storage.set('id_club', '0');
                             this.router.navigate(['']);//TODO Chemin page d'accueill
                         }
                     }, error => {
