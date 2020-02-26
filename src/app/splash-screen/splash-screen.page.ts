@@ -10,8 +10,8 @@ import {forEach} from '@angular-devkit/schematics';
 })
 export class SplashScreenPage implements OnInit {
 
-    public id_user: any;
-    public id_club: any;
+    public idUser: any;
+    public idClub: any;
 
     constructor(private router: Router, private storage: Storage) {
     }
@@ -28,22 +28,23 @@ export class SplashScreenPage implements OnInit {
         }
 
         if (idplayer === '0' && idclub === '0') {
-            //si l'utilisateur ne s'est jamais connecté
+            // si l'utilisateur ne s'est jamais connecté
             this.router.navigate(['login-register']);
         } else if (idplayer === '0' && idclub !== '0') {
-            //si l'utilisateur est un club
+            // si l'utilisateur est un club
             this.router.navigate(['fil-actu']);
         } else if (idplayer !== '0' && idclub === '0') {
-            //si l'utilisateur est un joueur
+            // si l'utilisateur est un joueur
             this.router.navigate(['fil-actu']);
         } else if (idclub !== '0' && idplayer !== '0') {
-            //si l'utilisateur est connecté en tant que club est joueur on réinitilise cette valeur a la connection
+            // si l'utilisateur est connecté en tant que club est joueur on réinitilise cette valeur a la connection
             this.router.navigate(['login-register']);
         } else {
-          //si l'utilisateur ne s'est jamais connecté et que les tests n'ont pas fonctionner
+            // si l'utilisateur ne s'est jamais connecté et que les tests n'ont pas fonctionner
             this.router.navigate(['login-register']);
         }
     }
+
 // on utilise async/await pour que l'application n'éxecute pas le reste du code le temps qu'on n'a pas nos ID
     async ionViewWillEnter() {
         if (!await this.storage.get('id_user') && !await this.storage.get('id_club')) {
@@ -51,16 +52,13 @@ export class SplashScreenPage implements OnInit {
             await this.storage.set('id_club', '0');
         }
         try {
-            this.id_user = await this.storage.get('id_user');
-            this.id_club = await this.storage.get('id_club');
-            await console.log(this.storage.get('id_club'));
-            console.log(this.id_club);
-        }
-        catch (e) {
+            this.idUser = await this.storage.get('id_user');
+            this.idClub = await this.storage.get('id_club');
+        } catch (e) {
             console.log('null');
         }
 
-        this.progress(this.id_user, this.id_club);
+        this.progress(this.idUser.toString(), this.idClub.toString());
     }
 
     ngOnInit() {
