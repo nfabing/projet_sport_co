@@ -39,6 +39,7 @@ export class PlayerCvPage implements OnInit {
     this.storage.get('id_user').then((val) => {
       this.idUser = val;
     });
+    this.idUser = 1;
     if (this.idUser == null) {
       this.router.navigate([''])
     } else {
@@ -92,9 +93,9 @@ export class PlayerCvPage implements OnInit {
 
 
   public getPlayerInfo(idPlayer): void {
-    this.storage.get('id_user').then((val) => {
-      this.idUser = val;
-    });
+    // this.storage.get('id_user').then((val) => {
+    //   this.idUser = val;
+    // });
     let data: Observable<any>;
     data = this.Http.get("https://nicolasfabing.fr/ionic/player_profil.php?idPlayer=" + idPlayer)
     data.subscribe(result => {

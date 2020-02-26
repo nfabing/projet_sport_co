@@ -13,7 +13,11 @@ const routes: Routes = [
   {
     path: 'player-cv',
     loadChildren: () => import('./player-cv/player-cv.module').then( m => m.PlayerCvPageModule)
+  },  {
+    path: 'club-profil',
+    loadChildren: () => import('./club-profil/club-profil.module').then( m => m.ClubProfilPageModule)
   }
+
 
 
 ];

@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{tabClub.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-thumbnail>
+        <img src="https://nicolasfabing.fr/ionic/imageClub/{{tabClub.img}}">
+      </ion-thumbnail>
+      <ion-card-title>{{tabClub.name}}</ion-card-title>
+      <ion-card-subtitle>{{tabClub.city}} {{tabClub.postal_code}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-card-subtitle>Description</ion-card-subtitle>
+      <p>{{tabClub.description}}</p>
+      <ion-card-subtitle>Objectifs</ion-card-subtitle>
+      <p>{{tabClub.objective}}</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-grid>
+        <ion-row>
+            <ion-card-title>Historique</ion-card-title>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col class="ion-text-start"><strong>SAISON</strong></ion-col>
+          <ion-col class="ion-text-start"><strong>CLUB</strong></ion-col>
+          <ion-col ><strong>PAYS</strong></ion-col>
+        </ion-row>
+        <ion-row *ngFor="let club of tabClub.history">
+          <ion-col>{{club.season}}</ion-col>
+          <ion-col>{{club.nom}}</ion-col>
+          <ion-col>{{club.pays}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-grid>
+        <ion-row>
+            <ion-card-title>Offre du club</ion-card-title>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col class="ion-text-start"><strong>DISPONIBILITÉ</strong></ion-col>
+          <ion-col class="ion-text-start"><strong>NATIONALITÉ</strong></ion-col>
+          <ion-col ><strong>POSTE</strong></ion-col>
+        </ion-row>
+        <ion-row *ngFor="let offer of tabClub.offers">
+          <ion-col>{{offer.availability}}</ion-col>
+          <ion-col>{{offer.nationality}}</ion-col>
+          <ion-col >{{offer.poste}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
