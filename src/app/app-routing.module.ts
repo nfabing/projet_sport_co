@@ -7,10 +7,6 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'player-profil',
-    loadChildren: () => import('./player-profil/player-profil.module').then( m => m.PlayerProfilPageModule)
-  },
-  {
     path: 'search-player',
     loadChildren: () => import('./search-player/search-player.module').then( m => m.SearchPlayerPageModule)
   },

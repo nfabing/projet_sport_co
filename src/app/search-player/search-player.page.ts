@@ -12,22 +12,14 @@ export interface Data {
   styleUrls: ['./search-player.page.scss'],
 })
 export class SearchPlayerPage implements OnInit {
-  public data: Data;
   public columns: any;
   public rows: any;
   public tabPlayer = [];
-  public values = {};
   public selectPoste = [];
   public selectFoot = [];
   public selectLevel = [];
 
   constructor(public Http: HttpClient, private formBuilder: FormBuilder, private storage: Storage) {
-    this.columns = [
-    { name: 'Name' },
-    { name: 'Poste' },
-    { name: 'Strong' },
-    { name: 'Level' }
-  ];
 }
 
   ngOnInit() {
@@ -69,15 +61,33 @@ export class SearchPlayerPage implements OnInit {
 
 
   public getPlayerInfo(country, poste, foot, level): void {
-    let data: Observable<any>;
-    // tslint:disable-next-line:max-line-length
-    data = this.Http.get('https://nicolasfabing.fr/ionic/search_player.php?birth_country=' + country + '&poste=' + poste + '&strong=' + foot + '&level=' + level)
-    data.subscribe(result => {
-      this.tabPlayer = result;
-      console.log(this.tabPlayer);
-      this.rows = this.tabPlayer;
-    });
-    document.getElementById('res').style.display = 'block';
+    this.storage.get('country').then((pays) => {
+      if (country !== '') {
+        country = pays;
+      }
+      this.storage.get('poste').then((post) => {
+        if (poste !== '') {
+          poste = post;
+        }
+        this.storage.get('foot').then((pied) => {
+          if (foot !== '') {
+            foot = pied;
+          }
+          this.storage.get('level').then((niveau) => {
+            if (level !== '') {
+              level = niveau;
+            }
+              let data: Observable<any>;
+              // tslint:disable-next-line:max-line-length
+              data = this.Http.get('https://nicolasfabing.fr/ionic/search_player.php?country=' + country + '&poste=' + poste + '&strong=' + foot + '&level=' + level)
+              data.subscribe(result => {
+                this.tabPlayer = result;
+                console.log(this.tabPlayer);
+              });
+            });
+          });
+        });
+      });
   }
 
   registrationForm = this.formBuilder.group({
@@ -138,7 +148,11 @@ export class SearchPlayerPage implements OnInit {
   public submit() {
 
     // tslint:disable-next-line:max-line-length
-    this.getPlayerInfo(this.registrationForm.get('current_country').value, this.registrationForm.get('post').value, this.registrationForm.get('cote').value, this.registrationForm.get('level').value);
+    this.storage.set('country', this.registrationForm.get('current_country').value);
+    this.storage.set('post', this.registrationForm.get('post').value);
+    this.storage.set('foot', this.registrationForm.get('cote').value);
+    this.storage.set('level', this.registrationForm.get('level').value);
+    //this.getPlayerInfo(this.registrationForm.get('current_country').value, this.registrationForm.get('post').value, this.registrationForm.get('cote').value, this.registrationForm.get('level').value);
   }
 
 }
