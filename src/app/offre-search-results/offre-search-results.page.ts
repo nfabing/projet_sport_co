@@ -44,9 +44,10 @@ export class OffreSearchResultsPage implements OnInit {
 
     async getSearchCriteria() {
         await this.storage.forEach((value, key) => {
-            this.criterias[key] = value;
-            this.storage.remove(key);
-
+            if (key !== 'id_club' && key !== 'id_user') {
+                this.criterias[key] = value;
+                this.storage.remove(key);
+            }
         });
     }
 

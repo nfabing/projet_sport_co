@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {MenuController} from '@ionic/angular';
 
 @Component({
   selector: 'app-login-register',
@@ -8,7 +9,11 @@ import {Router} from '@angular/router';
 })
 export class LoginRegisterPage implements OnInit {
 
-  constructor(public router: Router) { }
+  constructor(public router: Router, private menuController: MenuController) { }
+
+  ngOnInit() {
+    this.menuController.enable(false, 'main');
+  }
 
   login(params) {
     if(params === 'player'){
@@ -26,7 +31,7 @@ export class LoginRegisterPage implements OnInit {
       this.router.navigate(['club-register']);
     }
   }
-  ngOnInit() {
-  }
+
+
 
 }

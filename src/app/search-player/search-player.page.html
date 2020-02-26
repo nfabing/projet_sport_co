@@ -8,7 +8,7 @@
         </ion-title>
     </ion-toolbar>
 </ion-header>
-<ion-content fullscreen="">
+<ion-content fullscreen="" class="ion-padding">
     <h1>Rechercher un joueur </h1>
     <form [formGroup]="registrationForm" (ngSubmit)="submit()">
         <ion-list lines=" full" class="ion-no-margin ion-no-padding">
@@ -18,13 +18,8 @@
             </ion-item>
 
             <ion-item>
-                <ion-label position="stacked">Pays actuel</ion-label>
+                <ion-label position="stacked">Pays d'origine</ion-label>
                 <ion-input inputmode="text" formControlName="current_country" value=""></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label position="stacked">Nationalité</ion-label>
-                <ion-input inputmode="text" formControlName="nationality" value=""></ion-input>
             </ion-item>
 
             <ion-item>
@@ -35,7 +30,7 @@
             </ion-item>
 
             <ion-item>
-                <ion-label position="stacked">Côté</ion-label>
+                <ion-label position="stacked">Pied fort</ion-label>
                 <ion-select inputmode="text" formControlName="cote" value="">
                     <div id="select_foot"><ion-select-option value="">Tout</ion-select-option></div>
                 </ion-select>

@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {FormBuilder, Validators} from '@angular/forms';
 import {Storage} from '@ionic/storage';
+import {Router} from '@angular/router';
 
 export interface Data {
     movies: string;
@@ -23,7 +24,7 @@ export class SearchPlayerPage implements OnInit {
     public selectFoot = [];
     public selectLevel = [];
 
-    constructor(public Http: HttpClient, private formBuilder: FormBuilder, private storage: Storage) {
+    constructor(public Http: HttpClient, private formBuilder: FormBuilder, private storage: Storage, private router: Router) {
         this.columns = [
             {name: 'Name'},
             {name: 'Poste'},
@@ -145,11 +146,13 @@ export class SearchPlayerPage implements OnInit {
 
   public submit() {
 
-    // tslint:disable-next-line:max-line-length
-    this.storage.set('country', this.registrationForm.get('current_country').value);
-    this.storage.set('post', this.registrationForm.get('post').value);
-    this.storage.set('foot', this.registrationForm.get('cote').value);
+    this.storage.set('birth_country', this.registrationForm.get('current_country').value);
+    this.storage.set('poste', this.registrationForm.get('post').value);
+    this.storage.set('strong', this.registrationForm.get('cote').value);
     this.storage.set('level', this.registrationForm.get('level').value);
+
+    this.router.navigate(['player-search-results']);
+
   }
 
 }

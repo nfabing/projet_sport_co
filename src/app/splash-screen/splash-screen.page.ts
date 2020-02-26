@@ -46,9 +46,21 @@ export class SplashScreenPage implements OnInit {
     }
 // on utilise async/await pour que l'application n'éxecute pas le reste du code le temps qu'on n'a pas nos ID
     async ionViewWillEnter() {
-        this.id_user = await this.storage.get('id_user');
-        this.id_club = await this.storage.get('id_club');
-        this.progress(this.id_user.toString(), this.id_club.toString());
+        if (!await this.storage.get('id_user') && !await this.storage.get('id_club')) {
+            await this.storage.set('id_user', '0');
+            await this.storage.set('id_club', '0');
+        }
+        try {
+            this.id_user = await this.storage.get('id_user');
+            this.id_club = await this.storage.get('id_club');
+            await console.log(this.storage.get('id_club'));
+            console.log(this.id_club);
+        }
+        catch (e) {
+            console.log('null');
+        }
+
+        this.progress(this.id_user, this.id_club);
     }
 
     ngOnInit() {

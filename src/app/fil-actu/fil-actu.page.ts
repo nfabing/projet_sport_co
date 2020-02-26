@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MenuController} from '@ionic/angular';
 
 @Component({
   selector: 'app-fil-actu',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FilActuPage implements OnInit {
   public fluxrss: Array<{ id: number; title: string; description: string; img: string}> = [];
-  constructor() { }
+  constructor(private menuController: MenuController) { }
 
   ngOnInit() {
+      this.menuController.enable(true, 'main');
   }
 
   async getRss()

@@ -32,9 +32,9 @@ export class AppComponent {
         this.navigate =
             [
                 {
-                    title: 'Accueil',
-                    url: '/',
-                    icon: 'home'
+                    title: 'Fil d\'actualités',
+                    url: '/fil-actu',
+                    icon: 'newspaper-outline'
                 },
                 {
                     title: 'Recherche club',
@@ -54,18 +54,28 @@ export class AppComponent {
                 {
                     title: 'Favoris',
                     url: '/favoris',
-                    icon: 'cloud-upload-outline'
+                    icon: 'heart-outline'
                 },
                 {
                     title: 'Mes candidatures',
                     url: '/applications',
-                    icon: 'cube-outline'
+                    icon: 'document-outline'
                 },
                 {
                     title: 'Mon profil',
                     url: '/',
-                    icon: 'cube-outline'
+                    icon: 'person-outline'
                 },
+                {
+                    title: 'Mentions Légales',
+                    url: '/legalnotice',
+                    icon: 'document-text-outline'
+                },
+                {
+                    title: 'Déconnexion',
+                    url: '/',
+                    icon: 'log-out-outline'
+                }
 
 
             ];

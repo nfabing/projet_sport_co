@@ -26,10 +26,10 @@ export class PlayerSearchResultsPage implements OnInit {
     async ionViewWillEnter() {
 
         // DATA TEST
-        await this.storage.set('birth_country', 'france');
+       /* await this.storage.set('birth_country', 'france');
         await this.storage.set('poste', '');
         await this.storage.set('strong', '');
-        await this.storage.set('level', '');
+        await this.storage.set('level', '');*/
 
         await this.getSearchCriteria();
         this.getOffers();
@@ -41,7 +41,6 @@ export class PlayerSearchResultsPage implements OnInit {
         // tslint:disable-next-line:max-line-length
         this.httpClient.get<any>(`${this.baseURI}player_results.php?birth_country=${this.criterias.birth_country}&poste=${this.criterias.poste}&strong=${this.criterias.strong}&level=${this.criterias.level}`)
             .subscribe(player => {
-              console.log( 'joueur' + player);
               this.players = player;
             });
 
@@ -49,11 +48,12 @@ export class PlayerSearchResultsPage implements OnInit {
 
     async getSearchCriteria() {
         await this.storage.forEach((value, key) => {
-            this.criterias[key] = value;
-            this.storage.remove(key);
+            if (key !== 'id_club' && key !== 'id_user') {
+                this.criterias[key] = value;
+                this.storage.remove(key);
+            }
 
         });
-        console.log(this.criterias);
     }
 
     goToPageDetails(id: number) {

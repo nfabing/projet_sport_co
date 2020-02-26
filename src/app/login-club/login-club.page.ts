@@ -65,7 +65,7 @@ export class LoginClubPage implements OnInit {
         console.log(post[0]['id']);
         this.storage.set('id_club', post[0]['id'].toString());
         this.storage.set('id_user', '0');
-        this.router.navigate(['']);//TODO Chemin page d'accueill
+        this.router.navigate(['fil-actu']);
       }, error => {
         console.log(error);
       });
