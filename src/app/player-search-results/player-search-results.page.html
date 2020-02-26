@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="search-player"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Recherche de joueurs...</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <ion-list>
+    <ion-list-header>
+      Résultats recherche joueurs :
+    </ion-list-header>
+    <div *ngIf="players.length; else elseBlock">
+      <div *ngFor="let player of players">
+
+        <ion-item (click)="goToPageDetails(player.id)" detail>
+
+          <ion-thumbnail slot="start">
+            <img src="https://nicolasfabing.fr/ionic/imagesUsers/{{player.img}}" alt="img"
+                 style="max-height: auto; width: auto">
+          </ion-thumbnail>
+
+          <ion-label>
+            <h2>{{player.first_name}} {{player.name}}</h2>
+            <h3>Poste : {{player.poste}}</h3>
+            <p>Naissance : {{player.birth_date}} - {{player.birth_country}}</p>
+
+          </ion-label>
+
+        </ion-item>
+
+      </div>
+    </div>
+    <ng-template #elseBlock><h2 class="ion-text-center">Aucun joueur trouvée !</h2></ng-template>
+  </ion-list>
+
+</ion-content>

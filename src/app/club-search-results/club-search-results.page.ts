@@ -23,10 +23,10 @@ export class ClubSearchResultsPage implements OnInit {
   async ionViewWillEnter() {
 
     // Données pour test
-    await this.storage.set('country', 'germany');
+    /* await this.storage.set('country', 'germany');
     await this.storage.set('name', '');
     await this.storage.set('poste', '');
-    await this.storage.set('level', '');
+    await this.storage.set('level', ''); */
 
     await this.getSearchCriteria();
     await this.fetchResults();

@@ -41,7 +41,11 @@ const routes: Routes = [
   {
     path: 'club-search-results',
     loadChildren: () => import('./club-search-results/club-search-results.module').then( m => m.ClubSearchResultsPageModule)
+  },  {
+    path: 'player-search-results',
+    loadChildren: () => import('./player-search-results/player-search-results.module').then( m => m.PlayerSearchResultsPageModule)
   }
+
 
 ];
 @NgModule({

@@ -26,7 +26,7 @@ export class PlayerProfilPage implements OnInit {
 
   public getPlayerInfo(id): void {
     let data: Observable<any>;
-    data = this.Http.get("https://nicolasfabing.fr/ionic/search_player.php?idPlayer=" + id)
+    data = this.Http.get('https://nicolasfabing.fr/ionic/search_player.php?idPlayer=' + id)
     data.subscribe(result => {
       this.tabPlayer = result[0];
       // console.log(this.tabPlayer);
