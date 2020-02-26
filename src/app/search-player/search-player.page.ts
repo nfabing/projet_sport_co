@@ -143,9 +143,13 @@ export class SearchPlayerPage implements OnInit {
         ],
     };
 
-    public submit() {
+  public submit() {
 
-
-    }
+    // tslint:disable-next-line:max-line-length
+    this.storage.set('country', this.registrationForm.get('current_country').value);
+    this.storage.set('post', this.registrationForm.get('post').value);
+    this.storage.set('foot', this.registrationForm.get('cote').value);
+    this.storage.set('level', this.registrationForm.get('level').value);
+  }
 
 }
