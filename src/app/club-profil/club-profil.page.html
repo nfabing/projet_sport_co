@@ -7,15 +7,17 @@
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-thumbnail>
-        <img src="https://nicolasfabing.fr/ionic/imageClub/{{tabClub.img}}">
-      </ion-thumbnail>
-      <ion-card-title>{{tabClub.name}}</ion-card-title>
-      <ion-card-subtitle>{{tabClub.city}} {{tabClub.postal_code}}</ion-card-subtitle>
+      <ion-row>
+        <img src="https://nicolasfabing.fr/ionic/imageClub/{{tabClub.img}}" id="imgClub">
+        <ion-col>
+          <ion-card-title>{{tabClub.name}}</ion-card-title>
+          <ion-card-subtitle>{{tabClub.city}} {{tabClub.postal_code}}</ion-card-subtitle>
+        </ion-col>
+      </ion-row>
     </ion-card-header>
-    <ion-card-content>
+    <ion-card-content id="clubDesc">
       <ion-card-subtitle>Description</ion-card-subtitle>
-      <p>{{tabClub.description}}</p>
+      <p id="textDesc">{{tabClub.description}}</p><br>
       <ion-card-subtitle>Objectifs</ion-card-subtitle>
       <p>{{tabClub.objective}}</p>
     </ion-card-content>
@@ -23,8 +25,9 @@
   <ion-card>
     <ion-card-header>
       <ion-grid>
+        <!-- <ion-icon name="time-outline" id="iconCard"></ion-icon> -->
         <ion-row>
-            <ion-card-title>Historique</ion-card-title>
+          <ion-card-title>Historique</ion-card-title>
         </ion-row>
       </ion-grid>
     </ion-card-header>
@@ -33,7 +36,7 @@
         <ion-row>
           <ion-col class="ion-text-start"><strong>SAISON</strong></ion-col>
           <ion-col class="ion-text-start"><strong>CLUB</strong></ion-col>
-          <ion-col ><strong>PAYS</strong></ion-col>
+          <ion-col><strong>PAYS</strong></ion-col>
         </ion-row>
         <ion-row *ngFor="let club of tabClub.history">
           <ion-col>{{club.season}}</ion-col>
@@ -47,22 +50,28 @@
   <ion-card>
     <ion-card-header>
       <ion-grid>
+        <!-- <ion-icon name="document-text-outline" id="iconCard"></ion-icon> -->
         <ion-row>
-            <ion-card-title>Offre du club</ion-card-title>
+          <ion-card-title>Offre du club</ion-card-title>
         </ion-row>
       </ion-grid>
     </ion-card-header>
     <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col class="ion-text-start"><strong>DISPONIBILITÉ</strong></ion-col>
-          <ion-col class="ion-text-start"><strong>NATIONALITÉ</strong></ion-col>
-          <ion-col ><strong>POSTE</strong></ion-col>
+          <ion-col class="ion-text-start"><strong>DISPO</strong></ion-col>
+          <ion-col class="ion-text-start"><strong>PAYS</strong></ion-col>
+          <ion-col><strong>POSTE</strong></ion-col>
+          <ion-col></ion-col>
         </ion-row>
         <ion-row *ngFor="let offer of tabClub.offers">
-          <ion-col>{{offer.availability}}</ion-col>
+          <ion-col>{{offer.availability | date:'shortDate'}}</ion-col>
           <ion-col>{{offer.nationality}}</ion-col>
-          <ion-col >{{offer.poste}}</ion-col>
+          <ion-col>{{offer.poste}}</ion-col>
+          <ion-col>
+            <ion-button color="light" size="small">VOIR<ion-icon name="search-outline" slot="end"></ion-icon>
+            </ion-button>
+          </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>
