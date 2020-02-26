@@ -42,6 +42,16 @@
       </div>
 
       <ion-item>
+        <ion-label position="floating">Mot de passe</ion-label>
+        <ion-input type="password" formControlName="password" value=""></ion-input>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.password">
+        <ng-container *ngIf="password.hasError(error.type) && (password.dirty || password.touched)">
+          <small class="error-message">{{error.message}}</small>
+        </ng-container>
+      </div>
+
+      <ion-item>
         <ion-label position="floating">Photo</ion-label>
         <ion-input></ion-input>
         <ion-row class="rowImg">

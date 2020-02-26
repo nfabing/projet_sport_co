@@ -19,7 +19,7 @@ export class PlayerCvPage implements OnInit {
   public strongs = [];
   public values = {};
   public toast: any;
-  public idUser = null;
+  public idUser = '';
 
 
   constructor(
@@ -32,19 +32,17 @@ export class PlayerCvPage implements OnInit {
     public router: Router) { }
 
   ngOnInit() {
-    
   }
 
   ionViewWillEnter() {
     this.storage.get('id_user').then((val) => {
       this.idUser = val;
+      if (this.idUser != null) {
+        this.getPlayerInfo(this.idUser);
+      } else {  
+        this.router.navigate(['']);
+      }
     });
-    this.idUser = 1;
-    if (this.idUser == null) {
-      this.router.navigate([''])
-    } else {
-      this.getPlayerInfo(this.idUser);
-    }
   }
 
   async presentModal() {
@@ -59,7 +57,7 @@ export class PlayerCvPage implements OnInit {
     await modal.present();
     const { data } = await modal.onWillDismiss();
     if(data['dismissed'] == true){
-      this.getPlayerInfo(1);
+      this.getPlayerInfo(this.idUser);
     }
   }
 
@@ -79,7 +77,7 @@ export class PlayerCvPage implements OnInit {
           test = this.Http.post("https://nicolasfabing.fr/ionic/delete_player_clubs.php", postData)
           test.subscribe(res => {
             this.showToast(res);
-            this.getPlayerInfo(1);
+            this.getPlayerInfo(this.idUser);
           });
         }
       }
@@ -87,15 +85,10 @@ export class PlayerCvPage implements OnInit {
     });
 
     await alert.present();
-    let result = await alert.onDidDismiss();
-    console.log(result);
   }
 
 
   public getPlayerInfo(idPlayer): void {
-    // this.storage.get('id_user').then((val) => {
-    //   this.idUser = val;
-    // });
     let data: Observable<any>;
     data = this.Http.get("https://nicolasfabing.fr/ionic/player_profil.php?idPlayer=" + idPlayer)
     data.subscribe(result => {
@@ -166,12 +159,10 @@ export class PlayerCvPage implements OnInit {
           champ.subscribe(resultat => {
             let champName = resultat[0]['nom']
             this.tabPlayer['palmares'][i]['championship'] = "" + champName;
-            console.log(champName);
           })
 
         }
       })
-      console.log(this.tabPlayer);
     });
 
     let poste: Observable<any>;
@@ -266,7 +257,6 @@ export class PlayerCvPage implements OnInit {
     bdUser = year + '-' + month + '-' + dt;
     this.registrationForm.get('birth_date').setValue(bdUser)
 
-    console.log(this.registrationForm.value);
     let birth_date = this.registrationForm.get('birth_date').value;
     let birth_place = this.registrationForm.get('birth_place').value;
     let birth_country = this.registrationForm.get('birth_country').value;
@@ -295,12 +285,9 @@ export class PlayerCvPage implements OnInit {
     postData.append("id_position", id_position);
     postData.append("id_player", id_player);
 
-    console.log(postData);
-
     let test: Observable<any>;
     test = this.Http.post("https://nicolasfabing.fr/ionic/update_player_cv.php", postData)
     test.subscribe(res => {
-      console.log(res);
       this.showToast(res);
     })
 

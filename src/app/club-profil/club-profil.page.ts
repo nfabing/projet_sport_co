@@ -26,18 +26,19 @@ export class ClubProfilPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.storage.set('id_club', 2)
   }
 
   ionViewWillEnter() {
     this.storage.get('id_club').then((val) => {
       this.idClub = val;
+      if (this.idClub == null) {
+        this.router.navigate([''])
+      } else {
+        this.getPlayerInfo(this.idClub);
+      }
     });
-    this.idClub = 1;
-    if (this.idClub == null) {
-      this.router.navigate([''])
-    } else {
-      this.getPlayerInfo(this.idClub);
-    }
+
   }
 
   public getPlayerInfo(idClub): void {

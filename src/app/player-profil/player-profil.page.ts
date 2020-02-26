@@ -16,7 +16,7 @@ export class PlayerProfilPage implements OnInit {
 
   public tabPlayer = [];
   public values = {};
-  public idUser = null;
+  public idUser = "";
   public file = null;
   public img_new = null;
   public imgUser = null;
@@ -34,23 +34,16 @@ export class PlayerProfilPage implements OnInit {
 
   ionViewWillEnter() {
 
-    var input = document.getElementById('inputFile').firstChild;
-    // input.style.padding = "50px";
-    console.log(input);
+    this.storage.get('id_user').then((val) => {
+      this.idUser = val;
+      if (this.idUser != null) {
+        this.getPlayerInfo(this.idUser);
+      } else {  
+        this.router.navigate(['']);
+      }
+    });
 
-    // this.storage.get('id_user').then((val) => {
-    //   this.idUser = val;
-    // });
-    this.idUser = 1;
-    console.log("ionWillEnter : "+this.idUser);
-    if (this.idUser == null) {
-      this.router.navigate([''])
-    } else {
-      this.getPlayerInfo(this.idUser);
-    }
   }
-
-
 
   private fileReader(file: any) {
     const reader = new FileReader();
@@ -68,7 +61,6 @@ export class PlayerProfilPage implements OnInit {
   }
 
   async getPlayerInfo(id) {
-    console.log("idUser getPlayerInfo : "+id);
     let data: Observable<any>;
     data = this.Http.get("https://nicolasfabing.fr/ionic/player_profil.php?idPlayer=" + id)
     data.subscribe(result => {
@@ -88,6 +80,7 @@ export class PlayerProfilPage implements OnInit {
         Validators.pattern('^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$')
       ]
     ],
+    password: [''],
     file: ['']
   });
 
@@ -113,8 +106,8 @@ export class PlayerProfilPage implements OnInit {
     ],
     email: [
       { type: 'required', message: 'L\'email est requise' },
-      { type: 'pattern', message: 'Veuillez entrer un email valid' }
-    ],
+      { type: 'pattern', message: 'Veuillez entrer un email valide' }
+    ]
 
   };
 
@@ -122,7 +115,6 @@ export class PlayerProfilPage implements OnInit {
     if ($event.target.files.length > 0) {
       this.registrationForm.get('file').setValue($event.target.files[0]);
       this.file = $event.target.files[0];
-      console.log(this.file);
       let reader = new FileReader();
       reader.onload = ($event: any) => {
         this.img_new = $event.target.result;
@@ -134,15 +126,13 @@ export class PlayerProfilPage implements OnInit {
   }
 
   public submit() {
-
-    console.log(this.registrationForm.value);
-
     const formData = new FormData();
     formData.append('file', this.registrationForm.get('file').value);
     formData.append('id', this.idUser);
     formData.append('name', this.registrationForm.get('name').value);
     formData.append('first_name', this.registrationForm.get('first_name').value);
     formData.append('email', this.registrationForm.get('email').value);
+    formData.append('password', this.registrationForm.get('password').value)
 
 
 
