@@ -1,23 +1,33 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>candidature</ion-title>
+    <ion-title><h1>Candidatures</h1></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-list>
-      <div *ngFor="let appli of applications">
-      <ion-item (click)="goToCandidature(appli.id_offer)" color="primary">
-        <ion-avatar>
-          <img src="https://nicolasfabing.fr/ionic/imagesClub/{{appli.img}}" alt="">
-        </ion-avatar>
-        <ion-label>
-          <b>Club:{{ appli.name }}</b><br>
-          <b>Description:{{ appli.description }}</b><br>
-          <b>Poste:{{ appli.poste }}</b>
-        </ion-label>
-      </ion-item>
-      <br>
+  <ion-list>
+    <div *ngFor="let appli of applications">
+      <ion-card>
+        <!-- (click)="goToCandidature(appli.id_offer)" -->
+        <ion-card-header>
+          <ion-row>
+            <ion-col>
+            </ion-col>
+            <ion-col>
+              <ion-avatar>
+                <img src="https://nicolasfabing.fr/ionic/imagesClub/{{appli.img}}" alt="">
+              </ion-avatar>
+              <ion-card-subtitle>{{ appli.name }}</ion-card-subtitle>
+            </ion-col>
+            <ion-col>
+            </ion-col>
+          </ion-row>
+          <ion-card-title>Poste: {{ appli.poste }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{ appli.description }}
+        </ion-card-content>
+      </ion-card>
     </div>
-    </ion-list>
+  </ion-list>
 </ion-content>

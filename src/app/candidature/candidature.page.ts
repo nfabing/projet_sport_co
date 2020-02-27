@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { Storage } from '@ionic/storage';
+
 @Component({
   selector: 'app-candidature',
   templateUrl: './candidature.page.html',
@@ -12,22 +14,39 @@ import { Observable } from 'rxjs';
 export class CandidaturePage implements OnInit {
 
   public tabHttp: any=[];
+  public idUser=null;
+  public idClub=null;
 
 public applications: Array<{
   id_offer:number;poste:string;description:string;name:string;img:string
 }> = [];
 
-  constructor(public http:HttpClient,public router:Router) { }
+  constructor(public http:HttpClient,public router:Router,private storage: Storage) { }
 
   ngOnInit() {
   }
 
-  ionViewWillEnter(){
-    this.getListApplications(1);
+  
+ async ionViewWillEnter(){
+    this.idUser = await this.storage.get('id_user');
+    this.idClub = await this.storage.get('id_club');
+    console.log(this.idUser);
+    console.log(this.idClub);
+ 
+    if(this.idClub === 0 && this.idUser !== 0){
+      //il sagit d'un player 
+      this.getListApplications(this.idUser);
+      } 
+      if(this.idClub !== 0 && this.idUser === 0){
+      //il sagit d'un club
+      this.goToCandidatureClub();
+      } 
+    
   }
 
-  public goToCandidature(id):void{
-    this.router.navigate(['page-candidature', id]);
+
+  public goToCandidatureClub():void{
+    this.router.navigate(['page-candidature']);
   }
 
   public getListApplications(id_player):void

@@ -5,5 +5,32 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <div *ngFor="let appli of applications">
+      <ion-card>
+        <!-- (click)="goToCandidature(appli.id_offer)" -->
+        <ion-card-header>
+          <ion-row>
+            <ion-col>
+            </ion-col>
+            <ion-col>
+              <ion-avatar>
+                <img src="https://nicolasfabing.fr/ionic/imagesUsers/{{appli.img}}" alt="">
+              </ion-avatar>
+              <ion-card-subtitle>{{ appli.name }} {{ appli.firstName }}</ion-card-subtitle>
+            </ion-col>
+            <ion-col>
+            </ion-col>
+          </ion-row>
+          <ion-card-title>Poste: {{ appli.poste }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Place: {{ appli.birth_place }} <br>
+          Country: {{ appli.birth_country }} <br>
+        </ion-card-content>
+        <ion-button expand="full" color="success">Valider Candidature</ion-button>
+      </ion-card>
+      
+    </div>
+  </ion-list>
 </ion-content>

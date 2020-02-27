@@ -11,7 +11,7 @@ const routes: Routes = [
     loadChildren: () => import('./candidature/candidature.module').then( m => m.CandidaturePageModule)
   },
   {
-    path: 'page-candidature/:id',
+    path: 'page-candidature',
     loadChildren: () => import('./page-candidature/page-candidature.module').then( m => m.PageCandidaturePageModule)
   }
 
