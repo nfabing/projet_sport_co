@@ -126,7 +126,7 @@ export class Tab2Page {
             values = this.HttpClient.post(url, httpOptions);
             values.subscribe(res => {
                 return alert('offre supprimée');
-            }
+            });
         } else if (updateinput.checked === true) {
             console.log('modification');
             // tslint:disable-next-line:max-line-length
@@ -135,7 +135,7 @@ export class Tab2Page {
             values = this.HttpClient.post(url, httpOptions);
             values.subscribe(res => {
                 return alert('offre mise à jour');
-            }
+            });
         } else if (addinput.checked === true) {
             console.log('ajout');
             // tslint:disable-next-line:max-line-length
