@@ -11,7 +11,9 @@ export class LoginRegisterPage implements OnInit {
 
   constructor(public router: Router, private menuController: MenuController) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     this.menuController.enable(false, 'main');
   }
 

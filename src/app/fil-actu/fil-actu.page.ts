@@ -10,9 +10,13 @@ export class FilActuPage implements OnInit {
   public fluxrss: Array<{ id: number; title: string; description: string; img: string}> = [];
   constructor(private menuController: MenuController) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
       this.menuController.enable(true, 'main');
+      this.getRss();
   }
+
 
   async getRss()
   {
@@ -34,9 +38,5 @@ export class FilActuPage implements OnInit {
       console.log('lougout');
   }
 
-  ionViewWillEnter()
-  {
-      this.getRss();
-  }
 
 }

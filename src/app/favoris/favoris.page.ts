@@ -28,7 +28,6 @@ export class FavorisPage implements OnInit {
     }
 
     fetchData() {
-        this.storage.get('id_user').then(value => console.log(value));
         this.httpClient.get<any>(`https://nicolasfabing.fr/ionic/list_favorites.php?id=${this.idPlayer}`)
             .subscribe(favorite => {
                 this.favorites = favorite;

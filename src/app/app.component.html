@@ -1,20 +1,56 @@
 <ion-app>
-  <ion-menu side="start" menuId="main" contentId="main_content">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Navigation</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <ion-list *ngFor="let pages of navigate">
-        <ion-menu-toggle auto-hide="true">
-          <ion-item [routerLink]="pages.url" routerDirection="forward">
-            <ion-icon [name]="pages.icon" slot="start"></ion-icon>
-            {{pages.title}}
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
-  <ion-router-outlet id="main_content" [swipeGesture]="false"></ion-router-outlet>
+    <ion-menu side="start" menuId="main" contentId="main_content">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>Navigation</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-list>
+
+                <ng-container *ngFor="let pages of navigateMainStart">
+                    <ion-menu-toggle auto-hide="true">
+                        <ion-item [routerLink]="pages.url" routerDirection="forward">
+                            <ion-icon [name]="pages.icon" slot="start"></ion-icon>
+                            {{pages.title}}
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ng-container>
+
+                <ng-container *ngIf="idClub > 0">
+                    <ng-container *ngFor="let pages of navigateClub">
+                        <ion-menu-toggle auto-hide="true">
+                            <ion-item [routerLink]="pages.url" routerDirection="forward">
+                                <ion-icon [name]="pages.icon" slot="start"></ion-icon>
+                                {{pages.title}}
+                            </ion-item>
+                        </ion-menu-toggle>
+                    </ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="idUser > 0 ">
+                    <ng-container *ngFor="let pages of navigateUser">
+                        <ion-menu-toggle auto-hide="true">
+                            <ion-item [routerLink]="pages.url" routerDirection="forward">
+                                <ion-icon [name]="pages.icon" slot="start"></ion-icon>
+                                {{pages.title}}
+                            </ion-item>
+                        </ion-menu-toggle>
+                    </ng-container>
+                </ng-container>
+
+
+                <ng-container *ngFor="let pages of navigateMainEnd">
+                    <ion-menu-toggle auto-hide="true">
+                        <ion-item [routerLink]="pages.url" routerDirection="forward">
+                            <ion-icon [name]="pages.icon" slot="start"></ion-icon>
+                            {{pages.title}}
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ng-container>
+
+            </ion-list>
+        </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main_content" [swipeGesture]="false"></ion-router-outlet>
 </ion-app>

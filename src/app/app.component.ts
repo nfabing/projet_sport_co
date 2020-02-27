@@ -3,6 +3,7 @@ import {Component} from '@angular/core';
 import {Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
+import {Storage} from '@ionic/storage';
 
 @Component({
     selector: 'app-root',
@@ -10,14 +11,19 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
     styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-    navigate: any;
+    navigateMainStart: any;
+    navigateMainEnd: any;
+    navigateUser: any;
+    navigateClub: any;
+    idUser: number;
+    idClub: number;
+
     constructor(
         private platform: Platform,
         private splashScreen: SplashScreen,
         private statusBar: StatusBar,
+        private storage: Storage,
     ) {
-
-        this.sideMenu();
         this.initializeApp();
     }
 
@@ -25,17 +31,25 @@ export class AppComponent {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+            this.storage.get('id_user').then((value => this.idUser = value));
+            this.storage.get('id_club').then((value => this.idClub = value));
+            this.sideMenu();
         });
     }
 
     sideMenu() {
-        this.navigate =
+
+        this.navigateMainStart =
             [
                 {
                     title: 'Fil d\'actualités',
                     url: '/fil-actu',
                     icon: 'newspaper-outline'
                 },
+            ];
+
+        this.navigateUser =
+            [
                 {
                     title: 'Recherche club',
                     url: '/search-club',
@@ -44,11 +58,6 @@ export class AppComponent {
                 {
                     title: 'Recherche offre',
                     url: '/search-offer',
-                    icon: 'cube-outline'
-                },
-                {
-                    title: 'Recherche joueur',
-                    url: '/search-player',
                     icon: 'cube-outline'
                 },
                 {
@@ -66,6 +75,24 @@ export class AppComponent {
                     url: '/',
                     icon: 'person-outline'
                 },
+            ];
+
+
+        this.navigateClub = [
+            {
+                title: 'Recherche joueur',
+                url: '/search-player',
+                icon: 'cube-outline'
+            },
+            {
+                title: 'Mon Club',
+                url: '/',
+                icon: 'person-outline'
+            }
+        ];
+
+        this.navigateMainEnd =
+            [
                 {
                     title: 'Mentions Légales',
                     url: '/legalnotice',
@@ -76,8 +103,8 @@ export class AppComponent {
                     url: '/logout',
                     icon: 'log-out-outline'
                 }
-
-
             ];
     }
+
 }
+
