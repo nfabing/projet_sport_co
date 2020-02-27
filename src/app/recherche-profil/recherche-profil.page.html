@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profil - {{tabPlayer.first_name}} {{tabPlayer.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header class="ion-align-items-center" id="firstCardHeader">
+      <ion-avatar>
+        <img src="https://nicolasfabing.fr/ionic/imagesUsers/{{idPlayer}}.jpg">
+      </ion-avatar>
+      <div id="firstCardHeaderRight">
+        <ion-card-title>{{tabPlayer.first_name}} {{tabPlayer.name}}</ion-card-title>
+        <ion-card-subtitle>{{tabPlayer.email}}</ion-card-subtitle>
+      </div>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="titlecard"><strong>NAISSANCE</strong></div>
+      <ion-row>
+        <ion-col>
+          <div><strong>Date : </strong>{{tabPlayer.birth_date}}</div>
+        </ion-col>
+        <ion-col>
+          <div><strong>Lieux : </strong>{{tabPlayer.birth_place}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div><strong>Pays : </strong>{{tabPlayer.birth_country}}</div>
+        </ion-col>
+      </ion-row>
+      <br>
+      <div class="titlecard"><strong>CARACTÉRISTIQUES</strong></div>
+      <ion-row>
+        <ion-col>
+          <div><strong>Poid : </strong>{{tabPlayer.weight}}kg</div>
+        </ion-col>
+        <ion-col>
+          <div><strong>Taille : </strong>{{tabPlayer.size}}cm</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div><strong>Poste : </strong>{{tabPlayer.poste}}</div>
+        </ion-col>
+        <ion-col>
+          <div><strong>Pied : </strong>{{tabPlayer.strong}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Parcours en club</ion-card-title>
+      <ion-icon id="iconCoinCard" name="football-outline"></ion-icon>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngFor="let club of tabPlayer.parcour">
+        <div class="titlecard"><strong>SAISON : </strong>{{club.season_start}}/{{club.season_end}}</div>
+        <ion-row>
+          <ion-col>
+            <div><strong>Club : </strong>{{club.name}}</div>
+          </ion-col>
+          <ion-col>
+            <div><strong>Poste : </strong>{{club.poste}}</div>
+          </ion-col>
+        </ion-row>
+        <br>
+        </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Palmares</ion-card-title>
+      <ion-icon id="iconCoinCard" name="trophy-outline"></ion-icon>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngFor="let pal of tabPlayer.palmares">
+        <div class="titlecard"><strong>SAISON : </strong>{{pal.season_start}}/{{pal.season_end}}</div>
+        <ion-row>
+          <ion-col>
+            <div><strong>Club : </strong>{{pal.name}}</div>
+          </ion-col>
+          <ion-col>
+            <div><strong>Ligue : </strong>{{pal.nom}}</div>
+          </ion-col>
+        </ion-row>
+        <br>
+        </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

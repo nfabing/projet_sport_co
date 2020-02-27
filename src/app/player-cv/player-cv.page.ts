@@ -32,14 +32,15 @@ export class PlayerCvPage implements OnInit {
     public router: Router) { }
 
   ngOnInit() {
+    this.storage.set('id_user', 1)
   }
 
-  ionViewWillEnter() {
-    this.storage.get('id_user').then((val) => {
+  async ionViewWillEnter() {
+    await this.storage.get('id_user').then((val) => {
       this.idUser = val;
       if (this.idUser != null) {
         this.getPlayerInfo(this.idUser);
-      } else {  
+      } else {
         this.router.navigate(['']);
       }
     });
@@ -56,7 +57,7 @@ export class PlayerCvPage implements OnInit {
       })
     await modal.present();
     const { data } = await modal.onWillDismiss();
-    if(data['dismissed'] == true){
+    if (data['dismissed'] == true) {
       this.getPlayerInfo(this.idUser);
     }
   }
@@ -110,7 +111,6 @@ export class PlayerCvPage implements OnInit {
       let getClubId: Observable<any>;
       getClubId = this.Http.get("https://nicolasfabing.fr/ionic/player_club_by_id_player.php?idPlayer=" + idPlayer);
       getClubId.subscribe(resClub => {
-        console.log(resClub);
         this.tabPlayer['historique_des_clubs'] = resClub;
         for (let i = 0; i < this.tabPlayer['historique_des_clubs']['length']; i++) {
           let season = resClub[i]['season_start'] + "/" + resClub[i]['season_end'];
@@ -136,23 +136,16 @@ export class PlayerCvPage implements OnInit {
         }
       })
 
+
       //Recupere le palmares du joueur
       let getPalmares: Observable<any>;
       getPalmares = this.Http.get("https://nicolasfabing.fr/ionic/palmares_by_id_player.php?idPlayer=" + idPlayer);
       getPalmares.subscribe(res => {
         this.tabPlayer['palmares'] = res;
         for (let i = 0; i < this.tabPlayer['palmares']['length']; i++) {
-
           let season = res[i]['season_start'] + "/" + res[i]['season_end'];
           let idChamp = res[i]['id_championship'];
           let idClub = res[i]['id_club'];
-
-          let clubUser: Observable<any>;
-          clubUser = this.Http.get("https://nicolasfabing.fr/ionic/club_profil_by_id.php?idClub=" + idClub);
-          clubUser.subscribe(resultat => {
-            this.tabPlayer['palmares'][i] = resultat[0];
-            this.tabPlayer['palmares'][i]['season'] = season;
-          })
 
           let champ: Observable<any>;
           champ = this.Http.get("https://nicolasfabing.fr/ionic/championship_by_id.php?idChamp=" + idChamp);
@@ -161,6 +154,13 @@ export class PlayerCvPage implements OnInit {
             this.tabPlayer['palmares'][i]['championship'] = "" + champName;
           })
 
+          let clubUser: Observable<any>;
+          clubUser = this.Http.get("https://nicolasfabing.fr/ionic/club_profil_by_id.php?idClub=" + idClub);
+          clubUser.subscribe(resultat => {
+            this.tabPlayer['palmares'][i] = resultat[0];
+            this.tabPlayer['palmares'][i]['season'] = season;
+
+          })
         }
       })
     });
@@ -177,9 +177,6 @@ export class PlayerCvPage implements OnInit {
     strong.subscribe(res => {
       this.strongs = res;
     })
-
-
-
 
   }
 

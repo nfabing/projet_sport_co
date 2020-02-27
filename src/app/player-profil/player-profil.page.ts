@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators } from "@angular/forms";
 import { Storage } from '@ionic/storage';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
 
@@ -20,21 +20,21 @@ export class PlayerProfilPage implements OnInit {
   public file = null;
   public img_new = null;
   public imgUser = null;
+  public typeUser = false;
 
   constructor(
     public Http: HttpClient,
     private formBuilder: FormBuilder,
     private storage: Storage,
     private router: Router,
+    private activitedRoute: ActivatedRoute,
     private tc: ToastController) { }
 
   ngOnInit() {
-    
   }
 
-  ionViewWillEnter() {
-
-    this.storage.get('id_user').then((val) => {
+  async ionViewWillEnter() {
+    await this.storage.get('id_user').then((val) => {
       this.idUser = val;
       if (this.idUser != null) {
         this.getPlayerInfo(this.idUser);
@@ -42,7 +42,6 @@ export class PlayerProfilPage implements OnInit {
         this.router.navigate(['']);
       }
     });
-
   }
 
   private fileReader(file: any) {

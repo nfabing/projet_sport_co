@@ -13,10 +13,19 @@ const routes: Routes = [
   {
     path: 'player-cv',
     loadChildren: () => import('./player-cv/player-cv.module').then( m => m.PlayerCvPageModule)
-  },  {
+  },
+  {
     path: 'club-profil',
     loadChildren: () => import('./club-profil/club-profil.module').then( m => m.ClubProfilPageModule)
+  },  {
+    path: 'recherche-profil',
+    loadChildren: () => import('./recherche-profil/recherche-profil.module').then( m => m.RechercheProfilPageModule)
+  },
+  {
+    path: 'recherche-club',
+    loadChildren: () => import('./recherche-club/recherche-club.module').then( m => m.RechercheClubPageModule)
   }
+
 
 
 

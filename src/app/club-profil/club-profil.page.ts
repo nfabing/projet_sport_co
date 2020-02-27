@@ -6,6 +6,7 @@ import { ToastController, ModalController, AlertController } from '@ionic/angula
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-club-profil',
   templateUrl: './club-profil.page.html',
@@ -29,8 +30,8 @@ export class ClubProfilPage implements OnInit {
     this.storage.set('id_club', 2)
   }
 
-  ionViewWillEnter() {
-    this.storage.get('id_club').then((val) => {
+  async ionViewWillEnter() {
+    await this.storage.get('id_club').then((val) => {
       this.idClub = val;
       if (this.idClub == null) {
         this.router.navigate([''])
@@ -38,16 +39,19 @@ export class ClubProfilPage implements OnInit {
         this.getPlayerInfo(this.idClub);
       }
     });
-
   }
 
-  public getPlayerInfo(idClub): void {
+  public getPlayerInfo(idClub) {
     let data: Observable<any>;
     data = this.Http.get("https://nicolasfabing.fr/ionic/club_profil_by_id.php?idClub=" + idClub)
     data.subscribe(result => {
       this.tabClub = result[0];
-      console.log(result);
     })
+  }
+
+  public redirectToOffer(id): void
+  {
+    this.router.navigate(['offre-details', id]);
   }
 
 }

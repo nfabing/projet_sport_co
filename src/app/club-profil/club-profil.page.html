@@ -91,7 +91,7 @@
           <ion-col>{{offer.nationality}}</ion-col>
           <ion-col>{{offer.poste}}</ion-col>
           <ion-col>
-            <ion-button color="light" size="small">VOIR<ion-icon name="search-outline" slot="end"></ion-icon>
+            <ion-button color="light" size="small" (click)="redirectToOffer(offer.id)">VOIR<ion-icon name="search-outline" slot="end"></ion-icon>
             </ion-button>
           </ion-col>
         </ion-row>

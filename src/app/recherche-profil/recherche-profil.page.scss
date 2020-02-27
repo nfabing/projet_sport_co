@@ -1,0 +1,19 @@
+#firstCardHeader{
+    display: flex;
+}
+
+#firstCardHeaderRight{
+    margin-left: 15px;
+}
+
+.titlecard{
+    border-bottom: 1px solid black;
+}
+
+#iconCoinCard{
+    position: absolute;
+    font-size: 5em;
+    opacity: 0.5;
+    right: 0;
+    top: 0;
+}
