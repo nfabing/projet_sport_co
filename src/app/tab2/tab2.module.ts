@@ -3,15 +3,29 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
 import { Tab2Page } from './tab2.page';
+import { IonicStorageModule } from '@ionic/storage';
+import construct = Reflect.construct;
+import { HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{ path: '', component: Tab2Page }])
+    ReactiveFormsModule,
+    RouterModule.forChild([{ path: '', component: Tab2Page }]),
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+      driverOrder: ['indexeddb', 'sqlite', 'websql']
+    })
   ],
   declarations: [Tab2Page]
 })
-export class Tab2PageModule {}
+
+export class Tab2PageModule {
+
+
+}
