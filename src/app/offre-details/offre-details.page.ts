@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 import {AlertController, ToastController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
+import {GlobalService} from '../global.service';
 
 @Component({
     selector: 'app-offre-details',
@@ -20,21 +21,21 @@ export class OffreDetailsPage implements OnInit {
     private isFavorite: boolean;
     private isApplied: boolean;
     private idOffer: number;
-    private idPlayer: number;
     public offers: Array<{
         id: number; club_name: string; offer_description: string; poste: string; foot: string; availability: string;
         championnat: string; nationality: string; country: string; img_club: string
     }> = [];
 
 
-    constructor(private httpClient: HttpClient, private activatedRoute: ActivatedRoute,
-                private alertController: AlertController, private toastController: ToastController, private storage: Storage) {}
+    constructor(private httpClient: HttpClient, private activatedRoute: ActivatedRoute, private alertController: AlertController,
+                private toastController: ToastController, private storage: Storage, private globalService: GlobalService) {
+    }
 
-    ngOnInit() {}
+    ngOnInit() {
+    }
 
-    async ionViewWillEnter() {
-        await this.storage.get('id_user').then( value => this.idPlayer = value);
-        this.idOffer = await parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
+    ionViewWillEnter() {
+        this.idOffer = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
         this.fetchDataGet();
         this.checkIfFavorite();
         this.checkIfApplied();
@@ -42,7 +43,7 @@ export class OffreDetailsPage implements OnInit {
 
     checkIfApplied(): void {
         // tslint:disable-next-line:max-line-length
-        this.httpClient.get<any>(`${this.baseURI}check_application.php?player=${this.idPlayer}&offer=${this.idOffer}`, {observe: 'response'})
+        this.httpClient.get<any>(`${this.baseURI}check_application.php?player=${this.globalService.idUser}&offer=${this.idOffer}`, {observe: 'response'})
             .subscribe(data => {
                 this.isApplied = data.body;
                 {
@@ -53,7 +54,8 @@ export class OffreDetailsPage implements OnInit {
     }
 
     checkIfFavorite(): void {
-        this.httpClient.get<any>(`${this.baseURI}check_favorite.php?player=${this.idPlayer}&offer=${this.idOffer}`, {observe: 'response'})
+        this.httpClient.get<any>(`${this.baseURI}check_favorite.php?player=${this.globalService.idUser}&offer=${this.idOffer}`,
+            {observe: 'response'})
             .subscribe(data => {
                 this.isFavorite = data.body;
                 {
@@ -75,7 +77,7 @@ export class OffreDetailsPage implements OnInit {
         if (this.imgFavorite === 'assets/img/heartEmpty.png') {
 
             const postData = new HttpParams()
-                .set('player', this.idPlayer.toString(10))
+                .set('player', this.globalService.idUser.toString(10))
                 .set('offer', this.idOffer.toString(10));
 
             this.httpClient.post<any>(`${this.baseURI}/add_fav.php`, postData, {observe: 'response'})
@@ -88,7 +90,8 @@ export class OffreDetailsPage implements OnInit {
 
         if (this.imgFavorite === 'assets/img/heartFull.png') {
 
-            this.httpClient.delete(`${this.baseURI}remove_fav.php?offer=${this.idOffer}&player=${this.idPlayer}`, {observe: 'response'})
+            this.httpClient.delete(`${this.baseURI}remove_fav.php?offer=${this.idOffer}&player=${this.globalService.idUser}`,
+                {observe: 'response'})
                 .subscribe(data => {
                     this.isFavorite = false;
                     this.imgFavorite = 'assets/img/heartEmpty.png';
@@ -131,7 +134,7 @@ export class OffreDetailsPage implements OnInit {
 
     addApplication() {
         const postData = new HttpParams()
-            .set('player', this.idPlayer.toString(10))
+            .set('player', this.globalService.idUser.toString(10))
             .set('offer', this.idOffer.toString(10));
 
         this.httpClient.post(`${this.baseURI}/add_application.php`, postData, {observe: 'response'})
@@ -146,7 +149,8 @@ export class OffreDetailsPage implements OnInit {
 
 
     removeApplication() {
-        this.httpClient.delete(`${this.baseURI}remove_application.php?offer=${this.idOffer}&player=${this.idPlayer}`, {observe: 'response'})
+        this.httpClient.delete(`${this.baseURI}remove_application.php?offer=${this.idOffer}&player=${this.globalService.idUser}`,
+            {observe: 'response'})
             .subscribe(data => {
                 this.isApplied = false;
                 this.textButton = 'Envoyer votre candidature';

@@ -7,6 +7,7 @@ import {Storage} from '@ionic/storage';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {parseJson} from '@angular-devkit/core';
+import {GlobalService} from '../global.service';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class RegisterPage implements OnInit {
 
     data: any;
 
-    constructor(private formBuilder: FormBuilder, private storage: Storage, private httpClient: HttpClient, private router: Router) {
+    constructor(private formBuilder: FormBuilder, private storage: Storage, private httpClient: HttpClient, private router: Router,
+                private globalService: GlobalService) {
     }
 
     registrationForm = this.formBuilder.group({
@@ -70,7 +72,11 @@ export class RegisterPage implements OnInit {
                             console.log(post[0]['id']);
                             this.storage.set('id_user', post[0]['id'].toString());
                             this.storage.set('id_club', '0');
-                            this.router.navigate(['']);//TODO Chemin page d'accueill
+                            // Ajout des valeurs au service
+                            this.globalService.idClub = 0;
+                            this.globalService.idUser = post[0].id;
+
+                            this.router.navigate(['fil-actu']);
                         }
                     }, error => {
                         console.log(error);

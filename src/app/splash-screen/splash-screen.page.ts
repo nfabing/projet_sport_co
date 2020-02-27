@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
 import {forEach} from '@angular-devkit/schematics';
+import {GlobalService} from '../global.service';
 
 @Component({
     selector: 'app-splash-screen',
@@ -13,7 +14,7 @@ export class SplashScreenPage implements OnInit {
     public idUser: any;
     public idClub: any;
 
-    constructor(private router: Router, private storage: Storage) {
+    constructor(private router: Router, private storage: Storage, private globalService: GlobalService) {
     }
 
     progress(idplayer, idclub) {
@@ -54,6 +55,9 @@ export class SplashScreenPage implements OnInit {
         try {
             this.idUser = await this.storage.get('id_user');
             this.idClub = await this.storage.get('id_club');
+            // Ajout des valeurs au services
+            this.globalService.idClub = this.idClub;
+            this.globalService.idUser = this.idUser;
         } catch (e) {
             console.log('null');
         }

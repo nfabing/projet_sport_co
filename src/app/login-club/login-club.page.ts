@@ -3,6 +3,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {Storage} from '@ionic/storage';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {GlobalService} from '../global.service';
 
 @Component({
   selector: 'app-login-club',
@@ -13,7 +14,8 @@ export class LoginClubPage implements OnInit {
 
   data: any;
 
-  constructor(private formBuilder: FormBuilder, private storage: Storage, private httpClient: HttpClient, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private storage: Storage, private httpClient: HttpClient, private router: Router,
+              private globalService: GlobalService) {
   }
 
   loginForm = this.formBuilder.group({
@@ -65,6 +67,10 @@ export class LoginClubPage implements OnInit {
         console.log(post[0]['id']);
         this.storage.set('id_club', post[0]['id'].toString());
         this.storage.set('id_user', '0');
+        // Ajout des valeurs au service
+        this.globalService.idClub = post[0].id;
+        this.globalService.idUser = 0;
+
         this.router.navigate(['fil-actu']);
       }, error => {
         console.log(error);

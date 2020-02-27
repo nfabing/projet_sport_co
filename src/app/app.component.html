@@ -17,7 +17,7 @@
                     </ion-menu-toggle>
                 </ng-container>
 
-                <ng-container *ngIf="idClub > 0">
+                <ng-container *ngIf="globalService.idClub > 0">
                     <ng-container *ngFor="let pages of navigateClub">
                         <ion-menu-toggle auto-hide="true">
                             <ion-item [routerLink]="pages.url" routerDirection="forward">
@@ -28,7 +28,7 @@
                     </ng-container>
                 </ng-container>
 
-                <ng-container *ngIf="idUser > 0 ">
+                <ng-container *ngIf="globalService.idUser > 0">
                     <ng-container *ngFor="let pages of navigateUser">
                         <ion-menu-toggle auto-hide="true">
                             <ion-item [routerLink]="pages.url" routerDirection="forward">

@@ -4,6 +4,7 @@ import {Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {Storage} from '@ionic/storage';
+import {GlobalService} from './global.service';
 
 @Component({
     selector: 'app-root',
@@ -23,6 +24,7 @@ export class AppComponent {
         private splashScreen: SplashScreen,
         private statusBar: StatusBar,
         private storage: Storage,
+        private globalService: GlobalService,
     ) {
         this.initializeApp();
     }

@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Storage} from '@ionic/storage';
 import {Router} from '@angular/router';
+import {GlobalService} from '../global.service';
 
 @Component({
     selector: 'app-club-register',
@@ -13,7 +14,8 @@ import {Router} from '@angular/router';
 export class ClubRegisterPage implements OnInit {
     data: any;
 
-    constructor(private formBuilder: FormBuilder, private storage: Storage, private httpClient: HttpClient, private router: Router) {
+    constructor(private formBuilder: FormBuilder, private storage: Storage, private httpClient: HttpClient, private router: Router,
+                private globalService: GlobalService) {
     }
 
 
@@ -55,7 +57,11 @@ export class ClubRegisterPage implements OnInit {
                             console.log(post[0]['id']);
                             this.storage.set('id_club', post[0]['id'].toString());
                             this.storage.set('id_user', '0');
-                            this.router.navigate(['']);//TODO Chemin page d'accueill
+                            // Ajout des valeurs au service
+                            this.globalService.idClub = post[0].id;
+                            this.globalService.idUser = 0;
+
+                            this.router.navigate(['fil-actu']);
                         }
                     }, error => {
                         console.log(error);
