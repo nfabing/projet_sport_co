@@ -122,25 +122,34 @@ export class Tab2Page {
         if (deleteinput.checked === true) {
             console.log('suppression');
             const url = 'https://nicolasfabing.fr/ionic/delete_offre.php/?id_offre=' + idoffre;
+            let values: Observable<any>;
+            values = this.HttpClient.post(url, httpOptions);
+            values.subscribe(res => {
+                return alert('offre supprimée');
+            }
         } else if (updateinput.checked === true) {
             console.log('modification');
             // tslint:disable-next-line:max-line-length
             const url = 'https://nicolasfabing.fr/ionic/update_offre.php/?desc=' + desc + '&niveau=' + niveau + '&poste=' + poste + '&pied=' + pied + '&pays=' + pays + '&disponibilite=' + disponibilite + '&nationalite=' + nationalite + '&id_club=' + id_club + '&id_offre=' + idoffre;
+            let values: Observable<any>;
+            values = this.HttpClient.post(url, httpOptions);
+            values.subscribe(res => {
+                return alert('offre mise à jour');
+            }
         } else if (addinput.checked === true) {
             console.log('ajout');
             // tslint:disable-next-line:max-line-length
             const url = 'https://nicolasfabing.fr/ionic/insert_offre.php/?desc=' + desc + '&niveau=' + niveau + '&poste=' + poste + '&pied=' + pied + '&pays=' + pays + '&disponibilite=' + disponibilite + '&nationalite=' + nationalite + '&id_club=' + id_club;
-        // tslint:disable-next-line:max-line-length
+            // tslint:disable-next-line:max-line-length
             let values: Observable<any>;
             values = this.HttpClient.post(url, httpOptions);
             values.subscribe(res => {
-            return alert('offre ajoutée');
-        });
+                return alert('offre ajoutée');
+            });
+        }
     }
 
-    }
-
-    public UpdateDisplay() {
+    public UpdateDisplay(){
         const updateinput = document.getElementById('updateoffer') as HTMLInputElement;
         const deleteinput = document.getElementById('deleteoffer') as HTMLInputElement;
         const addinput = document.getElementById('addoffer') as HTMLInputElement;
