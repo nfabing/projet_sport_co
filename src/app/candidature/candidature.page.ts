@@ -26,22 +26,21 @@ public applications: Array<{
   ngOnInit() {
   }
 
-  
- async ionViewWillEnter(){
-    this.idUser = await this.storage.get('id_user');
-    this.idClub = await this.storage.get('id_club');
-    console.log(this.idUser);
-    console.log(this.idClub);
- 
-    if(this.idClub === 0 && this.idUser !== 0){
-      //il sagit d'un player 
+
+ async ionViewWillEnter() {
+      await this.storage.get('id_user').then(value => this.idUser = parseInt(value, 10));
+      await this.storage.get('id_club').then(value => this.idClub = parseInt(value, 10));
+        // console.log(this.idUser);
+        // console.log(this.idClub);
+
+      if(this.idClub === 0 && this.idUser !== 0) {
+      // il s'agit d'un player
       this.getListApplications(this.idUser);
-      } 
-      if(this.idClub !== 0 && this.idUser === 0){
-      //il sagit d'un club
+      } else if (this.idClub !== 0 && this.idUser === 0) {
+      // il s'agit d'un club
       this.goToCandidatureClub();
-      } 
-    
+      }
+
   }
 
 
@@ -61,7 +60,7 @@ public applications: Array<{
   }
 
   public goToOffre(appli){
-    this.router.navigate(['offre-details'],appli.id_offer);
+    this.router.navigate(['offre-details', appli.id_offer]);
   }
 
 }

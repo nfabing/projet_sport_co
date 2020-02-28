@@ -27,21 +27,20 @@ export class PageCandidaturePage implements OnInit {
   ngOnInit() {
   }
 
-  async ionViewWillEnter(){
-    this.idUser = await this.storage.get('id_user');
-    this.idClub = await this.storage.get('id_club');
-    console.log(this.idUser);
-    console.log(this.idClub);
- 
-    if(this.idClub === 0 && this.idUser !== 0){
-      //il sagit d'un player 
+  async ionViewWillEnter() {
+    await this.storage.get('id_user').then(value => this.idUser = parseInt(value, 10));
+    await this.storage.get('id_club').then(value => this.idClub = parseInt(value, 10));
+    // console.log(this.idUser);
+    // console.log(this.idClub);
+
+    if (this.idClub === 0 && this.idUser !== 0) {
+      // il s'agit d'un player
       this.goToCandidaturePlayer();
-      } 
-      if(this.idClub !== 0 && this.idUser === 0){
-      //il sagit d'un club
+      } else if (this.idClub !== 0 && this.idUser === 0) {
+      // il s'agit d'un club
       this.getListApplicationsClub(this.idClub);
-      } 
-    
+      }
+
   }
 
   public goToCandidaturePlayer():void{

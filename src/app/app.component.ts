@@ -58,7 +58,7 @@ export class AppComponent {
             },
             {
                 title: 'Mes candidatures',
-                url: '/applications',
+                url: '/candidature',
                 icon: 'document-outline'
             },
             {
@@ -76,6 +76,11 @@ export class AppComponent {
             {
                 title: 'Recherche joueur',
                 url: '/search-player',
+                icon: 'cube-outline'
+            },
+            {
+                title: 'Candidature reçues',
+                url: '/page-candidature',
                 icon: 'cube-outline'
             },
             {
