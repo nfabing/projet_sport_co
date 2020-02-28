@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Storage} from '@ionic/storage';
 import {Router} from '@angular/router';
 import {GlobalService} from '../global.service';
+import {AlertController, ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-club-register',
@@ -15,7 +16,7 @@ export class ClubRegisterPage implements OnInit {
     data: any;
 
     constructor(private formBuilder: FormBuilder, private storage: Storage, private httpClient: HttpClient, private router: Router,
-                private globalService: GlobalService) {
+                private globalService: GlobalService, private alertController: AlertController, private toastController: ToastController) {
     }
 
 
@@ -36,6 +37,26 @@ export class ClubRegisterPage implements OnInit {
         this.processForm();
     }
 
+
+    async presentAlert() {
+        const alert = await this.alertController.create({
+            header: 'Impossible de s\'inscrire',
+            message: 'Email déjà utilisé ',
+            buttons: ['Réssayer']
+        });
+
+        await alert.present();
+    }
+
+    async showToast(msg): Promise<void> {
+        const toast = await this.toastController.create({
+            message: msg,
+            color: 'dark',
+            duration: 2000
+        });
+        await toast.present();
+    }
+
     async processForm() {
 
 
@@ -51,8 +72,8 @@ export class ClubRegisterPage implements OnInit {
 
                 this.httpClient.post('https://nicolasfabing.fr/ionic/club_register.php', postData)
                     .subscribe(post => {
-                        if (post === false) {
-                            alert('Email déjà utilisé');
+                        if (post['id'] === 0 || post['id'] === '0') {
+                            this.presentAlert();
                         } else {
                             console.log(post[0]['id']);
                             this.storage.set('id_club', post[0]['id'].toString());
@@ -70,7 +91,7 @@ export class ClubRegisterPage implements OnInit {
                 console.log(e);
             }
         } else {
-            alert('Le Mot de passe ne correspond pas !');
+            this.showToast('Les mots de passe ne correspondent pas !');
         }
 
 
@@ -139,9 +160,4 @@ export class ClubRegisterPage implements OnInit {
     ngOnInit() {
     }
 
-    ionViewWillEnter() {
-        this.storage.get('id_user').then((val) => {
-            console.log(val);
-        });
-    }
 }

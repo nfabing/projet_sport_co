@@ -4,6 +4,7 @@ import {Storage} from '@ionic/storage';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {GlobalService} from '../global.service';
+import {AlertController} from '@ionic/angular';
 
 @Component({
   selector: 'app-login-club',
@@ -15,7 +16,7 @@ export class LoginClubPage implements OnInit {
   data: any;
 
   constructor(private formBuilder: FormBuilder, private storage: Storage, private httpClient: HttpClient, private router: Router,
-              private globalService: GlobalService) {
+              private globalService: GlobalService, private alertController: AlertController) {
   }
 
   loginForm = this.formBuilder.group({
@@ -26,7 +27,6 @@ export class LoginClubPage implements OnInit {
 
   public submit() {
     this.data = this.loginForm.value;
-    console.log(this.data);
     this.processForm();
   }
 
@@ -54,24 +54,31 @@ export class LoginClubPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewWillEnter() {
-    this.storage.get('id_user').then((val) => {
-      console.log(val);
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Impossible de ce connecter',
+      message: 'Email et/ou Mot de passe incorrect',
+      buttons: ['Réssayer']
     });
+
+    await alert.present();
   }
 
   async processForm() {
     try {
       const postData = new HttpParams().set('account', 'club').set('email' , this.data['email']).set('password' , this.data['password']);
       this.httpClient.post('https://nicolasfabing.fr/ionic/login_club.php' , postData).subscribe(post => {
-        console.log(post[0]['id']);
-        this.storage.set('id_club', post[0]['id'].toString());
-        this.storage.set('id_user', '0');
-        // Ajout des valeurs au service
-        this.globalService.idClub = post[0].id;
-        this.globalService.idUser = 0;
+        if (post['id'] === 0 || post['id'] === '0') {
+          this.presentAlert();
+        } else {
+          this.storage.set('id_club', post[0]['id'].toString());
+          this.storage.set('id_user', '0');
+          /****** Ajout des valeurs au service ******/
+          this.globalService.idClub = post[0].id;
+          this.globalService.idUser = 0;
 
-        this.router.navigate(['fil-actu']);
+          this.router.navigate(['fil-actu']);
+        }
       }, error => {
         console.log(error);
       });

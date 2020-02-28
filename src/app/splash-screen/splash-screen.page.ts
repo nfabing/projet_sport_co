@@ -18,7 +18,6 @@ export class SplashScreenPage implements OnInit {
     }
 
     progress(idplayer, idclub) {
-        console.log(idplayer + ' ' + idclub);
 
         if (idplayer === null || idplayer === '' || idplayer === false || !idplayer) {
             idplayer = '0';
@@ -59,7 +58,7 @@ export class SplashScreenPage implements OnInit {
             this.globalService.idClub = this.idClub;
             this.globalService.idUser = this.idUser;
         } catch (e) {
-            console.log('null');
+            console.log(e);
         }
 
         this.progress(this.idUser.toString(), this.idClub.toString());
