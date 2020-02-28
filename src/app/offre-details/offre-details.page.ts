@@ -42,8 +42,8 @@ export class OffreDetailsPage implements OnInit {
     }
 
     checkIfApplied(): void {
-        // tslint:disable-next-line:max-line-length
-        this.httpClient.get<any>(`${this.baseURI}check_application.php?player=${this.globalService.idUser}&offer=${this.idOffer}`, {observe: 'response'})
+        this.httpClient.get<any>(`${this.baseURI}check_application.php?player=${this.globalService.idUser}&offer=${this.idOffer}`,
+            {observe: 'response'})
             .subscribe(data => {
                 this.isApplied = data.body;
                 {
@@ -160,5 +160,3 @@ export class OffreDetailsPage implements OnInit {
     }
 
 }
-
-

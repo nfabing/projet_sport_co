@@ -56,8 +56,7 @@ export class ClubSearchResultsPage implements OnInit {
   }
 
 
-  goToPageDetails(id: string) {
-      // TODO : lien vers page club
-      /*this.router.navigate();*/
+  goToPageDetails(id) {
+      this.router.navigate(['recherche-club', id]);
   }
 }
