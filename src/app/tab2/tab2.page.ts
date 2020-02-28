@@ -107,7 +107,7 @@ export class Tab2Page {
             })
         };
         console.log(this.offerForm.value);
-        const idoffre = this.offerForm.value.idoffre;
+        const id_offre = this.offerForm.value.idoffre;
         let desc = this.offerForm.value.desc;
         const niveau = this.offerForm.value.niveau;
         const poste = this.offerForm.value.poste;
@@ -121,35 +121,75 @@ export class Tab2Page {
         console.log(desc);
         if (deleteinput.checked === true) {
             console.log('suppression');
-            const url = 'https://nicolasfabing.fr/ionic/delete_offre.php/?id_offre=' + idoffre;
+            let postData = '';
+            postData += '[\n';
+            postData += '{\n';
+            postData += '"id_offre":"' + id_offre + '"\n';
+            postData += '}';
+            postData += '\n';
+            postData += ']';
+            const client = new FormData();
+            client.append('jsonClient', postData);
+            const url = 'https://nicolasfabing.fr/ionic/delete_offre.php';
             let values: Observable<any>;
-            values = this.HttpClient.post(url, httpOptions);
+            values = this.HttpClient.post(url, client);
             values.subscribe(res => {
                 return alert('offre supprimée');
             });
         } else if (updateinput.checked === true) {
             console.log('modification');
+            let postData = '';
+            postData += '[\n';
+            postData += '{\n';
+            postData += '"desc":"' + desc + '"\n,';
+            postData += '"niveau":"' + niveau + '"\n,';
+            postData += '"poste":"' + poste + '"\n,';
+            postData += '"pied":"' + pied + '"\n,';
+            postData += '"disponibilite":"' + disponibilite + '"\n,';
+            postData += '"nationalite":"' + nationalite + '"\n,';
+            postData += '"id_club":"' + id_club + '"\n,';
+            postData += '"id_offre":"' + id_offre + '"\n';
+            postData += '}';
+            postData += '\n';
+            postData += ']';
+            const client = new FormData();
+            client.append('jsonClient', postData);
             // tslint:disable-next-line:max-line-length
-            const url = 'https://nicolasfabing.fr/ionic/update_offre.php/?desc=' + desc + '&niveau=' + niveau + '&poste=' + poste + '&pied=' + pied + '&pays=' + pays + '&disponibilite=' + disponibilite + '&nationalite=' + nationalite + '&id_club=' + id_club + '&id_offre=' + idoffre;
+            const url = 'https://nicolasfabing.fr/ionic/update_offre.php';
             let values: Observable<any>;
-            values = this.HttpClient.post(url, httpOptions);
+            values = this.HttpClient.post(url, client);
             values.subscribe(res => {
                 return alert('offre mise à jour');
             });
         } else if (addinput.checked === true) {
             console.log('ajout');
+            let postData = '';
+            postData += '[\n';
+            postData += '{\n';
+            postData += '"desc":"' + desc + '"\n,';
+            postData += '"niveau":"' + niveau + '"\n,';
+            postData += '"poste":"' + poste + '"\n,';
+            postData += '"pied":"' + pied + '"\n,';
+            postData += '"disponibilite":"' + disponibilite + '"\n,';
+            postData += '"nationalite":"' + nationalite + '"\n,';
+            postData += '"id_club":"' + id_club + '"\n';
+            postData += '}';
+            postData += '\n';
+            postData += ']';
+            const client = new FormData();
+            client.append('jsonClient', postData);
             // tslint:disable-next-line:max-line-length
-            const url = 'https://nicolasfabing.fr/ionic/insert_offre.php/?desc=' + desc + '&niveau=' + niveau + '&poste=' + poste + '&pied=' + pied + '&pays=' + pays + '&disponibilite=' + disponibilite + '&nationalite=' + nationalite + '&id_club=' + id_club;
+            const url = 'https://nicolasfabing.fr/ionic/insert_offre.php';
             // tslint:disable-next-line:max-line-length
             let values: Observable<any>;
-            values = this.HttpClient.post(url, httpOptions);
+            values = this.HttpClient.post(url, client);
             values.subscribe(res => {
                 return alert('offre ajoutée');
             });
         }
     }
 
-    public UpdateDisplay(){
+    public UpdateDisplay() {
         const updateinput = document.getElementById('updateoffer') as HTMLInputElement;
         const deleteinput = document.getElementById('deleteoffer') as HTMLInputElement;
         const addinput = document.getElementById('addoffer') as HTMLInputElement;
