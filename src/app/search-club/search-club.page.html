@@ -30,21 +30,24 @@
       <ion-item>
         <ion-label position="stacked">Poste proposé</ion-label>
         <ion-select inputmode="text" formControlName="post" value="">
-          <div id="select_poste"><ion-select-option value="">Tout</ion-select-option></div>
+            <ion-select-option value="">Tout</ion-select-option>
+            <ion-select-option *ngFor="let poste of selectPoste"  value="{{poste.poste}}">{{poste.poste}}</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked">Côté proposé</ion-label>
         <ion-select inputmode="text" formControlName="cote" value="">
-          <div id="select_foot"><ion-select-option value="">Tout</ion-select-option></div>
+          <ion-select-option value="">Tout</ion-select-option>
+          <ion-select-option *ngFor="let foot of selectFoot" value="{{foot.strong}}">{{foot.strong}}</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked">Niveau requis</ion-label>
         <ion-select inputmode="text" formControlName="level" value="">
-          <div id="select_niveau"><ion-select-option value="">Tout</ion-select-option></div>
+          <ion-select-option value="">Tout</ion-select-option>
+          <ion-select-option *ngFor="let level of selectLevel" value="{{level.level}}">{{level.level}}</ion-select-option>
         </ion-select>
       </ion-item>
 
