@@ -37,5 +37,4 @@ import {Camera} from '@ionic-native/camera/ngx';
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

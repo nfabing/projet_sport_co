@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Candidatures</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div *ngFor="let appli of applications">
+      <ion-card>
+        <!-- (click)="goToCandidature(appli.id_offer)" -->
+        <ion-card-header>
+          <ion-row>
+            <ion-col size-xl="0" size-xs="4">
+            </ion-col>
+            <ion-col size-xl="4" size-xs="4">
+              <ion-avatar>
+                <img src="https://nicolasfabing.fr/ionic/imagesUsers/{{appli.img}}" alt=""> <br>
+              </ion-avatar>
+              <ion-card-subtitle>{{ appli.name }} <br> {{ appli.first_name }}</ion-card-subtitle>
+            </ion-col>
+            <ion-col size-xl="9" size-xs="4">
+            </ion-col>
+          </ion-row>
+          <ion-card-subtitle>Poste: {{ appli.poste }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <p> Place: {{ appli.birth_place }}</p>
+          <p> Country: {{ appli.birth_country }} </p>
+          <p> Weight: {{ appli.weight }} </p>
+          <p> Size: {{ appli.size }}</p>
+        </ion-card-content>
+        <p *ngIf="appli.state == 1"> Candidature Accepte </p>
+        <p *ngIf="appli.state == 2"> Candidature Refusée </p>
+        <ion-row *ngIf="appli.state == 0">
+        <ion-col size-xl="6" size-xs="6">
+        <ion-button expand="full" color="success" (click)="accepter(appli)">Accepter</ion-button>
+      </ion-col>
+      <ion-col size-xl="6" size-xs="6">
+        <ion-button expand="full" color="danger"  (click)="rejeter(appli)">Rejeter</ion-button>
+      </ion-col>
+      </ion-row>
+      </ion-card> 
+    </div>
+  </ion-list>
+</ion-content>

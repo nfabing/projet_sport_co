@@ -94,6 +94,15 @@ const routes: Routes = [
     path: 'club-profil',
     loadChildren: () => import('./club-profil/club-profil.module').then( m => m.ClubProfilPageModule)
   },
+  {
+    path: 'candidature',
+    loadChildren: () => import('./candidature/candidature.module').then( m => m.CandidaturePageModule)
+  },
+  {
+    path: 'page-candidature',
+    loadChildren: () => import('./page-candidature/page-candidature.module').then( m => m.PageCandidaturePageModule)
+  }
+
 
 ];
 @NgModule({
