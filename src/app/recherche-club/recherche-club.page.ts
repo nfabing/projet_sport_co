@@ -14,9 +14,7 @@ export class RechercheClubPage implements OnInit {
 
   constructor(public Http: HttpClient, public activitedRoute: ActivatedRoute, public router: Router) { }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   async ionViewWillEnter() {
     this.idClub = this.activitedRoute.snapshot.paramMap.get('id_club');

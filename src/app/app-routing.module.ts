@@ -75,6 +75,14 @@ const routes: Routes = [
     loadChildren: () => import('./logout/logout.module').then( m => m.LogoutPageModule)
   },
   {
+    path: 'recherche-profil/:id_user',
+    loadChildren: () => import('./recherche-profil/recherche-profil.module').then( m => m.RechercheProfilPageModule)
+  },
+  {
+    path: 'recherche-club/:id_club',
+    loadChildren: () => import('./recherche-club/recherche-club.module').then( m => m.RechercheClubPageModule)
+  },
+  {
     path: 'player-profil',
     loadChildren: () => import('./player-profil/player-profil.module').then( m => m.PlayerProfilPageModule)
   },
@@ -86,14 +94,6 @@ const routes: Routes = [
     path: 'club-profil',
     loadChildren: () => import('./club-profil/club-profil.module').then( m => m.ClubProfilPageModule)
   },
-  {
-    path: 'recherche-profil',
-    loadChildren: () => import('./recherche-profil/recherche-profil.module').then( m => m.RechercheProfilPageModule)
-  },
-  {
-    path: 'recherche-club',
-    loadChildren: () => import('./recherche-club/recherche-club.module').then( m => m.RechercheClubPageModule)
-  }
 
 ];
 @NgModule({

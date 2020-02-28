@@ -39,47 +39,39 @@ export class AppComponent {
         });
     }
 
-    sideMenu() {
+    sideMenuUser() {
+        this.navigateUser = [
+            {
+                title: 'Recherche club',
+                url: '/search-club',
+                icon: 'cube-outline'
+            },
+            {
+                title: 'Recherche offre',
+                url: '/search-offer',
+                icon: 'cube-outline'
+            },
+            {
+                title: 'Favoris',
+                url: '/favoris',
+                icon: 'heart-outline'
+            },
+            {
+                title: 'Mes candidatures',
+                url: '/applications',
+                icon: 'document-outline'
+            },
+            {
+                title: 'Mon profil',
+                url: `/recherche-profil/${this.globalService.idUser}`,
+                icon: 'person-outline'
+            },
+        ];
 
-        this.navigateMainStart =
-            [
-                {
-                    title: 'Fil d\'actualités',
-                    url: '/fil-actu',
-                    icon: 'newspaper-outline'
-                },
-            ];
+        return true;
+    }
 
-        this.navigateUser =
-            [
-                {
-                    title: 'Recherche club',
-                    url: '/search-club',
-                    icon: 'cube-outline'
-                },
-                {
-                    title: 'Recherche offre',
-                    url: '/search-offer',
-                    icon: 'cube-outline'
-                },
-                {
-                    title: 'Favoris',
-                    url: '/favoris',
-                    icon: 'heart-outline'
-                },
-                {
-                    title: 'Mes candidatures',
-                    url: '/applications',
-                    icon: 'document-outline'
-                },
-                {
-                    title: 'Mon profil',
-                    url: '/',
-                    icon: 'person-outline'
-                },
-            ];
-
-
+    sideMenuClub() {
         this.navigateClub = [
             {
                 title: 'Recherche joueur',
@@ -92,6 +84,21 @@ export class AppComponent {
                 icon: 'person-outline'
             }
         ];
+
+        return true;
+    }
+
+    sideMenu() {
+
+        this.navigateMainStart =
+            [
+                {
+                    title: 'Fil d\'actualités',
+                    url: '/fil-actu',
+                    icon: 'newspaper-outline'
+                },
+            ];
+
 
         this.navigateMainEnd =
             [

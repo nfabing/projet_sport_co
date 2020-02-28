@@ -66,7 +66,7 @@
       <ion-row>
         <ion-col></ion-col>
         <ion-col>
-          <ion-input type="file" name="image" formControlName="file" accept="image/*" (change)="changeListener($event)"
+          <ion-input type="file" name="image" formControlName="file" accept=".jpg, .png, .jpeg" (change)="changeListener($event)"
             id="inputFile">
           </ion-input>
           <ion-button type="submit" expand="block" color="light">UPLOAD<ion-icon name="cloud-upload-outline" slot="end">
