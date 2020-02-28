@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -12,17 +13,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RechercheProfilPage implements OnInit {
 
   public idPlayer = "";
+  public idPlayerStorage = "";
   public tabPlayer = [];
+  public displayBtnWhenGoodUser = false;
 
-  constructor(public Http: HttpClient, public activitedRoute: ActivatedRoute, public router: Router) { }
+  constructor(public Http: HttpClient, public activitedRoute: ActivatedRoute, public router: Router, public storage: Storage) { }
 
   ngOnInit() {
-  
   }
 
   async ionViewWillEnter() {
     this.idPlayer = this.activitedRoute.snapshot.paramMap.get('id_user');
-    if(this.idPlayer == "" || this.idPlayer == null){
+    this.storage.get("id_user").then((val) => {
+      this.idPlayerStorage = val;
+      if (this.idPlayerStorage == this.idPlayer) {
+        this.displayBtnWhenGoodUser = true;
+      }
+    })
+
+    if (this.idPlayer == "" || this.idPlayer == null) {
       this.router.navigate(['']);
     }
     this.getPlayerInfo(this.idPlayer);
@@ -35,6 +44,14 @@ export class RechercheProfilPage implements OnInit {
       console.log(result);
       this.tabPlayer = result[0];
     })
+  }
+
+  public redirectToPlayerProfil(): void {
+    this.router.navigate(['player-profil']);
+  }
+
+  public redirectToPlayerCv(): void {
+    this.router.navigate(['player-cv']);
   }
 
 }
