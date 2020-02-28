@@ -1,0 +1,22 @@
+.error-message {
+    color: var(--ion-color-danger);
+}
+
+.rowImg{
+    justify-content: center;
+    width: 100%;
+}
+
+#avatarProfil{
+    padding: 5px;
+}
+
+#inputFile{
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 999;
+}
+
+
+

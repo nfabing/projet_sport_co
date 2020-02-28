@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>CV - {{tabPlayer.name}} {{ tabPlayer.first_name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <form [formGroup]="registrationForm" (ngSubmit)="submit()">
+    <ion-list lines=" full" class="ion-no-margin ion-no-padding">
+      <ion-card>
+        <ion-grid>
+          <ion-item>
+            <ion-label position="floating">Date de naissance</ion-label>
+            <ion-datetime formControlName="birth_date" value="{{tabPlayer.birth_date}}" display-format="DD / MM / YYYY"
+              picker-format="DD / MMM / YYYY"></ion-datetime>
+          </ion-item>
+
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">Ville de naissance</ion-label>
+                <ion-input autocapitalize formControlName="birth_place" value="{{tabPlayer.birth_place}}"></ion-input>
+              </ion-item>
+              <div *ngFor="let error of errorMessages.email">
+                <ng-container *ngIf="birth_place.hasError(error.type) && (birth_place.dirty || birth_place.touched)">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">Pays de naissance</ion-label>
+                <ion-input autocapitalize formControlName="birth_country" value="{{tabPlayer.birth_country}}">
+                </ion-input>
+              </ion-item>
+              <div *ngFor="let error of errorMessages.birth_country">
+                <ng-container
+                  *ngIf="birth_country.hasError(error.type) && (birth_country.dirty || birth_country.touched)">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-item>
+            <ion-range min="30" max="150" pin color="secondary" formControlName="weight" value="{{tabPlayer.weight}}">
+              <ion-label slot="start">Poid (kg)</ion-label>
+            </ion-range>
+          </ion-item>
+
+          <ion-item>
+            <ion-range min="100" max="230" pin color="secondary" formControlName="size" value="{{tabPlayer.size}}">
+              <ion-label slot="start">Taille (cm)</ion-label>
+            </ion-range>
+          </ion-item>
+
+
+          <ion-item>
+            <ion-label>Poste</ion-label>
+            <ion-select formControlName="poste">
+              <ion-select-option *ngFor="let poste of postes" [value]="poste.id">{{poste.poste}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Pied</ion-label>
+            <ion-select formControlName="strong">
+              <ion-select-option *ngFor="let strong of strongs" [value]="strong.id">{{strong.strong}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+
+
+          <ion-button type="submit" expand="block" class="ion-margin">Modifier<ion-icon slot="end" name="create">
+            </ion-icon>
+          </ion-button>
+        </ion-grid>
+
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-card-title>Parcour en club</ion-card-title>
+              </ion-col>
+              <ion-col>
+                <ion-button class="ion-float-right" (click)="presentModal()">
+                  <ion-icon name="add"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="ion-text-start"><strong>SAISON</strong></ion-col>
+              <ion-col class="ion-text-start"><strong>CLUB</strong></ion-col>
+              <ion-col class="ion-text-center"><strong>POSTE</strong></ion-col>
+              <ion-col></ion-col>
+            </ion-row>
+            <ion-row *ngFor="let club of tabPlayer.historique_des_clubs">
+              <ion-col>{{club.season}}</ion-col>
+              <ion-col>{{club.name}}</ion-col>
+              <ion-col class="ion-text-center">{{club.position}}</ion-col>
+              <ion-col>
+                <ion-button class="ion-float-right" size="small" color="light" (click)="alertSuppressionClub(club.id_club_player)">
+                  <ion-icon name="trash"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-card-title>Palmares</ion-card-title>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="4"><strong>SAISON</strong></ion-col>
+              <ion-col size="4"><strong>CLUB</strong></ion-col>
+              <ion-col size="4"><strong>CHAMPIONNAT</strong></ion-col>
+            </ion-row>
+            <ion-row *ngFor="let palmares of tabPlayer.palmares">
+              <ion-col>{{palmares.season}}</ion-col>
+              <ion-col>{{palmares.name}}</ion-col>
+              <ion-col>{{palmares.championship}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+    </ion-list>
+
+  </form>
+</ion-content>

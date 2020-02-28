@@ -1,0 +1,115 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profil - {{tabClub.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header class="ion-align-items-center" id="firstCardHeader">
+      <ion-avatar>
+        <img src="https://nicolasfabing.fr/ionic/imagesClub/{{tabClub.img}}">
+      </ion-avatar>
+      <div id="firstCardHeaderRight">
+        <ion-card-title>{{tabClub.name}}</ion-card-title>
+        <ion-card-subtitle>{{tabClub.email}}</ion-card-subtitle>
+      </div>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="titlecard"><strong>INFOS</strong></div>
+      <ion-row>
+        <ion-col>
+          <div><strong>Description : </strong></div>
+          <div>{{tabClub.description}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div><strong>Objectifs : </strong></div>
+          <div>{{tabClub.objective}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div><strong>Ville : </strong>{{tabClub.city}}</div>
+        </ion-col>
+        <ion-col>
+          <div><strong>Code postale : </strong>{{tabClub.postal_code}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Parcours du club</ion-card-title>
+      <ion-icon id="iconCoinCard" name="trending-up-outline"></ion-icon>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngFor="let history of tabClub.history">
+        <div class="titlecard"><strong>SAISON : </strong>{{history.season}}</div>
+        <ion-row>
+          <ion-col>
+            <div><strong>Ligue : </strong>{{history.nom}}</div>
+          </ion-col>
+          <ion-col>
+            <div><strong>Pays : </strong>{{history.pays}}</div>
+          </ion-col>
+        </ion-row>
+        <br>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Palmares</ion-card-title>
+      <ion-icon id="iconCoinCard" name="trophy-outline"></ion-icon>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngFor="let history of tabClub.history">
+        <div *ngIf="history.prize == 1">
+          <div class="titlecard"><strong>SAISON : </strong>{{history.season}}</div>
+          <ion-row>
+            <ion-col>
+              <div><strong>Ligue : </strong>{{history.nom}}</div>
+            </ion-col>
+            <ion-col>
+              <div><strong>Pays : </strong>{{history.pays}}</div>
+            </ion-col>
+          </ion-row>
+        </div>
+        <br>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Offres</ion-card-title>
+      <ion-icon id="iconCoinCard" name="document-text-outline"></ion-icon>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngFor="let offer of tabClub.offers">
+        <div class="titlecard"><strong>POSTE : </strong>{{offer.poste}}</div>
+        <ion-row>
+          <ion-col>
+            <div><strong>Disponibilité : </strong>{{offer.availability}}</div>
+          </ion-col>
+          <ion-col>
+            <div><strong>Nationalité: </strong>{{offer.nationality}}</div>
+          </ion-col>
+
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-justify-content-center">
+            <ion-button color="light" size="small" id="btnVoir" (click)="redirectToOffer(offer.id)">VOIR<ion-icon name="search-outline" slot="end"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+        <br>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
