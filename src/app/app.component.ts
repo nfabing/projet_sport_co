@@ -80,7 +80,7 @@ export class AppComponent {
             },
             {
                 title: 'Mon Club',
-                url: '/',
+                url: `/recherche-club/${this.globalService.idClub}`,
                 icon: 'person-outline'
             }
         ];
