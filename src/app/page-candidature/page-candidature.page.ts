@@ -61,7 +61,7 @@ export class PageCandidaturePage implements OnInit {
     console.log("accepter offer "+appli.id_offer+" player id: "+appli.id);
     //let data: Observable <any>;
     let data: Observable<any>;
-    data = this.http.get('https://nicolasfabing.fr/ionic/update_candidature?offer='+appli.id_offer+'&player='+appli.id);
+    data = this.http.get('https://nicolasfabing.fr/ionic/accepter_candidature?offer='+appli.id_offer+'&player='+appli.id);
     data.subscribe(res => {
       console.log(res);
       this.showToast(res);
@@ -72,7 +72,7 @@ export class PageCandidaturePage implements OnInit {
   rejeter(appli){
     // console.log("rejeter"+appli.id_offer+" player id: "+appli.id);
     let data: Observable<any>;
-    data = this.http.get('https://nicolasfabing.fr/ionic/remove_application?offer='+appli.id_offer+'&player='+appli.id);
+    data = this.http.get('https://nicolasfabing.fr/ionic/rejeter_candidature?offer='+appli.id_offer+'&player='+appli.id);
     data.subscribe(res => {
       console.log(res);
       this.showToast(res);

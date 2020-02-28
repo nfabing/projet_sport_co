@@ -30,9 +30,11 @@
           <p> Weight: {{ appli.weight }} </p>
           <p> Size: {{ appli.size }}</p>
         </ion-card-content>
-        <ion-row>
+        <p *ngIf="appli.state == 1"> Candidature Accepte </p>
+        <p *ngIf="appli.state == 2"> Candidature Refusée </p>
+        <ion-row *ngIf="appli.state == 0">
         <ion-col size-xl="6" size-xs="6">
-        <ion-button *ngIf="appli.state == 0" expand="full" color="success" (click)="accepter(appli)">Accepter</ion-button>
+        <ion-button expand="full" color="success" (click)="accepter(appli)">Accepter</ion-button>
       </ion-col>
       <ion-col size-xl="6" size-xs="6">
         <ion-button expand="full" color="danger"  (click)="rejeter(appli)">Rejeter</ion-button>
