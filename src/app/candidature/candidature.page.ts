@@ -60,4 +60,8 @@ public applications: Array<{
     })
   }
 
+  public goToOffre(appli){
+    this.router.navigate(['offre-details'],appli.id_offer);
+  }
+
 }

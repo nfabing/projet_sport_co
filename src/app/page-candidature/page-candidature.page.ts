@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable, from } from 'rxjs';
-
+import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 
@@ -14,14 +14,15 @@ import { Storage } from '@ionic/storage';
 export class PageCandidaturePage implements OnInit {
 
   public tabHttp: any=[];
+  public RemoveHttp;
   public idUser=null;
   public idClub=null;
 
   public applications: Array<{
-    id_offer:number;poste:string;birth_place:string;birth_country:string;name:string;firstName:string;img:string
+    id_offer:number;poste:string;birth_place:string;birth_country:string;name:string;first_name:string;img:string;weight:string;size:string;id:number;state:number
   }> = [];
 
-  constructor(public http:HttpClient,public router:Router,private storage:Storage,public activatedRoute: ActivatedRoute) { }
+  constructor(public http:HttpClient,public router:Router,private storage:Storage,public activatedRoute: ActivatedRoute, public toastCtrll: ToastController) { }
 
   ngOnInit() {
   }
@@ -55,5 +56,37 @@ export class PageCandidaturePage implements OnInit {
       this.applications = this.tabHttp;
       console.log(this.applications);
   })}
+
+  accepter(appli){
+    console.log("accepter offer "+appli.id_offer+" player id: "+appli.id);
+    //let data: Observable <any>;
+    let data: Observable<any>;
+    data = this.http.get('https://nicolasfabing.fr/ionic/update_candidature?offer='+appli.id_offer+'&player='+appli.id);
+    data.subscribe(res => {
+      console.log(res);
+      this.showToast(res);
+      this.getListApplicationsClub(this.idClub);
+    })
+  }
+  
+  rejeter(appli){
+    // console.log("rejeter"+appli.id_offer+" player id: "+appli.id);
+    let data: Observable<any>;
+    data = this.http.get('https://nicolasfabing.fr/ionic/remove_application?offer='+appli.id_offer+'&player='+appli.id);
+    data.subscribe(res => {
+      console.log(res);
+      this.showToast(res);
+      this.getListApplicationsClub(this.idClub);
+    })
+  }
+
+  async showToast(msg){
+    const toast = await this.toastCtrll.create({
+      message: msg,
+      duration: 1500,
+      position: "bottom"
+    });
+    toast.present();
+  }
 
 }
