@@ -21,6 +21,7 @@ export class OffreDetailsPage implements OnInit {
     private isFavorite: boolean;
     private isApplied: boolean;
     private idOffer: number;
+    public state: number;
     public offers: Array<{
         id: number; club_name: string; offer_description: string; poste: string; foot: string; availability: string;
         championnat: string; nationality: string; country: string; img_club: string
@@ -37,19 +38,22 @@ export class OffreDetailsPage implements OnInit {
     ionViewWillEnter() {
         this.idOffer = parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10);
         this.fetchDataGet();
-        this.checkIfFavorite();
-        this.checkIfApplied();
+        if (this.globalService.idUser) {
+            this.checkIfFavorite();
+            this.checkIfApplied();
+        }
     }
 
     checkIfApplied(): void {
         this.httpClient.get<any>(`${this.baseURI}check_application.php?player=${this.globalService.idUser}&offer=${this.idOffer}`,
             {observe: 'response'})
             .subscribe(data => {
+
                 this.isApplied = data.body;
-                {
-                    this.isApplied ? (this.textButton = 'Supprimez votre candidature' , this.colorButton = 'danger')
-                        : (this.textButton = 'Envoyer votre candidature' , this.colorButton = 'primary');
-                }
+                { parseInt(data.body.state, 10) ? this.state = parseInt(data.body.state, 10) : this.state = 0; }
+
+                { this.isApplied ? (this.textButton = 'Supprimez votre candidature' , this.colorButton = 'danger')
+                        : (this.textButton = 'Envoyer votre candidature' , this.colorButton = 'primary'); }
             });
     }
 
@@ -66,7 +70,7 @@ export class OffreDetailsPage implements OnInit {
     }
 
     fetchDataGet(): void {
-        this.httpClient.get<any>(this.baseURI + `offer_details.php?id= ${this.idOffer}`, {observe: 'response'})
+        this.httpClient.get<any>(`${this.baseURI}offer_details.php?id=${this.idOffer}`, {observe: 'response'})
             .subscribe(data => {
                 this.offers = data.body;
 
@@ -82,9 +86,11 @@ export class OffreDetailsPage implements OnInit {
 
             this.httpClient.post<any>(`${this.baseURI}/add_fav.php`, postData, {observe: 'response'})
                 .subscribe(data => {
-                    this.isFavorite = true;
-                    this.imgFavorite = 'assets/img/heartFull.png';
-                    this.showToast('Candidature ajoutée à vos favoris !');
+                    if (data.status === 200) {
+                        this.isFavorite = true;
+                        this.imgFavorite = 'assets/img/heartFull.png';
+                        this.showToast('Candidature ajoutée à vos favoris !');
+                    }
                 });
         }
 
@@ -92,10 +98,12 @@ export class OffreDetailsPage implements OnInit {
 
             this.httpClient.delete(`${this.baseURI}remove_fav.php?offer=${this.idOffer}&player=${this.globalService.idUser}`,
                 {observe: 'response'})
-                .subscribe(data => {
-                    this.isFavorite = false;
-                    this.imgFavorite = 'assets/img/heartEmpty.png';
-                    this.showToast('Candidature retirée de vos favoris !');
+                .subscribe((data) => {
+                    if (data.status === 200) {
+                        this.isFavorite = false;
+                        this.imgFavorite = 'assets/img/heartEmpty.png';
+                        this.showToast('Candidature retirée de vos favoris !');
+                    }
                 });
         }
     }
@@ -139,7 +147,7 @@ export class OffreDetailsPage implements OnInit {
 
         this.httpClient.post(`${this.baseURI}/add_application.php`, postData, {observe: 'response'})
             .subscribe(data => {
-                console.log(data.body);
+               // console.log(data.body);
                 this.isApplied = true;
                 this.textButton = 'Supprimez votre candidature';
                 this.colorButton = 'danger';
@@ -152,10 +160,12 @@ export class OffreDetailsPage implements OnInit {
         this.httpClient.delete(`${this.baseURI}remove_application.php?offer=${this.idOffer}&player=${this.globalService.idUser}`,
             {observe: 'response'})
             .subscribe(data => {
-                this.isApplied = false;
-                this.textButton = 'Envoyer votre candidature';
-                this.colorButton = 'primary';
-                this.showToast('Candidature retirée !');
+                if (data.status === 200) {
+                    this.isApplied = false;
+                    this.textButton = 'Envoyer votre candidature';
+                    this.colorButton = 'primary';
+                    this.showToast('Candidature retirée !');
+                }
             });
     }
 

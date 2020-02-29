@@ -43,14 +43,22 @@
 
 
             <ion-row class="justify-content-center padding-top">
-                <ion-col *ngIf="globalService.idUser > 0" size-xl="4" size="12">
+                <ion-col *ngIf="globalService.idUser > 0 && state === 0" size-xl="4" size="12">
                     <ion-button expand="block" (click)="handleClickApplication()" [color]="colorButton" >{{ textButton }}</ion-button>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="state === 1">
+                <ion-col>
+                    <h2>Candidature Acceptée !</h2>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="state === 2">
+                <ion-col>
+                    <h2>Candidature Rejetée</h2>
                 </ion-col>
             </ion-row>
         </div>
         <!-- end ngFor-->
-
-
     </ion-grid>
 
 
