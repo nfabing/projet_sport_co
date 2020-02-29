@@ -17,7 +17,7 @@
                 <ion-col size-xl="4" size="6">
                     <h2>{{ offer.club_name }}</h2>
                 </ion-col>
-                <ion-col *ngIf="globalService.idUser === 0" size-xl="1" size-xs="2">
+                <ion-col *ngIf="globalService.idUser > 0" size-xl="1" size-xs="2">
                     <ion-img [src]="imgFavorite" (click)="handleClickFavorite()" ></ion-img>
                 </ion-col>
             </ion-row>
@@ -43,7 +43,7 @@
 
 
             <ion-row class="justify-content-center padding-top">
-                <ion-col *ngIf="globalService.idUser === 0" size-xl="4" size="12">
+                <ion-col *ngIf="globalService.idUser > 0" size-xl="4" size="12">
                     <ion-button expand="block" (click)="handleClickApplication()" [color]="colorButton" >{{ textButton }}</ion-button>
                 </ion-col>
             </ion-row>
