@@ -57,7 +57,7 @@ export class PlayerSearchResultsPage implements OnInit {
     }
 
     goToPageDetails(id: number) {
-        // this.router.navigate(['player-profil', id]);
+         this.router.navigate(['recherche-profil', id]);
     }
 
 }

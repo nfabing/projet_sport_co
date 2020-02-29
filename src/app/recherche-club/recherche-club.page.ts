@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import {IonRouterOutlet} from '@ionic/angular';
 @Component({
   selector: 'app-recherche-club',
   templateUrl: './recherche-club.page.html',
@@ -11,10 +12,14 @@ export class RechercheClubPage implements OnInit {
 
   public idClub = "";
   public tabClub = [];
+  public canGoBack = false;
 
-  constructor(public Http: HttpClient, public activitedRoute: ActivatedRoute, public router: Router) { }
+  constructor(public Http: HttpClient, public activitedRoute: ActivatedRoute, public router: Router,
+              private routerOutlet: IonRouterOutlet) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.canGoBack = this.routerOutlet && this.routerOutlet.canGoBack();
+  }
 
   async ionViewWillEnter() {
     this.idClub = this.activitedRoute.snapshot.paramMap.get('id_club');

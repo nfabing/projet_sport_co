@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import {IonRouterOutlet} from '@ionic/angular';
 
 
 @Component({
@@ -16,10 +17,13 @@ export class RechercheProfilPage implements OnInit {
   public idPlayerStorage = "";
   public tabPlayer = [];
   public displayBtnWhenGoodUser = false;
+  public canGoBack = false;
 
-  constructor(public Http: HttpClient, public activitedRoute: ActivatedRoute, public router: Router, public storage: Storage) { }
+  constructor(public Http: HttpClient, public activitedRoute: ActivatedRoute, public router: Router, public storage: Storage,
+              private routerOutlet: IonRouterOutlet) { }
 
   ngOnInit() {
+    this.canGoBack = this.routerOutlet && this.routerOutlet.canGoBack();
   }
 
   async ionViewWillEnter() {
