@@ -42,6 +42,9 @@ export class Tab2Page {
     get nationalite() {
         return this.offerForm.get('nationalite');
     }
+    get statut() {
+        return this.offerForm.get('statut');
+    }
 
     public postes = [];
     public pieds = [];
@@ -53,7 +56,8 @@ export class Tab2Page {
         pied: [''],
         pays: [''],
         disponibilite: [''],
-        nationalite: ['']
+        nationalite: [''],
+        statut: ['']
     });
 
     public errorMsgs =
@@ -64,7 +68,8 @@ export class Tab2Page {
             pied: [{type: 'required', message: 'veuillez preciser le pied dominant du joueur'}],
             pays: [{type: 'required', message: 'veuillez indiquer le pays dans lequel le joueur joue'}],
             disponibilite: [{type: 'required', message: 'veuillez saisir la disponibilité du joueur'}],
-            nationalite: [{type: 'required', message: 'veuillez indiquer la nationalité du joueur'}]
+            nationalite: [{type: 'required', message: 'veuillez indiquer la nationalité du joueur'}],
+            statut: [{type: 'required', message: 'veuillez indiquer le statut du joueur'}]
         };
 
 
@@ -116,6 +121,7 @@ export class Tab2Page {
         const pays = this.offerForm.value.pays;
         const disponibilite = this.offerForm.value.disponibilite;
         const nationalite = this.offerForm.value.nationalite;
+        const status = this.offerForm.value.statut;
         // tslint:disable-next-line:variable-name
         const id_club = 1;
         desc = desc.replace(/ /g, '_');
@@ -150,7 +156,8 @@ export class Tab2Page {
             postData += '"disponibilite":"' + disponibilite + '"\n,';
             postData += '"nationalite":"' + nationalite + '"\n,';
             postData += '"id_club":"' + id_club + '"\n,';
-            postData += '"id_offre":"' + id_offre + '"\n';
+            postData += '"id_offre":"' + id_offre + '"\n,';
+            postData += '"status":"' + status + '"\n';
             postData += '}';
             postData += '\n';
             postData += ']';
@@ -175,7 +182,8 @@ export class Tab2Page {
             postData += '"pays":"' + pays + '"\n,';
             postData += '"disponibilite":"' + disponibilite + '"\n,';
             postData += '"nationalite":"' + nationalite + '"\n,';
-            postData += '"id_club":"' + id_club + '"\n';
+            postData += '"id_club":"' + id_club + '"\n,';
+            postData += '"status":"' + status + '"\n';
             postData += '}';
             postData += '\n';
             postData += ']';
@@ -199,6 +207,7 @@ export class Tab2Page {
         const pays = document.getElementById('input_pays') as HTMLInputElement;
         const desc = document.getElementById('input_desc') as HTMLInputElement;
         const niveau = document.getElementById('input_niveau') as HTMLInputElement;
+        const status = document.getElementById('input_status') as HTMLInputElement;
         const updateinput = document.getElementById('updateoffer') as HTMLInputElement;
         const deleteinput = document.getElementById('deleteoffer') as HTMLInputElement;
         const addinput = document.getElementById('addoffer') as HTMLInputElement;
@@ -211,13 +220,13 @@ export class Tab2Page {
         submitbutton.disabled = false;
         }
         } else if (updateinput.checked === true) {
-            if (id_offre.value === '' || disponibilite.value === '' || nationalite.value === '' || pays.value === '' || desc.value === '' || niveau.value === '' || poste.value === '') {
+            if (id_offre.value === '' || disponibilite.value === '' || nationalite.value === '' || pays.value === '' || desc.value === '' || niveau.value === '' || poste.value === '' || status.value === '') {
                 submitbutton.disabled = true;
             } else {
                 submitbutton.disabled = false;
             }
         } else if (addinput.checked === true) {
-            if (disponibilite.value === '' || nationalite.value === '' || pays.value === '' || desc.value === '' || niveau.value === '' || poste.value === '') {
+            if (disponibilite.value === '' || nationalite.value === '' || pays.value === '' || desc.value === '' || niveau.value === '' || poste.value === '' || status.value === '') {
                 submitbutton.disabled = true;
             } else {
                 submitbutton.disabled = false;

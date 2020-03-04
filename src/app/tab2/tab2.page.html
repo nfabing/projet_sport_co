@@ -176,7 +176,22 @@ Gestion des offres
       </ion-col>
 
 </ion-row>
-
+<ion-row>
+    <ion-col>
+    <ion-item>
+        <ion-label>Statut:</ion-label>
+        <ion-select formControlName="statut" value="status" id="input_status">
+            <ion-select-option value="1">Professionnel</ion-select-option>
+            <ion-select-option value="2">Amateur</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <div *ngFor="let error of errorMsgs.statut">
+        <ng-container *ngIf="statut.hasError(error.type) && (statut.dirty || statut.touched)">
+            <small class="error-message">{{error.message}}</small>
+        </ng-container>
+    </div>
+    </ion-col>
+</ion-row>
   </ion-grid>
     <ion-grid>
       <ion-row>
