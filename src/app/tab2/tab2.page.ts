@@ -76,6 +76,7 @@ export class Tab2Page {
             // this.id_club = val;
         });
         setInterval(this.UpdateDisplay, 250);
+        setInterval(this.CheckForValidation, 250);
         this.getPostes();
         this.getPieds();
     }
@@ -134,7 +135,7 @@ export class Tab2Page {
             let values: Observable<any>;
             values = this.HttpClient.post(url, client);
             values.subscribe(res => {
-                return alert('offre supprimée');
+                return alert(res);
             });
         } else if (updateinput.checked === true) {
             console.log('modification');
@@ -145,6 +146,7 @@ export class Tab2Page {
             postData += '"niveau":"' + niveau + '"\n,';
             postData += '"poste":"' + poste + '"\n,';
             postData += '"pied":"' + pied + '"\n,';
+            postData += '"pays":"' + pays + '"\n,';
             postData += '"disponibilite":"' + disponibilite + '"\n,';
             postData += '"nationalite":"' + nationalite + '"\n,';
             postData += '"id_club":"' + id_club + '"\n,';
@@ -159,7 +161,7 @@ export class Tab2Page {
             let values: Observable<any>;
             values = this.HttpClient.post(url, client);
             values.subscribe(res => {
-                return alert('offre mise à jour');
+                return alert(res.json());
             });
         } else if (addinput.checked === true) {
             console.log('ajout');
@@ -170,6 +172,7 @@ export class Tab2Page {
             postData += '"niveau":"' + niveau + '"\n,';
             postData += '"poste":"' + poste + '"\n,';
             postData += '"pied":"' + pied + '"\n,';
+            postData += '"pays":"' + pays + '"\n,';
             postData += '"disponibilite":"' + disponibilite + '"\n,';
             postData += '"nationalite":"' + nationalite + '"\n,';
             postData += '"id_club":"' + id_club + '"\n';
@@ -184,11 +187,43 @@ export class Tab2Page {
             let values: Observable<any>;
             values = this.HttpClient.post(url, client);
             values.subscribe(res => {
-                return alert('offre ajoutée');
+                return alert(res);
             });
         }
     }
-
+    public CheckForValidation() {
+        const id_offre = document.getElementById('input_idoffre') as HTMLInputElement;
+        const disponibilite = document.getElementById('input_disponibilite') as HTMLInputElement;
+        const nationalite = document.getElementById('input_nationalite') as HTMLInputElement;
+        const poste = document.getElementById('input_poste') as HTMLInputElement;
+        const pays = document.getElementById('input_pays') as HTMLInputElement;
+        const desc = document.getElementById('input_desc') as HTMLInputElement;
+        const niveau = document.getElementById('input_niveau') as HTMLInputElement;
+        const updateinput = document.getElementById('updateoffer') as HTMLInputElement;
+        const deleteinput = document.getElementById('deleteoffer') as HTMLInputElement;
+        const addinput = document.getElementById('addoffer') as HTMLInputElement;
+        const submitbutton = document.getElementById('submitbutton') as HTMLInputElement;
+        console.log(nationalite.value);
+        if (deleteinput.checked === true) {
+        if (id_offre.value === '') {
+        submitbutton.disabled = true;
+        } else {
+        submitbutton.disabled = false;
+        }
+        } else if (updateinput.checked === true) {
+            if (id_offre.value === '' || disponibilite.value === '' || nationalite.value === '' || pays.value === '' || desc.value === '' || niveau.value === '' || poste.value === '') {
+                submitbutton.disabled = true;
+            } else {
+                submitbutton.disabled = false;
+            }
+        } else if (addinput.checked === true) {
+            if (disponibilite.value === '' || nationalite.value === '' || pays.value === '' || desc.value === '' || niveau.value === '' || poste.value === '') {
+                submitbutton.disabled = true;
+            } else {
+                submitbutton.disabled = false;
+            }
+        }
+        }
     public UpdateDisplay() {
         const updateinput = document.getElementById('updateoffer') as HTMLInputElement;
         const deleteinput = document.getElementById('deleteoffer') as HTMLInputElement;

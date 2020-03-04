@@ -21,21 +21,23 @@ Gestion des offres
     </ion-row>
   </ion-grid>
   <form [formGroup]="offerForm" (ngSubmit)="submit()" >
-  <ion-grid id="offerform">
+  <ion-grid>
       <ion-row id="idoffre">
           <ion-col></ion-col>
           <ion-col style="text-align: center">
               <ion-label>ID de l'offre</ion-label>
-          <ion-input type="number" formControlName="idoffre" required="true"></ion-input>
+          <ion-input type="number" formControlName="idoffre" required="true" id="input_idoffre"></ion-input>
           </ion-col>
           <ion-col></ion-col>
       </ion-row>
+        </ion-grid>
+      <ion-grid id="offerform">
       <ion-row>
       <ion-col style="text-align: center">
         <ion-label>Recherche</ion-label>
         <br>
   <ion-item>
-    <ion-textarea formControlName="desc" rows={6} required="true"></ion-textarea>
+    <ion-textarea formControlName="desc" rows={6} required="true" id="input_desc"></ion-textarea>
   </ion-item>
         <div *ngFor="let error of errorMsgs.desc">
           <ng-container *ngIf="desc.hasError(error.type) && (desc.dirty || desc.touched)">
@@ -47,10 +49,10 @@ Gestion des offres
 
     <ion-row>
 
-
+<ion-col>
   <ion-item>
     <ion-label>Position:</ion-label>
-    <ion-select value="id_position" formControlName="poste">
+    <ion-select value="id_position" formControlName="poste" id="input_poste">
       <ion-select-option value="1">Attaquant Gauche</ion-select-option>
       <ion-select-option value="2">Buteur</ion-select-option>
       <ion-select-option value="3">Attaquant Droit</ion-select-option>
@@ -70,12 +72,11 @@ Gestion des offres
           <small class="error-message">{{error.message}}</small>
         </ng-container>
       </div>
-
-      <ion-col></ion-col>
-
+</ion-col>
+        <ion-col>
   <ion-item>
     <ion-label>Niveau:</ion-label>
-    <ion-select class="level" formControlName="niveau" value="id_championship">
+    <ion-select class="level" formControlName="niveau" value="id_championship" id="input_niveau">
       <ion-select-option value="1">Premiere League</ion-select-option>
       <ion-select-option value="2">EFL Championship</ion-select-option>
       <ion-select-option value="3">Ligue 1</ion-select-option>
@@ -93,6 +94,7 @@ Gestion des offres
           <small class="error-message">{{error.message}}</small>
         </ng-container>
       </div>
+        </ion-col>
       </ion-row>
 
     <ion-row>
@@ -100,7 +102,7 @@ Gestion des offres
       <ion-col>
     <ion-item>
     <ion-label>Pays:</ion-label>
-    <ion-select formControlName="pays" value="country">
+    <ion-select formControlName="pays" value="country" id="input_pays">
       <ion-select-option value="France">France</ion-select-option>
       <ion-select-option value="Allemagne">Allemagne</ion-select-option>
       <ion-select-option value="Angleterre">Angleterre</ion-select-option>
@@ -121,7 +123,7 @@ Gestion des offres
       <ion-col></ion-col>
       <ion-item>
         <ion-label>Pied:</ion-label>
-        <ion-select formControlName="pied" value="id_foot">
+        <ion-select formControlName="pied" value="id_foot" id="input_pied">
           <ion-select-option value="1">Gauche</ion-select-option>
           <ion-select-option value="2">Droit</ion-select-option>
           <ion-select-option value="3">Ambidextre</ion-select-option>
@@ -140,7 +142,7 @@ Gestion des offres
       <ion-col>
     <ion-item>
       <ion-label>Disponibilité:</ion-label>
-      <ion-input formControlName="disponibilite" type="date" value="availability"></ion-input>
+      <ion-input formControlName="disponibilite" type="date" value="availability" id="input_disponibilite"></ion-input>
     </ion-item>
         <div *ngFor="let error of errorMsgs.disponibilite">
       <ng-container *ngIf="disponibilite.hasError(error.type) && (disponibilite.dirty || disponibilite.touched)">
@@ -154,7 +156,7 @@ Gestion des offres
       <ion-col>
   <ion-item>
     <ion-label>Nationalité:</ion-label>
-    <ion-select formControlName="nationalite" value="nationality">
+    <ion-select formControlName="nationalite" value="nationality" id="input_nationalite">
       <ion-select-option value="Toutes">Toutes</ion-select-option>
       <ion-select-option value="Française">Française</ion-select-option>
       <ion-select-option value="Allemande">Allemande</ion-select-option>
@@ -180,7 +182,7 @@ Gestion des offres
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-button [disabled]="!offerForm.valid" type="submit" expand="block">Soumettre</ion-button>
+            <ion-button type="submit" expand="block" id="submitbutton">Soumettre</ion-button>
           </ion-item>
         </ion-col>
       </ion-row>
