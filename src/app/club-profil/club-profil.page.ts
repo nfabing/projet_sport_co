@@ -27,7 +27,6 @@ export class ClubProfilPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.storage.set('id_club', 2)
   }
 
   async ionViewWillEnter() {

@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Profil - {{tabClub.name}}</ion-title>
+    <ion-row>
+      <ion-title>Profil - {{tabClub.name}}</ion-title>
+      <div id="btnUpdate" *ngIf="displayBtnWhenGoodClub == true">
+        <ion-button (click)="redirectToClubProfil()">Modifier<ion-icon slot="end" name="create"></ion-icon></ion-button>
+      </div>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
@@ -8,7 +13,7 @@
   <ion-card>
     <ion-card-header class="ion-align-items-center" id="firstCardHeader">
       <ion-avatar>
-        <img src="https://nicolasfabing.fr/ionic/imagesClub/{{tabClub.img}}">
+        <img id="checkImg" src="{{imgClub}}">
       </ion-avatar>
       <div id="firstCardHeaderRight">
         <ion-card-title>{{tabClub.name}}</ion-card-title>

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
+
+
 @Component({
   selector: 'app-recherche-club',
   templateUrl: './recherche-club.page.html',
@@ -11,16 +14,28 @@ export class RechercheClubPage implements OnInit {
 
   public idClub = "";
   public tabClub = [];
+  public displayBtnWhenGoodClub = false;
+  public idClubStorage = "";
+  public imgClub = "";
 
-  constructor(public Http: HttpClient, public activitedRoute: ActivatedRoute, public router: Router) { }
+
+
+  constructor(public Http: HttpClient, public activitedRoute: ActivatedRoute, public router: Router, public storage: Storage) { }
 
   ngOnInit() {
-    
   }
+
 
   async ionViewWillEnter() {
     this.idClub = this.activitedRoute.snapshot.paramMap.get('id_club');
-    if(this.idClub == "" || this.idClub == null){
+    this.storage.get("id_club").then((val) => {
+      this.idClubStorage = val;
+      if (this.idClubStorage == this.idClub) {
+        this.displayBtnWhenGoodClub = true;
+      }
+    })
+    this.imgClub = "https://nicolasfabing.fr/ionic/imagesClub/" + this.idClub + ".jpg";
+    if (this.idClub == "" || this.idClub == null) {
       this.router.navigate(['']);
     }
     this.getClubInfo(this.idClub);
@@ -35,9 +50,12 @@ export class RechercheClubPage implements OnInit {
     })
   }
 
-  public redirectToOffer(id): void
-  {
+  public redirectToOffer(id): void {
     this.router.navigate(['offre-details', id]);
   }
 
+  public redirectToClubProfil(): void
+  {
+    this.router.navigate(["modif-club"]);
+  }
 }

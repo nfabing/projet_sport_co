@@ -32,7 +32,6 @@ export class PlayerCvPage implements OnInit {
     public router: Router) { }
 
   ngOnInit() {
-    this.storage.set('id_user', 1)
   }
 
   async ionViewWillEnter() {

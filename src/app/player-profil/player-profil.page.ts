@@ -111,6 +111,7 @@ export class PlayerProfilPage implements OnInit {
   };
 
   changeListener($event): void {
+    console.log($event.target.files[0]["type"]);  
     if ($event.target.files.length > 0) {
       this.registrationForm.get('file').setValue($event.target.files[0]);
       this.file = $event.target.files[0];

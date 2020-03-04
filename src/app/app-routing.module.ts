@@ -17,14 +17,23 @@ const routes: Routes = [
   {
     path: 'club-profil',
     loadChildren: () => import('./club-profil/club-profil.module').then( m => m.ClubProfilPageModule)
-  },  {
-    path: 'recherche-profil',
+  },
+  {
+    path: 'recherche-profil/:id_user',
     loadChildren: () => import('./recherche-profil/recherche-profil.module').then( m => m.RechercheProfilPageModule)
   },
   {
-    path: 'recherche-club',
+    path: 'recherche-club/:id_club',
     loadChildren: () => import('./recherche-club/recherche-club.module').then( m => m.RechercheClubPageModule)
+  },
+  {
+    path: 'fil-actu',
+    loadChildren: () => import('./fil-actu/fil-actu.module').then( m => m.FilActuPageModule)
+  },  {
+    path: 'modif-club',
+    loadChildren: () => import('./modif-club/modif-club.module').then( m => m.ModifClubPageModule)
   }
+
 
 
 

@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{tabClub.name}}</ion-title>
+    <ion-avatar slot="end">
+      <img id="avatarProfil" src="{{imgClub}}">
+    </ion-avatar>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <form [formGroup]="registrationForm" (ngSubmit)="submit()">
+    <ion-list lines=" full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="floating">Nom du club</ion-label>
+        <ion-input autocapitalize inputmode="text" formControlName="name" value="{{tabClub.name}}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Email du club</ion-label>
+        <ion-input autocapitalize inputmode="email" formControlName="email" value="{{tabClub.email}}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-input autocapitalize inputmode="textarea" formControlName="description" value="{{tabClub.description}}">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Objectifs</ion-label>
+        <ion-input inputmode="textarea" formControlName="objectifs" value="{{tabClub.objective}}"></ion-input>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label position='floating'>Photo</ion-label>
+        <ion-input readonly></ion-input>
+        <ion-row class="rowImg">
+          <img class="logo" src="{{img_new}}" *ngIf="img_new!=''" />
+        </ion-row>
+        <ion-row class="rowImg" id="oldImg">
+          <img class="logo" src="{{imgClub}}" />
+        </ion-row>
+      </ion-item>
+
+
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col>
+          <ion-input type="file" name="image" formControlName="file" accept=".jpg, .png, .jpeg" (change)="changeListener($event)"
+            id="inputFile">
+          </ion-input>
+          <ion-button type="submit" expand="block" color="light">UPLOAD<ion-icon name="cloud-upload-outline" slot="end">
+            </ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+
+
+    </ion-list>
+
+    <ion-button type="submit" expand="block">Modifier<ion-icon slot="end" name="create">
+      </ion-icon>
+    </ion-button>
+  </form>
+</ion-content>
