@@ -31,6 +31,8 @@ export class ModifClubPage implements OnInit {
 
 
   ngOnInit() {
+    
+    this.storage.set('id_club', 2);
   }
 
   async ionViewWillEnter() {
@@ -52,7 +54,7 @@ export class ModifClubPage implements OnInit {
     data.subscribe(result => {
       this.tabClub = result[0];
       //Recupere l'image du user
-      if (this.tabClub['img'] == 0) {
+      if (this.tabClub['img'] == "clubDefault.jpg") {
         this.imgClub = "https://nicolasfabing.fr/ionic/imagesClub/clubDefault.jpg";
       } else {
         this.imgClub = "https://nicolasfabing.fr/ionic/imagesClub/" + id + ".jpg";

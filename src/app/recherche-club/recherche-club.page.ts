@@ -47,7 +47,7 @@ export class RechercheClubPage implements OnInit {
     data.subscribe(result => {
       this.tabClub = result[0];
       //Recupere l'image du user
-      if (this.tabClub['img'] == 0) {
+      if (this.tabClub['img'] == "clubDefault.jpg") {
         this.imgClub = "https://nicolasfabing.fr/ionic/imagesClub/clubDefault.jpg";
       } else {
         this.imgClub = "https://nicolasfabing.fr/ionic/imagesClub/" + this.idClub + ".jpg";

@@ -31,6 +31,7 @@ export class PlayerProfilPage implements OnInit {
     private tc: ToastController) { }
 
   ngOnInit() {
+    
   }
 
   async ionViewWillEnter() {
@@ -64,7 +65,7 @@ export class PlayerProfilPage implements OnInit {
     data.subscribe(result => {
       this.tabPlayer = result[0];
       //Recupere l'image du user
-      if (this.tabPlayer['img'] == 0) {
+      if (this.tabPlayer['img'] == "user.jpg") {
         this.imgUser = "https://nicolasfabing.fr/ionic/imagesUsers/user.jpg";
       } else {
         this.imgUser = "https://nicolasfabing.fr/ionic/imagesUsers/" + id + ".jpg";

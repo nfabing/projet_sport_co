@@ -21,6 +21,7 @@ export class RechercheProfilPage implements OnInit {
   constructor(public Http: HttpClient, public activitedRoute: ActivatedRoute, public router: Router, public storage: Storage) { }
 
   ngOnInit() {
+    
   }
 
   async ionViewWillEnter() {
@@ -45,7 +46,7 @@ export class RechercheProfilPage implements OnInit {
       console.log(result);
       this.tabPlayer = result[0];
       //Recupere l'image du user
-      if (this.tabPlayer['img'] == 0) {
+      if (this.tabPlayer['img'] == "user.jpg") {
         console.log(this.tabPlayer)
         this.imgUser = "https://nicolasfabing.fr/ionic/imagesUsers/user.jpg";
       } else {
