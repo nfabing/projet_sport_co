@@ -34,7 +34,7 @@ export class RechercheClubPage implements OnInit {
         this.displayBtnWhenGoodClub = true;
       }
     })
-    this.imgClub = "https://nicolasfabing.fr/ionic/imagesClub/" + this.idClub + ".jpg";
+    
     if (this.idClub == "" || this.idClub == null) {
       this.router.navigate(['']);
     }
@@ -45,8 +45,13 @@ export class RechercheClubPage implements OnInit {
     let data: Observable<any>;
     data = this.Http.get("https://nicolasfabing.fr/ionic/club_profil_by_id.php?idClub=" + id);
     data.subscribe(result => {
-      console.log(result);
       this.tabClub = result[0];
+      //Recupere l'image du user
+      if (this.tabClub['img'] == 0) {
+        this.imgClub = "https://nicolasfabing.fr/ionic/imagesClub/clubDefault.jpg";
+      } else {
+        this.imgClub = "https://nicolasfabing.fr/ionic/imagesClub/" + this.idClub + ".jpg";
+      }
     })
   }
 

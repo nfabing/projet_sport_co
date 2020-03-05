@@ -51,11 +51,14 @@ export class ModifClubPage implements OnInit {
     data = this.Http.get("https://nicolasfabing.fr/ionic/club_profil_by_id_for_cv?idClub=" + id)
     data.subscribe(result => {
       this.tabClub = result[0];
-      console.log(this.tabClub);
+      //Recupere l'image du user
+      if (this.tabClub['img'] == 0) {
+        this.imgClub = "https://nicolasfabing.fr/ionic/imagesClub/clubDefault.jpg";
+      } else {
+        this.imgClub = "https://nicolasfabing.fr/ionic/imagesClub/" + id + ".jpg";
+      }
     })
-    //Recupere l'image du club
-    this.imgClub = "https://nicolasfabing.fr/ionic/imagesClub/" + id + ".jpg";
-     
+
   }
 
   registrationForm = this.formBuilder.group({
@@ -88,14 +91,12 @@ export class ModifClubPage implements OnInit {
       let data: Observable<any>;
       data = this.Http.post("https://nicolasfabing.fr/ionic/upload_image.php", formData)
       data.subscribe(result => {
-        console.log(result);
       })
     };
     reader.readAsArrayBuffer(file);
   }
 
   changeListener($event): void {
-    console.log($event.target.files[0]["type"]);
     if ($event.target.files.length > 0) {
       this.registrationForm.get('file').setValue($event.target.files[0]);
       this.file = $event.target.files[0];
@@ -117,7 +118,7 @@ export class ModifClubPage implements OnInit {
     formData.append('description', this.registrationForm.get('description').value);
     formData.append('objective', this.registrationForm.get('objectifs').value);
     formData.append('email', this.registrationForm.get('email').value);
-    console.log(formData);
+    formData.append('img', '1');
 
 
 

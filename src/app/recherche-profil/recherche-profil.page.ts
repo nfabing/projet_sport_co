@@ -16,6 +16,7 @@ export class RechercheProfilPage implements OnInit {
   public idPlayerStorage = "";
   public tabPlayer = [];
   public displayBtnWhenGoodUser = false;
+  public imgUser = "";
 
   constructor(public Http: HttpClient, public activitedRoute: ActivatedRoute, public router: Router, public storage: Storage) { }
 
@@ -43,6 +44,13 @@ export class RechercheProfilPage implements OnInit {
     data.subscribe(result => {
       console.log(result);
       this.tabPlayer = result[0];
+      //Recupere l'image du user
+      if (this.tabPlayer['img'] == 0) {
+        console.log(this.tabPlayer)
+        this.imgUser = "https://nicolasfabing.fr/ionic/imagesUsers/user.jpg";
+      } else {
+        this.imgUser = "https://nicolasfabing.fr/ionic/imagesUsers/" + id + ".jpg";
+      }
     })
   }
 
