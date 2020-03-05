@@ -29,3 +29,4 @@ export class Tab2PageModule {
 
 
 }
+
