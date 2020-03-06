@@ -22,3 +22,4 @@ describe('FavorisPage', () => {
     expect(component).toBeTruthy();
   });
 });
+

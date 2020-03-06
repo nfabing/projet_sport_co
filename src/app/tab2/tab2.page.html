@@ -1,0 +1,207 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+Gestion des offres
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+    <ion-col>
+      Ajouter<input type="radio" id="addoffer" name="buttontypes">
+    </ion-col>
+      <ion-col>
+        Supprimer<input type="radio" id="deleteoffer" name="buttontypes">
+      </ion-col>
+      <ion-col>
+        Modifier<input type="radio" id="updateoffer" name="buttontypes">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <form [formGroup]="offerForm" (ngSubmit)="submit()" >
+  <ion-grid>
+      <ion-row id="idoffre">
+          <ion-col></ion-col>
+          <ion-col style="text-align: center">
+              <ion-label>ID de l'offre</ion-label>
+          <ion-input type="number" formControlName="idoffre" required="true" id="input_idoffre"></ion-input>
+          </ion-col>
+          <ion-col></ion-col>
+      </ion-row>
+        </ion-grid>
+      <ion-grid id="offerform">
+      <ion-row>
+      <ion-col style="text-align: center">
+        <ion-label>Recherche</ion-label>
+        <br>
+  <ion-item>
+    <ion-textarea formControlName="desc" rows={6} required="true" id="input_desc"></ion-textarea>
+  </ion-item>
+        <div *ngFor="let error of errorMsgs.desc">
+          <ng-container *ngIf="desc.hasError(error.type) && (desc.dirty || desc.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+
+<ion-col>
+  <ion-item>
+    <ion-label>Position:</ion-label>
+    <ion-select value="id_position" formControlName="poste" id="input_poste">
+      <ion-select-option value="1">Attaquant Gauche</ion-select-option>
+      <ion-select-option value="2">Buteur</ion-select-option>
+      <ion-select-option value="3">Attaquant Droit</ion-select-option>
+      <ion-select-option value="4">Milieu Offensif Centre</ion-select-option>
+      <ion-select-option value="5">Milieu Gauche</ion-select-option>
+      <ion-select-option value="6">Milieu Centre</ion-select-option>
+      <ion-select-option value="7">Milieu Droite</ion-select-option>
+      <ion-select-option value="8">Milieu Defensif Centre</ion-select-option>
+      <ion-select-option value="9">Defenseur Gauche</ion-select-option>
+      <ion-select-option value="10">Defenseur Centre</ion-select-option>
+      <ion-select-option value="11">Defenseur Droit</ion-select-option>
+      <ion-select-option value="12">Gardien de but</ion-select-option>
+    </ion-select>
+  </ion-item>
+      <div *ngFor="let error of errorMsgs.poste">
+        <ng-container *ngIf="poste.hasError(error.type) && (poste.dirty || poste.touched)">
+          <small class="error-message">{{error.message}}</small>
+        </ng-container>
+      </div>
+</ion-col>
+        <ion-col>
+  <ion-item>
+    <ion-label>Niveau:</ion-label>
+    <ion-select class="level" formControlName="niveau" value="id_championship" id="input_niveau">
+      <ion-select-option value="1">Premiere League</ion-select-option>
+      <ion-select-option value="2">EFL Championship</ion-select-option>
+      <ion-select-option value="3">Ligue 1</ion-select-option>
+      <ion-select-option value="4">Ligue 2</ion-select-option>
+      <ion-select-option value="5">Bundesliga</ion-select-option>
+      <ion-select-option value="6">Bundesliga 2</ion-select-option>
+      <ion-select-option value="7">Serie A</ion-select-option>
+      <ion-select-option value="8">Serie B</ion-select-option>
+      <ion-select-option value="9">LaLiga</ion-select-option>
+      <ion-select-option value="10">LaLiga2</ion-select-option>
+    </ion-select>
+  </ion-item>
+      <div *ngFor="let error of errorMsgs.niveau">
+        <ng-container *ngIf="niveau.hasError(error.type) && (niveau.dirty || niveau.touched)">
+          <small class="error-message">{{error.message}}</small>
+        </ng-container>
+      </div>
+        </ion-col>
+      </ion-row>
+
+    <ion-row>
+
+      <ion-col>
+    <ion-item>
+    <ion-label>Pays:</ion-label>
+    <ion-select formControlName="pays" value="country" id="input_pays">
+      <ion-select-option value="France">France</ion-select-option>
+      <ion-select-option value="Allemagne">Allemagne</ion-select-option>
+      <ion-select-option value="Angleterre">Angleterre</ion-select-option>
+      <ion-select-option value="Portugal">Portugal</ion-select-option>
+      <ion-select-option value="Espagne">Espagne</ion-select-option>
+      <ion-select-option value="Mexique">Mexique</ion-select-option>
+      <ion-select-option value="Italie">Italie</ion-select-option>
+      <ion-select-option value="Brésil">Brésil</ion-select-option>
+    </ion-select>
+  </ion-item>
+        <div *ngFor="let error of errorMsgs.pays">
+          <ng-container *ngIf="pays.hasError(error.type) && (pays.dirty || pays.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+        </ion-col>
+
+      <ion-col></ion-col>
+      <ion-item>
+        <ion-label>Pied:</ion-label>
+        <ion-select formControlName="pied" value="id_foot" id="input_pied">
+          <ion-select-option value="1">Gauche</ion-select-option>
+          <ion-select-option value="2">Droit</ion-select-option>
+          <ion-select-option value="3">Ambidextre</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div *ngFor="let error of errorMsgs.pied">
+        <ng-container *ngIf="pied.hasError(error.type) && (pied.dirty || pied.touched)">
+          <small class="error-message">{{error.message}}</small>
+        </ng-container>
+      </div>
+      <ion-col></ion-col>
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col>
+    <ion-item>
+      <ion-label>Disponibilité:</ion-label>
+      <ion-input formControlName="disponibilite" type="date" value="availability" id="input_disponibilite"></ion-input>
+    </ion-item>
+        <div *ngFor="let error of errorMsgs.disponibilite">
+      <ng-container *ngIf="disponibilite.hasError(error.type) && (disponibilite.dirty || disponibilite.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+        </div>
+      </ion-col>
+
+<ion-col></ion-col>
+
+      <ion-col>
+  <ion-item>
+    <ion-label>Nationalité:</ion-label>
+    <ion-select formControlName="nationalite" value="nationality" id="input_nationalite">
+      <ion-select-option value="Toutes">Toutes</ion-select-option>
+      <ion-select-option value="Française">Française</ion-select-option>
+      <ion-select-option value="Allemande">Allemande</ion-select-option>
+      <ion-select-option value="Anglaise">Anglaise</ion-select-option>
+      <ion-select-option value="Portugaise">Portugaise</ion-select-option>
+      <ion-select-option value="Espagnole">Espagnole</ion-select-option>
+      <ion-select-option value="Mexicaine">Mexicaine</ion-select-option>
+      <ion-select-option value="Italienne">Italie</ion-select-option>
+      <ion-select-option value="Brésilienne">Brésilienne</ion-select-option>
+    </ion-select>
+  </ion-item>
+        <div *ngFor="let error of errorMsgs.nationalite">
+          <ng-container *ngIf="nationalite.hasError(error.type) && (nationalite.dirty || nationalite.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+      </ion-col>
+
+</ion-row>
+<ion-row>
+    <ion-col>
+    <ion-item>
+        <ion-label>Statut:</ion-label>
+        <ion-select formControlName="statut" value="status" id="input_status">
+            <ion-select-option value="1">Professionnel</ion-select-option>
+            <ion-select-option value="2">Amateur</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <div *ngFor="let error of errorMsgs.statut">
+        <ng-container *ngIf="statut.hasError(error.type) && (statut.dirty || statut.touched)">
+            <small class="error-message">{{error.message}}</small>
+        </ng-container>
+    </div>
+    </ion-col>
+</ion-row>
+  </ion-grid>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-button type="submit" expand="block" id="submitbutton">Soumettre</ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+
