@@ -101,6 +101,10 @@ const routes: Routes = [
   {
     path: 'page-candidature',
     loadChildren: () => import('./page-candidature/page-candidature.module').then( m => m.PageCandidaturePageModule)
+  },
+  {
+    path: 'ajout-offre/:id_club',
+    loadChildren: () => import('./tab2/tab2.module').then( m => m.Tab2PageModule)
   }
 
 

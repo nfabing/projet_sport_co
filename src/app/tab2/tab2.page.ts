@@ -4,15 +4,46 @@ import {HttpClient} from '@angular/common/http';
 import {FormBuilder, Validators} from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { Storage} from '@ionic/storage';
+import {GlobalService} from '../global.service';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
+
+    // TODO : Récupérer l'idendifiant du club actuellement connectée en utilisant -> this.globalService.idClub
+
+    // TODO : lorsque l'on supprimer ou modifie une offre il faut d'abord vérifier que l'offre existe
+    //  ET que l'offre appartient au club connectée !
+
+    /*TODO : Une meilleure version serait d'afficher directement les offres du club qui est connectée dans une liste par exemple,
+         L'utilisateur pourrait alors cliquée sur une offre de la liste , ce qui triger l'évenement (click) avec l'id de l'offre
+         et ensuite on récupère les infos de l'offre */
+
+    // TODO : Il ne faut pas vérifier toutes les 250ms si on est en train de modif, supprimer ou ajouter une offre.
+    //  Utilise l'évenement (click) sur les inputs dans ton html qui renvoie vers une function dans ton tab2.page.ts
+
+    // TODO : Tu récupère la liste des posts, alors utilise là dans ton html pour créer ton select !
+    //  Utilise *ngFor , tu peux regarder dans les pages des autres tel que club-search-results ou applications
+
+    // TODO : La vérifcations des champs devrait se faire au click du boutton sumbit pour ne pas avoir besoin de vérif toutes les 250ms
+    //  Une meilleure alternative serait d'utiliser directement le Form Validation(https://www.w3schools.com/angular/angular_validation.asp)
+
+    // TODO : Utilisation de HttpParams pour crée ton postData, ça sera beaucoup, beaucoup plus simple
+    //  https://www.tektutorialshub.com/angular/angular-pass-url-parameters-query-strings/#
+
+    // TODO : Ta page s'affichera uniquement dans le menu quand tu est connectée en tant que club
+    //  Identifiants de connexions : email  : sr-creutzwald@gmail.com  |  Mot de passe : azertyuiop
+
+    // TODO : ESSAYE DE FAIRE UN MAX, IL FAUT AU MINIMUM QUE TU ADAPTE TA REQUETE SELON LE CLUB QUI EST CONNECTEE !!
+
+
 export class Tab2Page {
     // tslint:disable-next-line:no-shadowed-variable
-    constructor(public HttpClient: HttpClient, private formBuilder: FormBuilder, private storage: Storage) {
+    constructor(public HttpClient: HttpClient, private formBuilder: FormBuilder, private storage: Storage,
+                private globalService: GlobalService) {
+
     }
 
     get desc() {
@@ -81,7 +112,7 @@ export class Tab2Page {
             // this.id_club = val;
         });
         setInterval(this.UpdateDisplay, 250);
-        setInterval(this.CheckForValidation, 250);
+       // setInterval(this.CheckForValidation, 250);
         this.getPostes();
         this.getPieds();
     }
@@ -212,7 +243,7 @@ export class Tab2Page {
         const deleteinput = document.getElementById('deleteoffer') as HTMLInputElement;
         const addinput = document.getElementById('addoffer') as HTMLInputElement;
         const submitbutton = document.getElementById('submitbutton') as HTMLInputElement;
-        console.log(nationalite.value);
+      // console.log(nationalite.value);
         if (deleteinput.checked === true) {
         if (id_offre.value === '') {
         submitbutton.disabled = true;

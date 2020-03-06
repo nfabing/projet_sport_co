@@ -87,6 +87,11 @@ export class AppComponent {
                 title: 'Mon Club',
                 url: `/recherche-club/${this.globalService.idClub}`,
                 icon: 'person-outline'
+            },
+            {
+               title: 'Ajout Offre',
+               url: `/ajout-offre/${this.globalService.idClub}`,
+               icon:  'add-outline'
             }
         ];
 
