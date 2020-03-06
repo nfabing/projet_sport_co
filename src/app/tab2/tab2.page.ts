@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {FormBuilder, Validators} from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
+import {Router} from '@angular/router';
 import { Storage} from '@ionic/storage';
 import {GlobalService} from '../global.service';
 
@@ -12,29 +13,37 @@ import {GlobalService} from '../global.service';
   styleUrls: ['tab2.page.scss']
 })
 
-    // TODO : Récupérer l'idendifiant du club actuellement connectée en utilisant -> this.globalService.idClub
+    // Récupérer l'idendifiant du club actuellement connectée en utilisant -> this.globalService.idClub
+    // Effectué dans sumbit() lorsque je recup toutes les donneés à envoyer
 
     // TODO : lorsque l'on supprimer ou modifie une offre il faut d'abord vérifier que l'offre existe
     //  ET que l'offre appartient au club connectée !
 
-    /*TODO : Une meilleure version serait d'afficher directement les offres du club qui est connectée dans une liste par exemple,
+    /*Une meilleure version serait d'afficher directement les offres du club qui est connectée dans une liste par exemple,
          L'utilisateur pourrait alors cliquée sur une offre de la liste , ce qui triger l'évenement (click) avec l'id de l'offre
          et ensuite on récupère les infos de l'offre */
+    // Une liste des offres du club connecté est maintenant affiché au dessus du formulaire
 
-    // TODO : Il ne faut pas vérifier toutes les 250ms si on est en train de modif, supprimer ou ajouter une offre.
+    // Il ne faut pas vérifier toutes les 250ms si on est en train de modif, supprimer ou ajouter une offre.
     //  Utilise l'évenement (click) sur les inputs dans ton html qui renvoie vers une function dans ton tab2.page.ts
+    // Utilisation de click sur les boutons radio pour lancer la fonction UpdateDisplay()
 
-    // TODO : Tu récupère la liste des posts, alors utilise là dans ton html pour créer ton select !
+    // Tu récupère la liste des posts, alors utilise là dans ton html pour créer ton select !
     //  Utilise *ngFor , tu peux regarder dans les pages des autres tel que club-search-results ou applications
+    // Je garde les postes manuels car plus compréhensibles que des acronymes, mais je réutlise la liste des postes
+    // pour afficher les postes de chaque offre du club
 
-    // TODO : La vérifcations des champs devrait se faire au click du boutton sumbit pour ne pas avoir besoin de vérif toutes les 250ms
+    // La vérifcations des champs devrait se faire au click du boutton sumbit pour ne pas avoir besoin de vérif toutes les 250ms
     //  Une meilleure alternative serait d'utiliser directement le Form Validation(https://www.w3schools.com/angular/angular_validation.asp)
+    // Lancement de la fonction de validation dans sumbit() et affichage d'une alerte indiquant
+    // qu'il manque des champs si la validation échoue
 
     // TODO : Utilisation de HttpParams pour crée ton postData, ça sera beaucoup, beaucoup plus simple
     //  https://www.tektutorialshub.com/angular/angular-pass-url-parameters-query-strings/#
 
-    // TODO : Ta page s'affichera uniquement dans le menu quand tu est connectée en tant que club
+    // Ta page s'affichera uniquement dans le menu quand tu est connectée en tant que club
     //  Identifiants de connexions : email  : sr-creutzwald@gmail.com  |  Mot de passe : azertyuiop
+    // Si l'on tente d'acceder à cette page sans être connecté, on est renvoyé au login de club
 
     // TODO : ESSAYE DE FAIRE UN MAX, IL FAUT AU MINIMUM QUE TU ADAPTE TA REQUETE SELON LE CLUB QUI EST CONNECTEE !!
 
@@ -42,7 +51,7 @@ import {GlobalService} from '../global.service';
 export class Tab2Page {
     // tslint:disable-next-line:no-shadowed-variable
     constructor(public HttpClient: HttpClient, private formBuilder: FormBuilder, private storage: Storage,
-                private globalService: GlobalService) {
+                private globalService: GlobalService, private router: Router) {
 
     }
 
@@ -79,6 +88,7 @@ export class Tab2Page {
 
     public postes = [];
     public pieds = [];
+    public offres = [];
     offerForm = this.formBuilder.group({
         idoffre: [''],
         desc: [''],
@@ -105,16 +115,24 @@ export class Tab2Page {
 
 
     ionViewWillEnter() {
+        const userid = this.globalService.idUser;
+        if (userid === 0) {
+         this.router.navigate(['login_club']);
+        }
         const addinput = document.getElementById('addoffer') as HTMLInputElement;
         addinput.checked = true;
         document.getElementById('idoffre').style.display = 'none';
-        this.storage.get('id_club').then((val) => {
-            // this.id_club = val;
-        });
-        setInterval(this.UpdateDisplay, 250);
-       // setInterval(this.CheckForValidation, 250);
         this.getPostes();
         this.getPieds();
+        this.getOffres();
+    }
+
+    public getOffres(): void {
+        let offre: Observable<any>;
+        offre = this.HttpClient.get('https://nicolasfabing.fr/ionic/offer_by_id_club.php?idClub=' + this.globalService.idClub);
+        offre.subscribe(res => {
+           this.offres = res;
+        });
     }
 
     public getPostes(): void {
@@ -137,13 +155,8 @@ export class Tab2Page {
         const updateinput = document.getElementById('updateoffer') as HTMLInputElement;
         const deleteinput = document.getElementById('deleteoffer') as HTMLInputElement;
         const addinput = document.getElementById('addoffer') as HTMLInputElement;
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-                Authorization: 'my-auth-token'
-            })
-        };
         console.log(this.offerForm.value);
+        // tslint:disable-next-line:variable-name
         const id_offre = this.offerForm.value.idoffre;
         let desc = this.offerForm.value.desc;
         const niveau = this.offerForm.value.niveau;
@@ -154,9 +167,10 @@ export class Tab2Page {
         const nationalite = this.offerForm.value.nationalite;
         const status = this.offerForm.value.statut;
         // tslint:disable-next-line:variable-name
-        const id_club = 1;
+        const id_club = this.globalService.idClub;
         desc = desc.replace(/ /g, '_');
         console.log(desc);
+        if (this.CheckForValidation() === true) {
         if (deleteinput.checked === true) {
             console.log('suppression');
             let postData = '';
@@ -229,8 +243,12 @@ export class Tab2Page {
                 return alert(res);
             });
         }
+        } else {
+            alert('Il manque des champs');
+        }
     }
     public CheckForValidation() {
+        // tslint:disable-next-line:variable-name
         const id_offre = document.getElementById('input_idoffre') as HTMLInputElement;
         const disponibilite = document.getElementById('input_disponibilite') as HTMLInputElement;
         const nationalite = document.getElementById('input_nationalite') as HTMLInputElement;
@@ -246,21 +264,23 @@ export class Tab2Page {
       // console.log(nationalite.value);
         if (deleteinput.checked === true) {
         if (id_offre.value === '') {
-        submitbutton.disabled = true;
+        return true;
         } else {
-        submitbutton.disabled = false;
+        return false;
         }
         } else if (updateinput.checked === true) {
+            // tslint:disable-next-line:max-line-length
             if (id_offre.value === '' || disponibilite.value === '' || nationalite.value === '' || pays.value === '' || desc.value === '' || niveau.value === '' || poste.value === '' || status.value === '') {
-                submitbutton.disabled = true;
+                return true;
             } else {
-                submitbutton.disabled = false;
+                return false;
             }
         } else if (addinput.checked === true) {
+            // tslint:disable-next-line:max-line-length
             if (disponibilite.value === '' || nationalite.value === '' || pays.value === '' || desc.value === '' || niveau.value === '' || poste.value === '' || status.value === '') {
-                submitbutton.disabled = true;
+                return true;
             } else {
-                submitbutton.disabled = false;
+                return false;
             }
         }
         }

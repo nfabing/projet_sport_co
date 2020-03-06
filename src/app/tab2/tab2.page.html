@@ -10,16 +10,38 @@
 </ion-header>
 
 <ion-content>
+    <ion-list>
+        <ion-list-header>
+            Offres actuelles de votre club
+        </ion-list-header>
+        <div *ngIf="offres.length;">
+            <div *ngFor="let offre of offres">
+                <ion-item>
+                    <ion-label>
+                        <h2>Id de l'offre : {{offre.id}}</h2>
+                        <h3>{{offre.description}}</h3>
+                        <p>Poste : {{postes[offre.id_position]}}</p>
+                        <p>A partir du : {{offre.availability}}</p>
+                        <p>Nationalité: {{offre.nationality}}</p>
+                        <p>Pays: {{offre.country}}</p>
+                    </ion-label>
+                </ion-item>
+            </div>
+        </div>
+    </ion-list>
+    <br/>
+    <h1>Que voulez vous faire ?</h1>
+    <br/>
     <ion-grid>
         <ion-row>
             <ion-col>
-                Ajouter<input type="radio" id="addoffer" name="buttontypes" >
+                Ajouter<input type="radio" id="addoffer" name="buttontypes" (click)="UpdateDisplay()">
             </ion-col>
             <ion-col>
-                Supprimer<input type="radio" id="deleteoffer" name="buttontypes">
+                Supprimer<input type="radio" id="deleteoffer" name="buttontypes" (click)="UpdateDisplay()">
             </ion-col>
             <ion-col>
-                Modifier<input type="radio" id="updateoffer" name="buttontypes">
+                Modifier<input type="radio" id="updateoffer" name="buttontypes" (click)="UpdateDisplay()">
             </ion-col>
         </ion-row>
     </ion-grid>
@@ -209,5 +231,6 @@
             </ion-row>
         </ion-grid>
     </form>
+    <br/>
 </ion-content>
 
