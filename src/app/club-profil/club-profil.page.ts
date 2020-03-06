@@ -16,6 +16,7 @@ export class ClubProfilPage implements OnInit {
 
   public idClub = null;
   public tabClub = [];
+  public imgClub = "";
 
   constructor(
     public Http: HttpClient,
@@ -27,7 +28,6 @@ export class ClubProfilPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.storage.set('id_club', 2)
   }
 
   async ionViewWillEnter() {
@@ -46,6 +46,12 @@ export class ClubProfilPage implements OnInit {
     data = this.Http.get("https://nicolasfabing.fr/ionic/club_profil_by_id.php?idClub=" + idClub)
     data.subscribe(result => {
       this.tabClub = result[0];
+      //Recupere l'image du user
+      if (this.tabClub['img'] == "clubDefault.jpg") {
+        this.imgClub = "https://nicolasfabing.fr/ionic/imagesClub/clubDefault.jpg";
+      } else {
+        this.imgClub = "https://nicolasfabing.fr/ionic/imagesClub/" + this.idClub + ".jpg";
+      }
     })
   }
 

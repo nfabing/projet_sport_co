@@ -1,9 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button *ngIf="canGoBack"></ion-back-button>
-      <ion-menu-button *ngIf="!canGoBack"></ion-menu-button>
-    </ion-buttons>
     <ion-title>Profil - {{tabPlayer.first_name}} {{tabPlayer.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,7 +8,7 @@
   <ion-card>
     <ion-card-header class="ion-align-items-center" id="firstCardHeader">
       <ion-avatar>
-        <img src="https://nicolasfabing.fr/ionic/imagesUsers/{{idPlayer}}.jpg" alt="img_player">
+        <img src="{{imgUser}}">
       </ion-avatar>
       <div id="firstCardHeaderRight">
         <ion-card-title>{{tabPlayer.first_name}} {{tabPlayer.name}}</ion-card-title>
@@ -96,7 +92,7 @@
         </div>
     </ion-card-content>
   </ion-card>
-  <ion-row *ngIf="displayBtnWhenGoodUser == true" >
+  <ion-row *ngIf="displayBtnWhenGoodUser == true">
     <ion-col class="ion-justify-content-center bntBottom"><ion-button (click)="redirectToPlayerProfil()">Modifier Profil</ion-button></ion-col>
     <ion-col class="ion-justify-content-center bntBottom"><ion-button (click)="redirectToPlayerCv()">Modifier CV</ion-button></ion-col>
   </ion-row>

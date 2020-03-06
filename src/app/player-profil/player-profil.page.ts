@@ -31,6 +31,7 @@ export class PlayerProfilPage implements OnInit {
     private tc: ToastController) { }
 
   ngOnInit() {
+    
   }
 
   async ionViewWillEnter() {
@@ -38,7 +39,7 @@ export class PlayerProfilPage implements OnInit {
       this.idUser = val;
       if (this.idUser != null) {
         this.getPlayerInfo(this.idUser);
-      } else {  
+      } else {
         this.router.navigate(['']);
       }
     });
@@ -53,7 +54,6 @@ export class PlayerProfilPage implements OnInit {
       let data: Observable<any>;
       data = this.Http.post("https://nicolasfabing.fr/ionic/upload_image.php", formData)
       data.subscribe(result => {
-        console.log(result);
       })
     };
     reader.readAsArrayBuffer(file);
@@ -64,9 +64,15 @@ export class PlayerProfilPage implements OnInit {
     data = this.Http.get("https://nicolasfabing.fr/ionic/player_profil.php?idPlayer=" + id)
     data.subscribe(result => {
       this.tabPlayer = result[0];
+      //Recupere l'image du user
+      if (this.tabPlayer['img'] == "user.jpg") {
+        this.imgUser = "https://nicolasfabing.fr/ionic/imagesUsers/user.jpg";
+      } else {
+        this.imgUser = "https://nicolasfabing.fr/ionic/imagesUsers/" + id + ".jpg";
+      }
+
     })
-    //Recupere l'image du user
-    this.imgUser = "https://nicolasfabing.fr/ionic/imagesUsers/" + id + ".jpg";
+
   }
 
   registrationForm = this.formBuilder.group({
@@ -132,6 +138,7 @@ export class PlayerProfilPage implements OnInit {
     formData.append('first_name', this.registrationForm.get('first_name').value);
     formData.append('email', this.registrationForm.get('email').value);
     formData.append('password', this.registrationForm.get('password').value)
+    formData.append('img', "1")
 
 
 

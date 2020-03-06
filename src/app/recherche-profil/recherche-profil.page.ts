@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import {IonRouterOutlet} from '@ionic/angular';
 
 
 @Component({
@@ -17,13 +16,12 @@ export class RechercheProfilPage implements OnInit {
   public idPlayerStorage = "";
   public tabPlayer = [];
   public displayBtnWhenGoodUser = false;
-  public canGoBack = false;
+  public imgUser = "";
 
-  constructor(public Http: HttpClient, public activitedRoute: ActivatedRoute, public router: Router, public storage: Storage,
-              private routerOutlet: IonRouterOutlet) { }
+  constructor(public Http: HttpClient, public activitedRoute: ActivatedRoute, public router: Router, public storage: Storage) { }
 
   ngOnInit() {
-    this.canGoBack = this.routerOutlet && this.routerOutlet.canGoBack();
+    
   }
 
   async ionViewWillEnter() {
@@ -47,6 +45,13 @@ export class RechercheProfilPage implements OnInit {
     data.subscribe(result => {
       console.log(result);
       this.tabPlayer = result[0];
+      //Recupere l'image du user
+      if (this.tabPlayer['img'] == "user.jpg") {
+        console.log(this.tabPlayer)
+        this.imgUser = "https://nicolasfabing.fr/ionic/imagesUsers/user.jpg";
+      } else {
+        this.imgUser = "https://nicolasfabing.fr/ionic/imagesUsers/" + id + ".jpg";
+      }
     })
   }
 
