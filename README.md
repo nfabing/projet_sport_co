@@ -9,7 +9,7 @@ Projet réalisée par :
  - Jules Chevalliez
  - Bourgon Bastien
 
-**Répartitions des tâches** : 
+**<h2>Répartitions des tâches<h2>** : 
 
 **Nicolas Fabing** : 
   - Mise en place de la BDD
