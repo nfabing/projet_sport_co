@@ -27,6 +27,7 @@ Projet réalisée par :
   - Formulaire de connexion (Joueur et club)
   - Formulaire d'inscription (Joueur et club)
   - Création de la vidéo de démonstration
+  - Gestion de la déconnexion
   - Fil d'actualités
   
 **David Gonzalez** : 
