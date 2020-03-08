@@ -50,6 +50,10 @@ export class PlayerProfilPage implements OnInit {
     reader.onloadend = () => {
       const formData = new FormData();
       const blobFile = new Blob([reader.result], { type: file.type });
+      console.log(blobFile);
+      console.log(blobFile);
+      console.log(blobFile);
+      console.log(blobFile);
       formData.append("file", blobFile, "filename");
       let data: Observable<any>;
       data = this.Http.post("https://nicolasfabing.fr/ionic/upload_image.php", formData)

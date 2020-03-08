@@ -6,6 +6,8 @@ import { HttpHeaders } from '@angular/common/http';
 import {Router} from '@angular/router';
 import { Storage} from '@ionic/storage';
 import {GlobalService} from '../global.service';
+import {add} from 'ionicons/icons';
+import {ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -51,7 +53,7 @@ import {GlobalService} from '../global.service';
 export class Tab2Page {
     // tslint:disable-next-line:no-shadowed-variable
     constructor(public HttpClient: HttpClient, private formBuilder: FormBuilder, private storage: Storage,
-                private globalService: GlobalService, private router: Router) {
+                private globalService: GlobalService, private router: Router,  private toastController: ToastController) {
 
     }
 
@@ -173,74 +175,61 @@ export class Tab2Page {
         if (this.CheckForValidation() === true) {
         if (deleteinput.checked === true) {
             console.log('suppression');
-            let postData = '';
-            postData += '[\n';
-            postData += '{\n';
-            postData += '"id_offre":"' + id_offre + '"\n';
-            postData += '}';
-            postData += '\n';
-            postData += ']';
-            const client = new FormData();
-            client.append('jsonClient', postData);
+
+            const postData = new HttpParams()
+                .set('id_offre', id_offre.toString());
+
             const url = 'https://nicolasfabing.fr/ionic/delete_offre.php';
             let values: Observable<any>;
-            values = this.HttpClient.post(url, client);
+            values = this.HttpClient.post(url, postData);
             values.subscribe(res => {
-                return alert(res);
+                this.showToast(res);
             });
         } else if (updateinput.checked === true) {
             console.log('modification');
-            let postData = '';
-            postData += '[\n';
-            postData += '{\n';
-            postData += '"desc":"' + desc + '"\n,';
-            postData += '"niveau":"' + niveau + '"\n,';
-            postData += '"poste":"' + poste + '"\n,';
-            postData += '"pied":"' + pied + '"\n,';
-            postData += '"pays":"' + pays + '"\n,';
-            postData += '"disponibilite":"' + disponibilite + '"\n,';
-            postData += '"nationalite":"' + nationalite + '"\n,';
-            postData += '"id_club":"' + id_club + '"\n,';
-            postData += '"id_offre":"' + id_offre + '"\n,';
-            postData += '"status":"' + status + '"\n';
-            postData += '}';
-            postData += '\n';
-            postData += ']';
-            const client = new FormData();
-            client.append('jsonClient', postData);
-            // tslint:disable-next-line:max-line-length
+
+
+            const postData = new HttpParams()
+                .set('desc', desc.toString())
+                .set('niveau', niveau.toString())
+                .set('poste', poste.toString())
+                .set('pied', pied.toString())
+                .set('pays', pays.toString())
+                .set('disponibilite', disponibilite.toString())
+                .set('nationalite', nationalite.toString())
+                .set('id_club', id_club.toString())
+                .set('id_offre', id_offre.toString())
+                .set('status', status.toString());
+
+
             const url = 'https://nicolasfabing.fr/ionic/update_offre.php';
             let values: Observable<any>;
-            values = this.HttpClient.post(url, client);
+            values = this.HttpClient.post(url, postData);
             values.subscribe(res => {
-                return alert(res.json());
+                this.showToast(res);
             });
         } else if (addinput.checked === true) {
             console.log('ajout');
-            let postData = '';
-            postData += '[\n';
-            postData += '{\n';
-            postData += '"desc":"' + desc + '"\n,';
-            postData += '"niveau":"' + niveau + '"\n,';
-            postData += '"poste":"' + poste + '"\n,';
-            postData += '"pied":"' + pied + '"\n,';
-            postData += '"pays":"' + pays + '"\n,';
-            postData += '"disponibilite":"' + disponibilite + '"\n,';
-            postData += '"nationalite":"' + nationalite + '"\n,';
-            postData += '"id_club":"' + id_club + '"\n,';
-            postData += '"status":"' + status + '"\n';
-            postData += '}';
-            postData += '\n';
-            postData += ']';
-            const client = new FormData();
-            client.append('jsonClient', postData);
+
+            const postData = new HttpParams()
+                .set('desc', desc.toString())
+                .set('niveau', niveau.toString())
+                .set('poste', poste.toString())
+                .set('pied', pied.toString())
+                .set('pays', pays.toString())
+                .set('disponibilite', disponibilite.toString())
+                .set('nationalite', nationalite.toString())
+                .set('id_club', id_club.toString())
+                .set('status', status.toString());
+
+
             // tslint:disable-next-line:max-line-length
             const url = 'https://nicolasfabing.fr/ionic/insert_offre.php';
             // tslint:disable-next-line:max-line-length
             let values: Observable<any>;
-            values = this.HttpClient.post(url, client);
+            values = this.HttpClient.post(url, postData);
             values.subscribe(res => {
-                return alert(res);
+                this.showToast(res);
             });
         }
         } else {
@@ -261,29 +250,49 @@ export class Tab2Page {
         const deleteinput = document.getElementById('deleteoffer') as HTMLInputElement;
         const addinput = document.getElementById('addoffer') as HTMLInputElement;
         const submitbutton = document.getElementById('submitbutton') as HTMLInputElement;
+
+        console.log('Delete' + deleteinput.checked);
+        console.log('Add' + addinput.checked);
+        console.log('Update' + updateinput.checked);
       // console.log(nationalite.value);
         if (deleteinput.checked === true) {
-        if (id_offre.value === '') {
-        return true;
-        } else {
-        return false;
-        }
+            if (id_offre.value === '') {
+            return false;
+            } else {
+            return true;
+            }
         } else if (updateinput.checked === true) {
             // tslint:disable-next-line:max-line-length
             if (id_offre.value === '' || disponibilite.value === '' || nationalite.value === '' || pays.value === '' || desc.value === '' || niveau.value === '' || poste.value === '' || status.value === '') {
-                return true;
-            } else {
                 return false;
+            } else {
+                return true;
             }
         } else if (addinput.checked === true) {
             // tslint:disable-next-line:max-line-length
             if (disponibilite.value === '' || nationalite.value === '' || pays.value === '' || desc.value === '' || niveau.value === '' || poste.value === '' || status.value === '') {
-                return true;
-            } else {
                 return false;
+            } else {
+                console.log('dispo' + disponibilite.value );
+                console.log('natio' + nationalite.value );
+                console.log('pays' + pays.value );
+                console.log('desc' + desc.value );
+                console.log('niveau' + niveau.value );
+                console.log('poste' + poste.value );
+                console.log('status' + status.value );
+                return true;
             }
         }
         }
+
+    async showToast(msg): Promise<void> {
+        const toast = await this.toastController.create({
+            message: msg,
+            color: 'dark',
+            duration: 2000
+        });
+        await toast.present();
+    }
     public UpdateDisplay() {
         const updateinput = document.getElementById('updateoffer') as HTMLInputElement;
         const deleteinput = document.getElementById('deleteoffer') as HTMLInputElement;
