@@ -9,7 +9,7 @@ Projet réalisée par :
  - Jules Chevalliez
  - Bourgon Bastien
 
-**<h2>Répartitions des tâches<h2>** : 
+  # Répartitions des tâches : 
 
 **Nicolas Fabing** : 
   - Mise en place de la BDD
@@ -37,7 +37,7 @@ Projet réalisée par :
     - En tant que club : permet de voir les infos d'un joueur et d'accepter (ou refuser) leurs candidatures
 
 **Romain Kessler** : 
-  - Créations de scripts PHP
+  - Créations de scripts PHP permettant la création d'une requête SQL selon des critères donnés  
   - Page de recherche d'un club
   - Page de recherche d'un offre
   - Page de recherche d'un joueur
