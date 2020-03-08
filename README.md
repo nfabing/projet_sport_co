@@ -33,21 +33,24 @@ Projet réalisée par :
 **David Gonzalez** : 
   - Creations de scripts PHP
   - Page Candidature
-    - En tant que joueur : permet de voir les candidatures actuelles ainsi que leurs statut (accepté, refusée)
-    - En tant que club : permet de voir les infos d'un joueur et d'accepter (ou refuser) leurs candidature
+    - En tant que joueur : permet de voir les candidatures actuelles ainsi que leur statut (accepté, refusée)
+    - En tant que club : permet de voir les infos d'un joueur et d'accepter (ou refuser) leurs candidatures
 
 **Romain Kessler** : 
+  - Créations de scripts PHP
   - Page de recherche d'un club
   - Page de recherche d'un offre
   - Page de recherche d'un joueur
   - Page Mention Légal
   
 **Jules Chevalliez** :
+  - Créations de scripts PHP
   - Page profil d'un club
   - Page profil d'un joueur
     - Si le joueur connctée consulte sa propre page, alors il peut modifier son profil (infos et image)
     
 **Bourgon Bastien** :
+  - Créations de scripts PHP
   - Page de création d'une offre (avec l'aide de Simon Kiffer)
 
   
